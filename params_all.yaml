@@ -1,0 +1,32 @@
+system_name:
+  - protein(1)
+  - protein(2)
+  - protein(3)
+  - protein(1) + DNA
+  - protein(2) + DNA
+  - protein(1) + RNA
+  - protein(2) + RNA
+split_method:
+  - random
+  - phase_label_stratified
+  - temperature_stratified
+  - component_concentration_stratified
+  - ionic_strength_stratified
+  - crowding_agent_stratified
+  - pH_stratified
+protein_method:
+  - rnapsec_protein
+  - esmc
+  - mtdp
+dna_rna_method:
+  - rnapsec_rna
+  - dictionary
+condition_method:
+  - rnapsec_condition
+  - rnapsec_condition_class
+  - droppler
+
+task:
+  - task1
+  - task2
+  - task3
