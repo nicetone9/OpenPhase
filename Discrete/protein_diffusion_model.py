@@ -368,15 +368,9 @@ class UNet(nn.Module):
 
 class ProteinDiffusionModel(nn.Module):
     def __init__(
-        self,
-        model,
-        prior_model,
-        esm_batch_converter,
-        timesteps,
-        objective="pred_x0",
-        noise_type="marginal",
-        loss_type="CE",
-        marginal_dist_path="data/train_marginal_x.pt",
+        self, model, prior_model, esm_batch_converter,
+        timesteps, objective='pred_x0', noise_type='marginal', loss_type='CE',
+        marginal_dist_path='data/train_marginal_x.pt'
     ):
         super().__init__()
         self.model = model
@@ -384,7 +378,7 @@ class ProteinDiffusionModel(nn.Module):
         self.loss_type = loss_type
         self.esm_batch_converter = esm_batch_converter
 
-        if noise_type == "marginal":
+        if noise_type == 'marginal':
             self.transition_model = DiscreteMarginalTransition(
                 x_classes=21, x_marginal_path=marginal_dist_path
             )
@@ -392,43 +386,43 @@ class ProteinDiffusionModel(nn.Module):
             raise ValueError(f"Unsupported noise type: {noise_type}")
 
         self.noise_schedule = PredefinedNoiseScheduleDiscrete(
-            noise_schedule="cosine", timesteps=timesteps
+            noise_schedule='cosine', timesteps=timesteps
         )
 
         self.timesteps = timesteps
         self.objective = objective
 
-    # ------------------------------------------------------------------
-    # Utilities
-    # ------------------------------------------------------------------
     def loss_fn(self):
-        if self.loss_type == "l1":
+        if self.loss_type == 'l1':
             return F.l1_loss
-        elif self.loss_type == "l2":
+        elif self.loss_type == 'l2':
             return F.mse_loss
-        elif self.loss_type == "CE":
+        elif self.loss_type == 'CE':
             return F.cross_entropy
         else:
             raise ValueError(f"Unknown loss_type {self.loss_type}")
 
-    def _ensure_indices(self, z):
-        if z.dim() == 2:
-            return z
-        elif z.dim() == 3:
-            return z.argmax(dim=-1)
-        else:
-            raise AssertionError(
-                f"_ensure_indices expects [B,L] or [B,L,V], got {z.shape}"
-            )
+    def _ensure_indices(self, x):
+        """Convert [B, L, 21] one-hot or [B, L] int -> [B, L] int"""
+        if x.dim() == 3 and x.shape[-1] == 21:
+            return x.argmax(dim=-1).long()
+        return x.long()
 
     def _to_onehot(self, x_indices):
-        x_indices = torch.clamp(x_indices, 0, 20)
+        """Convert [B, L] int -> [B, L, 21] float one-hot"""
         return F.one_hot(x_indices, num_classes=21).float()
 
-    # ------------------------------------------------------------------
-    # Noise
-    # ------------------------------------------------------------------
     def apply_noise(self, x, t_int):
+        """
+        Apply discrete marginal noise.
+        Args:
+            x: [B, L] int or [B, L, 21] one-hot
+            t_int: [B, 1] int timesteps
+        Returns:
+            noise_onehot: [B, L, 21] float
+            noise_indices: [B, L] long
+            alpha_t_bar: [B, 1] float
+        """
         x_idx = self._ensure_indices(x)
         B, L = x_idx.shape
 
@@ -440,17 +434,12 @@ class ProteinDiffusionModel(nn.Module):
         x_flat = x_onehot.view(B * L, 1, 21)
         Qtb_flat = Qtb.repeat_interleave(L, dim=0)
         Qtb_mat = Qtb_flat.squeeze(1)
-
-        prob_X = torch.bmm(x_flat, Qtb_mat.transpose(1, 2)).squeeze(1)
-        X_t = prob_X.multinomial(1).squeeze(-1)
-
+        prob_X = torch.bmm(x_flat, Qtb_mat.transpose(1, 2)).squeeze(1)  # [B*L, 21]
+        X_t = prob_X.multinomial(1).squeeze(-1)                          # [B*L]
         noise_indices = X_t.view(B, L)
         noise_onehot = self._to_onehot(noise_indices)
         return noise_onehot, noise_indices, alpha_t_bar
 
-    # ------------------------------------------------------------------
-    # Training
-    # ------------------------------------------------------------------
     def diffusion_loss(self, x, t_int):
         x_idx = self._ensure_indices(x)
         B, L = x_idx.shape
@@ -472,32 +461,31 @@ class ProteinDiffusionModel(nn.Module):
         x_flat = x_onehot.view(B * L, 1, 21)
         Qtb_flat = Qtb.repeat_interleave(L, dim=0)
         Qtb_mat = Qtb_flat.squeeze(1)
-
         prob_X = torch.bmm(x_flat, Qtb_mat.transpose(1, 2)).squeeze(1)
         X_t = prob_X.multinomial(1).squeeze(-1)
-
         noise_indices = X_t.view(B, L)
         noise_onehot = self._to_onehot(noise_indices)
         return noise_onehot, noise_indices
 
     def compute_val_loss(self, x):
         B = x.shape[0]
-        t_int = torch.randint(1, self.timesteps + 1, (B, 1), device=x.device)
+        t_int = torch.randint(1, self.timesteps + 1, size=(B, 1), device=x.device)
         return self.diffusion_loss(x, t_int)
 
-    # ------------------------------------------------------------------
-    # Forward (training)
-    # ------------------------------------------------------------------
     def forward(self, x, c=None, y=None):
         B = x.shape[0]
-        t_int = torch.randint(0, self.timesteps + 1, (B, 1), device=x.device)
-
+        t_int = torch.randint(0, self.timesteps + 1, size=(B, 1), device=x.device)
         noise_onehot, noise_indices, _ = self.apply_noise(x, t_int)
 
-        base_logits = self.model(noise_indices, t_int, c=c, y=y)
-        log_probs = F.log_softmax(base_logits, dim=-1)
+        if self.objective != 'pred_x0':
+            raise ValueError(f'Unknown objective: {self.objective}')
 
+        # Pass indices to the base model
+        base_logits = self.model(noise_indices, t_int, c=c, y=y)  # [B, L, 21]
+
+        log_probs = F.log_softmax(base_logits, dim=-1)
         base_pred_x = self._to_onehot(log_probs.argmax(dim=-1))
+
         entropy = get_entropy(log_probs)
         mask_entropy = entropy > torch.quantile(entropy, 0.9)
 
@@ -512,34 +500,30 @@ class ProteinDiffusionModel(nn.Module):
         with torch.no_grad():
             esm_out = self.prior_model(tokens)
             esm_logits = esm_out["logits"][:, 1:-1, :21]
+        prior_logits = esm_logits
 
         target_class = self._ensure_indices(x)
         loss_fn = self.loss_fn()
-
         base_loss = loss_fn(base_logits.view(-1, 21), target_class.view(-1))
-        mask_loss = loss_fn(esm_logits[mask_entropy], target_class[mask_entropy])
+        mask_loss = loss_fn(prior_logits[mask_entropy], target_class[mask_entropy])
 
         return base_loss, mask_loss
 
     def compute_batched_over0_posterior_distribution(self, X_t_onehot, Q_t, Qsb, Qtb, batch):
-        B = X_t_onehot.shape[0]
-
         Qt_T = Q_t.transpose(-1, -2)
-        if Qt_T.dim() == 2:
-            Qt_T = Qt_T.unsqueeze(0)
+        left_term = torch.matmul(X_t_onehot, Qt_T[batch])
+        left_term_exp = left_term.unsqueeze(2)
+        Qsb_exp = Qsb[batch].unsqueeze(1)
+        numerator = left_term_exp * Qsb_exp
 
-        Qt_T = Qt_T.expand(B, -1, -1)
-        Qsb = Qsb.expand(B, -1, -1)
-        Qtb = Qtb.expand(B, -1, -1)
-        left_term = torch.matmul(X_t_onehot, Qt_T)
-        numerator = (left_term.unsqueeze(2) * Qsb.unsqueeze(1)).sum(dim=-1)
-
-        denominator = torch.matmul(Qtb.unsqueeze(1), X_t_onehot.unsqueeze(-1)).squeeze(-1)
+        X_t_T = X_t_onehot.unsqueeze(-1)
+        Qtb_exp = Qtb[batch].unsqueeze(1)
+        denominator = torch.matmul(Qtb_exp, X_t_T).squeeze(-1)
         denominator[denominator == 0] = 1e-6
 
+        numerator = numerator.sum(dim=-1)
         posterior = numerator / denominator
         return posterior
-
     # ------------------------------------------------------------------
     # Sampling
     # ------------------------------------------------------------------
@@ -580,7 +564,7 @@ class ProteinDiffusionModel(nn.Module):
             )
 
         final_idx = torch.clamp(self._ensure_indices(zt_idx), 0, 20)
-        print(final_idx.shape, final_idx.dtype)
+        #print(final_idx.shape, final_idx.dtype)
         final_onehot = self._to_onehot(final_idx)
         seqs = tensor_to_sequence_list(final_idx)
 
@@ -659,5 +643,6 @@ class ProteinDiffusionModel(nn.Module):
             sample_s = prob_X.argmax(dim=-1)
 
         return logits, sample_s
+
 
 
