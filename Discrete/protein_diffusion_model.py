@@ -643,6 +643,72 @@ class ProteinDiffusionModel(nn.Module):
             sample_s = prob_X.argmax(dim=-1)
 
         return logits, sample_s
+        
 
-
+# def sample_p_zs_given_zt(self, t, s, zt, x, diverse, sample_type, last_step, c=None, y=None):
+#     """
+#     zt: noisy token indices [B, L] long or one-hot [B, L, 21]
+#     """
+#     zt_idx = self._ensure_indices(zt)
+#     zt_onehot = self._to_onehot(zt_idx)
+#
+#     beta_t = self.noise_schedule(t_normalized=t)
+#     alpha_s_bar = self.noise_schedule.get_alpha_bar(t_normalized=s)
+#     alpha_t_bar = self.noise_schedule.get_alpha_bar(t_normalized=t)
+#
+#     Qtb = self.transition_model.get_Qt_bar(alpha_t_bar, x.device)
+#     Qsb = self.transition_model.get_Qt_bar(alpha_s_bar, x.device)
+#
+#     if sample_type == 'ddpm':
+#         Qt = self.transition_model.get_Qt(beta_t, x.device)
+#     elif sample_type == 'ddim':
+#         Qt = (Qsb / Qtb) / (Qsb / Qtb).sum(dim=-1).unsqueeze(dim=2)
+#     else:
+#         raise NotImplementedError
+#
+#     base_logits = self.model(zt_idx, t, c=c, y=y)
+#     log_probs = F.log_softmax(base_logits, dim=-1)
+#     base_pred_x = self._to_onehot(log_probs.argmax(dim=-1))
+#
+#     entropy = get_entropy(log_probs)
+#     mask_entropy = entropy > torch.quantile(entropy, 0.9)
+#
+#     masked_input = base_pred_x.clone()
+#     masked_input[mask_entropy] = 0
+#
+#     seqs = tensor_to_sequence_list(masked_input, mask_entropy)
+#     batch_data = [(f"seq{i}", s) for i, s in enumerate(seqs)]
+#     _, _, tokens = self.esm_batch_converter(batch_data)
+#     tokens = tokens.to(masked_input.device)
+#
+#     with torch.no_grad():
+#         esm_out = self.prior_model(tokens)
+#         esm_logits = esm_out["logits"][:, 1:-1, :21]
+#         prior_logits = esm_logits
+#         prior_log_probs = F.log_softmax(prior_logits, dim=-1)
+#
+#     logits = fuse_logits_by_log_probs([log_probs, prior_log_probs],
+#                                       [base_logits, prior_logits])
+#     pred_X = F.softmax(logits, dim=-1)
+#
+#     if last_step:
+#         sample_s = pred_X.argmax(dim=-1)
+#         return logits, self._to_onehot(sample_s)
+#
+#     batch_idx = torch.arange(zt_idx.shape[0], device=zt.device)
+#     p_s_and_t_given_0_X = self.compute_batched_over0_posterior_distribution(
+#         X_t_onehot=zt_onehot, Q_t=Qt, Qsb=Qsb, Qtb=Qtb, batch=batch_idx
+#     )
+#
+#     weighted_X = pred_X.unsqueeze(-1) * p_s_and_t_given_0_X
+#     unnormalized_prob_X = weighted_X.sum(dim=1)
+#     unnormalized_prob_X[unnormalized_prob_X.sum(dim=-1) == 0] = 1e-5
+#     prob_X = unnormalized_prob_X / unnormalized_prob_X.sum(dim=-1, keepdim=True)
+#
+#     if diverse:
+#         sample_s = prob_X.multinomial(1).squeeze()
+#     else:
+#         sample_s = prob_X.argmax(dim=1).squeeze()
+#
+#     return None, self._to_onehot(sample_s)
 
