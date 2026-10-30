@@ -1,0 +1,128 @@
+{
+ "block_w": {
+  "P": 0.4,
+  "N": 0.15,
+  "C": 0.35,
+  "B": 0.1
+ },
+ "lam": 0.5,
+ "temp_state_pen": 0.2,
+ "scales": {
+  "conc": 4.5450640999999985,
+  "pH": 3.4000000000000004,
+  "temp": 52.301610000000004,
+  "MgCl2": 1.041392685158225,
+  "NaCl": 2.954724790979063,
+  "KCl": 2.699837725867246,
+  "PEG1k": 1.4913616938342726,
+  "PEG6k": 1.414973347970818,
+  "PEG20k": 1.1760912590556813,
+  "Ficoll": 1.3222192947339193,
+  "Dex40": 1.2041199826559248,
+  "Dex70": 1.3222192947339193,
+  "Glycerol": 1.041392685158225,
+  "na_len": 2.55453,
+  "na_conc": 5.443697,
+  "na_ratio": 4.69897,
+  "na_seq": 4.85853910446167,
+  "na_fold": 3.4953274726867676,
+  "P": 1.3448971509933472
+ },
+ "na_norm": {
+  "na_seq": {
+   "mu": [
+    0.4154079813809166,
+    0.5223074003103191,
+    0.7742591368601304,
+    0.13033359193173003
+   ],
+   "sd": [
+    0.1639692604972661,
+    0.1770453034462442,
+    0.43507414069086287,
+    0.33667108590889794
+   ],
+   "sc": 4.85853910446167
+  },
+  "na_fold": {
+   "mu": [
+    -0.1597680150234746,
+    0.3447749342722992
+   ],
+   "sd": [
+    0.15325071772636592,
+    0.29412475344537037
+   ],
+   "sc": 3.4953274726867676
+  }
+ },
+ "short": [
+  "conc",
+  "pH",
+  "temp",
+  "MgCl2",
+  "NaCl",
+  "KCl",
+  "PEG1k",
+  "PEG6k",
+  "PEG20k",
+  "Ficoll",
+  "Dex40",
+  "Dex70",
+  "Glycerol"
+ ],
+ "salt": [
+  "MgCl2",
+  "NaCl",
+  "KCl"
+ ],
+ "crowd": [
+  "PEG1k",
+  "PEG6k",
+  "PEG20k",
+  "Ficoll",
+  "Dex40",
+  "Dex70",
+  "Glycerol"
+ ],
+ "na_flags": [
+  "polyU",
+  "polyA",
+  "polyC",
+  "polyG",
+  "tRNA",
+  "rRNA",
+  "total_RNA",
+  "mRNA",
+  "G4",
+  "ssDNA",
+  "dsDNA",
+  "plasmid_or_long_DNA",
+  "methylated"
+ ],
+ "buf": [
+  "Tris",
+  "HEPES",
+  "phosphate",
+  "goodsMES",
+  "citrate",
+  "acetate",
+  "imidazole",
+  "other_buf"
+ ],
+ "add": [
+  "reducing",
+  "chelator",
+  "glycerol",
+  "nucleotide",
+  "denaturant",
+  "hexanediol",
+  "detergent",
+  "protein_add",
+  "polyanion",
+  "metal",
+  "dye_probe",
+  "other_add"
+ ],
+ "aa": "ACDEFGHIKLMNPQRSTVWY"
+}

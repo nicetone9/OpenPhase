@@ -1,0 +1,855 @@
+<title>Records Space Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: control rail | square map stage | record card. Rail and card stack under the map on narrow screens. */
+:root{
+  --bg:#F3F6F9; --panel:#FFFFFF; --ink:#17212B; --mute:#5A6877; --line:#D9E1E8; --accent:#146DB5; --accent-ink:#FFFFFF;
+  --chip:#E8EEF3; --neutral:#D3D9DF; --neutral2:#A9B1B9; --missing:#2B2D42; --canvas:#FFFFFF; --mid:#F1F4F7;
+  --font-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+    --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --missing:#E8ECF1; --canvas:#10161D; --mid:#222C37; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+  --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --missing:#E8ECF1; --canvas:#10161D; --mid:#222C37; color-scheme:dark;
+}
+body{ background:var(--bg); color:var(--ink); font-family:var(--font-ui); line-height:1.45; }
+.app{ max-width:1500px; margin-inline:auto; padding-block:16px 28px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.top{ display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 18px; margin-bottom:14px; }
+h1{ margin:0; font-size:1.35rem; font-weight:600; letter-spacing:-0.01em; }
+.sub{ margin:0; color:var(--mute); font-size:0.86rem; min-width:0; }
+.layout{ display:grid; gap:14px; grid-template-columns:minmax(0,1fr); grid-template-areas:"stage" "card" "rail"; align-items:start; }
+.stage{ grid-area:stage; } .card{ grid-area:card; } .rail{ grid-area:rail; }
+@media (min-width:760px){ .layout{ grid-template-columns:220px minmax(0,1fr); grid-template-areas:"rail stage" "card card"; } }
+@media (min-width:960px){ .layout{ grid-template-columns:220px minmax(0,1fr) 280px; grid-template-areas:"rail stage card"; } .card{ position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; } }
+.toolbar{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; }
+.rail, .card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; min-width:0; }
+.rail{ display:flex; flex-direction:column; gap:12px; }
+.grp{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+.grp > label, .lab{ font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+select, input[type=search], input[type=number]{ font:inherit; font-size:0.85rem; color:var(--ink); background:var(--mid); border:1px solid var(--line); border-radius:6px; padding:6px 8px; min-width:0; width:100%; }
+select:focus-visible, input:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+.chk{ display:flex; gap:8px; align-items:center; font-size:0.85rem; }
+.range{ display:flex; align-items:center; gap:6px; color:var(--mute); }
+button{ font:inherit; font-size:0.82rem; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; }
+button:hover{ border-color:var(--accent); }
+button.primary{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.hint{ margin:0; color:var(--mute); font-size:0.76rem; }
+.stage{ min-width:0; display:flex; flex-direction:column; gap:10px; }
+.canvas-wrap{ position:relative; width:min(100%, 82vh); aspect-ratio:1 / 1; margin-inline:auto; background:var(--canvas); border:1px solid var(--line); border-radius:10px; overflow:hidden; touch-action:none; }
+canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; cursor:crosshair; }
+.zoom{ position:absolute; right:8px; top:8px; display:flex; gap:4px; }
+.zoom button{ padding:3px 9px; background:var(--panel); }
+.count{ position:absolute; left:10px; bottom:8px; font-family:var(--font-data); font-size:0.72rem; color:var(--mute); pointer-events:none; }
+.legend{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; min-width:0; }
+.legend h2, .card h2{ margin:0 0 8px; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+.lg-items{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:3px 14px; }
+.lg{ display:flex; align-items:center; gap:8px; text-align:left; background:none; border:0; padding:3px 4px; border-radius:5px; font-size:0.8rem; min-width:0; }
+.lg i{ width:11px; height:11px; border-radius:50%; flex:none; }
+.lg span{ flex:1; min-width:0; overflow-wrap:anywhere; }
+.lg b{ font-family:var(--font-data); font-weight:400; color:var(--mute); font-size:0.74rem; }
+.lg.off{ opacity:0.35; }
+.bar{ display:flex; flex-direction:column; gap:4px; max-width:420px; }
+.bar canvas{ position:static; height:12px; width:100%; border-radius:3px; cursor:default; }
+.bar .ticks{ display:flex; justify-content:space-between; font-family:var(--font-data); font-size:0.72rem; color:var(--mute); }
+.chips{ display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:8px; }
+.card h3{ margin:0; font-size:1.02rem; font-weight:600; overflow-wrap:anywhere; }
+.card .muted{ color:var(--mute); font-size:0.8rem; overflow-wrap:anywhere; }
+.kv{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:10px 0 0; font-size:0.82rem; }
+.kv dt{ color:var(--mute); }
+.kv dd{ margin:0; font-family:var(--font-data); font-size:0.78rem; overflow-wrap:anywhere; min-width:0; }
+.acts{ display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.tag{ display:inline-block; font-size:0.72rem; padding:1px 7px; border-radius:99px; background:var(--chip); border:1px solid var(--line); margin-right:4px; }
+.stats{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:6px 0 12px; }
+.stat{ background:var(--mid); border-radius:8px; padding:8px 10px; }
+.stat b{ display:block; font-family:var(--font-data); font-size:1.15rem; font-weight:500; }
+.stat span{ font-size:0.72rem; color:var(--mute); }
+.card ul{ margin:8px 0 0; padding-left:1.1em; font-size:0.8rem; color:var(--mute); }
+.card li{ margin:3px 0; }
+/* ---- Try your own experiment ---- */
+[hidden]{ display:none !important; }
+.count{ max-width:calc(100% - 20px); }
+.modes{ display:flex; gap:4px; margin-left:auto; }
+.mode{ padding:5px 14px; border-radius:99px; }
+.mode.on{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.try{ grid-area:rail; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; min-width:0; font-size:0.85rem; }
+.layout.try-mode{ grid-template-areas:"rail" "stage" "card"; }
+@media (min-width:760px){ .layout.try-mode{ grid-template-columns:minmax(300px,350px) minmax(0,1fr); grid-template-areas:"rail stage" "card card"; } }
+@media (min-width:1240px){ .layout.try-mode{ grid-template-columns:minmax(320px,350px) minmax(0,1fr) 320px; grid-template-areas:"rail stage card"; } }
+.try h4{ margin:0; font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+.tsec{ display:flex; flex-direction:column; gap:9px; min-width:0; }
+.tsec + .tsec{ margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
+.try textarea, .try input[type=text]{ font:inherit; font-size:0.84rem; color:var(--ink); background:var(--mid); border:1px solid var(--line); border-radius:6px; padding:6px 8px; width:100%; min-width:0; box-sizing:border-box; }
+.try textarea{ resize:vertical; }
+.try input:disabled{ opacity:0.45; }
+.try .muted{ margin:0; color:var(--mute); font-size:0.78rem; overflow-wrap:anywhere; }
+.try .chk{ align-items:flex-start; font-size:0.8rem; }
+.try .chk input{ margin-top:2px; flex:none; }
+.seqinfo{ display:flex; flex-direction:column; gap:3px; }
+.fld{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+.fld > label{ font-size:0.72rem; font-weight:500; color:var(--mute); }
+.fg2{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px 10px; }
+.fg3{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px 10px; }
+.inl{ display:flex; gap:6px; align-items:center; }
+.inl input{ flex:1; min-width:0; }
+.found{ display:flex; flex-wrap:wrap; gap:4px; }
+.fchip{ font-size:0.72rem; padding:1px 7px; border-radius:99px; background:var(--chip); border:1px solid var(--line); overflow-wrap:anywhere; }
+.readbox{ display:flex; flex-direction:column; gap:4px; }
+.chips2{ display:flex; flex-wrap:wrap; gap:4px; align-items:center; margin-top:6px; }
+.chip{ font-size:0.72rem; padding:3px 9px; border-radius:99px; }
+.chip.on{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+details.more{ font-size:0.8rem; }
+details.more > summary{ cursor:pointer; color:var(--mute); font-size:0.78rem; }
+details.more > :not(summary){ margin-top:8px; }
+details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
+.tres{ display:flex; flex-direction:column; gap:10px; }
+.tres h2{ margin:0; }
+.verdict{ padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:var(--mid); font-size:0.8rem; border-left-width:4px; }
+.verdict.good{ border-left-color:#35A45B; } .verdict.moderate{ border-left-color:#E7AC24; } .verdict.poor{ border-left-color:#E45A62; }
+.nlist{ display:flex; flex-direction:column; gap:4px; }
+.nbr{ display:flex; flex-direction:column; align-items:stretch; gap:1px; text-align:left; padding:6px 8px; border-radius:8px; background:var(--mid); border:1px solid transparent; }
+.nbr:hover{ border-color:var(--accent); }
+.nbr .l1{ display:flex; align-items:center; gap:7px; min-width:0; }
+.nbr .l1 b{ font-family:var(--font-data); font-weight:500; color:var(--mute); font-size:0.74rem; width:1.2em; flex:none; }
+.nbr .nm{ flex:1; min-width:0; font-weight:500; font-size:0.82rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.nbr .l2{ font-family:var(--font-data); font-size:0.7rem; color:var(--mute); overflow-wrap:anywhere; padding-left:calc(1.2em + 7px); }
+.pill{ font-size:0.66rem; font-weight:600; padding:1px 7px; border-radius:99px; color:#fff; flex:none; }
+.pill.ps{ background:#6B2A6B; } .pill.nps{ background:#008DB8; } .pill.csat{ background:#E7AC24; color:#17212B; } .pill.oth{ background:#6B7A89; }
+.sbar{ display:flex; height:10px; border-radius:99px; overflow:hidden; background:var(--chip); }
+.sbar i{ display:block; min-width:4px; } .sbar .ps{ background:#6B2A6B; } .sbar .nps{ background:#008DB8; } .sbar .oth{ background:#A9B1B9; }
+.warn{ margin:0; background:var(--mid); border-left:4px solid #E7AC24; padding:6px 8px; border-radius:6px; font-size:0.78rem; }
+.hlnote{ display:flex; flex-wrap:wrap; align-items:center; gap:4px 10px; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:8px 12px; font-size:0.8rem; }
+.hlnote.light{ border-style:dashed; }
+.hlnote i{ width:12px; height:12px; border-radius:50%; flex:none; }
+.hlnote p{ flex-basis:100%; margin:0; color:var(--mute); font-size:0.76rem; }
+.badge{ font-size:0.68rem; padding:1px 8px; border-radius:99px; border:1px dashed var(--neutral2); color:var(--mute); }
+.tsec .sidenote{ float:right; font-size:0.68rem; font-weight:400; letter-spacing:0; text-transform:none; color:var(--mute); font-style:italic; }
+.tsec.hl{ border-left:4px solid var(--hl); padding-left:10px; }
+.tsec.hl.light{ border-left-color:color-mix(in srgb, var(--hl) 35%, transparent); background:color-mix(in srgb, var(--hl) 6%, transparent); }
+.tsec.nocond{ border-left:4px dashed var(--line); padding-left:10px; }
+.tsec.nocond .fld, .tsec.nocond .readbox, .tsec.nocond textarea{ opacity:0.6; }
+.tsec.nocond:focus-within .fld, .tsec.nocond:focus-within textarea{ opacity:1; }
+.entryrow{ display:flex; flex-direction:column; gap:6px; }
+.entryinfo{ font-size:0.78rem; color:var(--mute); padding:6px 8px; border-left:4px solid var(--hl, var(--line)); background:var(--mid); border-radius:6px; }
+</style>
+
+<div class="app">
+  <header class="top">
+    <h1>Records space</h1>
+    <p class="sub" id="sub"></p>
+    <div class="modes" role="group" aria-label="Mode">
+      <button id="modeExplore" class="mode on" type="button" aria-pressed="true">Explore</button>
+      <button id="modeTry" class="mode" type="button" aria-pressed="false">Try your own experiment</button>
+    </div>
+  </header>
+  <div class="layout" id="layout">
+    <aside class="rail" id="rail" aria-label="Controls">
+      <div class="grp"><span class="lab">Show</span>
+        <label class="chk"><input type="checkbox" id="showBin" checked> Binary records</label>
+        <label class="chk"><input type="checkbox" id="showCsat" checked> csat records</label>
+      </div>
+      <div class="grp"><label for="fNA">Nucleic acid</label>
+        <select id="fNA"><option value="any">Any</option><option value="none">None</option><option value="RNA">RNA</option><option value="DNA">DNA</option></select></div>
+      <div class="grp"><label for="fTS">Temperature</label>
+        <select id="fTS"><option value="any">Any</option><option value="measured">Measured</option><option value="room temp. only">Room temperature only</option><option value="missing">Missing</option></select>
+        <div class="range"><input id="tMin" type="number" step="1" placeholder="min °C" aria-label="Minimum temperature"><span>–</span><input id="tMax" type="number" step="1" placeholder="max °C" aria-label="Maximum temperature"></div></div>
+      <div class="grp"><label for="fCsat">csat link</label>
+        <select id="fCsat"><option value="any">Any</option><option value="csat record">csat record</option><option value="binary, identical sequence to a csat protein">Binary, identical sequence</option><option value="binary, same UniProt as a csat protein">Binary, same UniProt</option><option value="no csat">No csat</option></select></div>
+      <div class="grp"><label for="fText">Find protein, paper or record</label><input id="fText" type="search" placeholder="FUS, P35637, pmid:29064502"></div>
+      <div class="grp"><label for="psize">Point size</label><input id="psize" type="range" min="1" max="6" step="0.5" value="3.5"></div>
+      <button id="reset" type="button">Reset view and filters</button>
+      <p class="hint">Scroll to zoom, drag to pan, click a point to pin it.</p>
+    </aside>
+    <aside class="try" id="tryPane" hidden aria-label="Try your own experiment"></aside>
+    <main class="stage">
+      <div class="toolbar">
+        <div class="grp"><label for="lens">Map</label><select id="lens"></select></div>
+        <div class="grp"><label for="colorby">Color by</label><select id="colorby"></select></div>
+        <div class="grp"><label for="mapstyle">Style</label><select id="mapstyle"><option value="solid">Solid blobs</option><option value="glow">Soft glow</option><option value="dots">Dots only</option></select></div>
+        <div class="grp"><label for="hl">Highlight tool entries</label><select id="hl"></select></div>
+        <div class="grp"><label for="outline">Outline</label><select id="outline"><option value="none">None</option><option value="light" selected>Light edge</option><option value="colored">Colored edge</option><option value="dashed">Dashed edge</option><option value="rings">Contour rings</option><option value="silhouette">Whole-map outline</option><option value="halo">Soft halo</option></select></div>
+      </div>
+      <div class="canvas-wrap" id="wrap">
+        <canvas id="cv" aria-label="Scatter plot of records"></canvas>
+        <div class="zoom"><button id="zin" type="button" aria-label="Zoom in">+</button><button id="zout" type="button" aria-label="Zoom out">−</button><button id="zfit" type="button">Fit</button></div>
+        <div class="count" id="count"></div>
+      </div>
+      <div class="hlnote" id="hlnote" hidden></div>
+      <section class="legend" id="legend" aria-label="Legend"></section>
+    </main>
+    <section class="card" id="card" aria-live="polite"></section>
+  </div>
+</div>
+
+<script>/*__CONDPARSER__*/</script>
+<script>/*__RECORDSSPACE__*/</script>
+<script>/*__TRYPANEL__*/</script>
+<script>
+const DATA = /*__DATA__*/null;
+(function () {
+  "use strict";
+  const D = DATA, N = D.n, I = D.info;
+  const TM = D.tools ? Uint32Array.from(D.tools.mask) : null;
+  const $ = id => document.getElementById(id);
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const isDark = () => { const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const mixc = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+  const rgb = a => "rgb(" + a[0] + "," + a[1] + "," + a[2] + ")";
+  const lum = a => (0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2]) / 255;
+  const adj = h => { const c = hex(h); return isDark() && lum(c) < 0.3 ? rgb(mixc(c, [255, 255, 255], 0.5)) : h; };
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const fmt = v => v == null ? "–" : Number(v).toLocaleString("en-US", { maximumFractionDigits: 2 });
+  function turbo(x) {
+    x = clamp(x, 0, 1); const x2 = x * x, x3 = x2 * x, x4 = x2 * x2, x5 = x4 * x;
+    const r = 0.13572138 + 4.61539260 * x - 42.66032258 * x2 + 132.13108234 * x3 - 152.94239396 * x4 + 59.28637943 * x5;
+    const g = 0.09140261 + 2.19418839 * x + 4.84296658 * x2 - 14.18503333 * x3 + 4.27729857 * x4 + 2.82956604 * x5;
+    const b = 0.10667330 + 12.64194608 * x - 60.58204836 * x2 + 110.36276771 * x3 - 89.90310912 * x4 + 27.34824973 * x5;
+    return [r, g, b].map(v => Math.round(255 * clamp(v, 0, 1)));
+  }
+  const STEPS = ["#20B7ED", "#98C93C", "#E7AC24", "#D87234", "#E45A62", "#9B3FA0", "#2B2D42"];
+  function contRGB(c, v) {
+    if (c.map === "steps") return hex(STEPS[clamp(Math.round(v), 0, 6)]);
+    const t = clamp((v - c.lo) / (c.hi - c.lo), 0, 1);
+    if (c.map === "div") { const mid = hex(isDark() ? "#2A3641" : "#F1F4F7"); return t < 0.5 ? mixc(hex("#008DB8"), mid, t * 2) : mixc(mid, hex("#E45A62"), (t - 0.5) * 2); }
+    return turbo(0.08 + 0.85 * t);
+  }
+  function contColor(c, v) {
+    let a = contRGB(c, v);
+    if (c.map === "steps" && v >= 5.5 && isDark()) a = mixc(a, [255, 255, 255], 0.65);
+    return rgb(a);
+  }
+
+  const CAT14 = ["#20B7ED", "#EF7182", "#98C93C", "#A47BDD", "#E7AC24", "#159C98", "#D87234", "#427FDB", "#BE629E", "#35A45B", "#E45A62", "#8F7A55", "#4FD1C5", "#6B2A6B"];
+  const NEUTRAL_LV = new Set(["other proteins", "none", "full length / wild type", "none reported", "no csat", "binary", "quantitative only (csat pool)", "none recorded"]);
+  const MISSING_LV = new Set(["not given", "missing"]);
+  const FIXED = {
+    na_class: { none: "#159AD6", RNA: "#E45A62", DNA: "#81BA36" },
+    construct: { "truncation / domain": "#20B7ED", "point mutant": "#E7AC24", "fusion tag": "#E45A62" },
+    temp_band: { "≤ 10 °C": "#146DB5", "10–20 °C": "#20B7ED", "20–30 °C": "#98C93C", "30–40 °C": "#E7AC24", "> 40 °C": "#E45A62", "room temp. only": "#BFDDF0" },
+    temp_state: { measured: "#20B7ED", "room temp. only": "#E7AC24" },
+    crowder: { PEG: "#E45A62", "Ficoll / dextran": "#E7AC24", glycerol: "#98C93C" },
+    buffer_f: { Tris: "#20B7ED", HEPES: "#E45A62", "phosphate / PBS": "#98C93C", "MES / MOPS / PIPES": "#A47BDD", "citrate / acetate": "#E7AC24", other: "#159C98" },
+    additive_f: { "additive listed": "#E7AC24" },
+    ps: { "no phase separation": "#008DB8", "phase separation": "#6B2A6B" },
+    csat_status: { "binary, same UniProt as a csat protein": "#E7AC24", "binary, identical sequence to a csat protein": "#EF7182", "csat record": "#6B2A6B" },
+    readout_class: { dilute: "#20B7ED", csat_boundary: "#6B2A6B", dilute_linescan: "#98C93C", cloud_point: "#E7AC24", dense: "#EF7182" },
+    source: { LLPSDB_v2: "#E45A62", LLPSDB_v2_site: "#D87234", LLPSDB_v2_phase_diagram: "#E7AC24", RNAPSEC: "#159C98", LLPSense: "#BE629E", PhaSepDB3_pilot_LLM: "#427FDB", Bremer2022: "#6B2A6B", Ausserwoger2025: "#A47BDD" }
+  };
+  const LAB = {
+    source: { LLPSDB_v2: "LLPSDB v2 (download)", LLPSDB_v2_site: "LLPSDB v2 (site)", LLPSDB_v2_phase_diagram: "LLPSDB v2 (phase diagram)", RNAPSEC: "RNAPSEC", LLPSense: "LLPSense", PhaSepDB3_pilot_LLM: "PhaSepDB 3 (LLM pilot)", Bremer2022: "Bremer 2022 (csat)", Ausserwoger2025: "Ausserwöger 2025 (csat)" },
+    readout_class: { binary: "binary record (no csat)", csat_boundary: "csat (boundary)", dilute: "dilute phase", dilute_linescan: "dilute phase (line scan)", cloud_point: "cloud point", dense: "dense phase" },
+    na_class: { none: "no nucleic acid" }
+  };
+  const GROUPS = [
+    ["Sequence", [["cat", "protein"], ["cont", "len_log"], ["cont", "ncpr"], ["cont", "arom"], ["cat", "construct"], ["cat", "na_class"]]],
+    ["Conditions", [["cont", "tempC"], ["cat", "temp_band"], ["cont", "pH_v"], ["cont", "nacl_log"], ["cont", "conc_v"], ["cat", "crowder"], ["cat", "buffer_f"], ["cat", "additive_f"], ["cont", "na_ratio"]]],
+    ["Readout", [["cat", "ps"], ["cat", "csat_status"], ["cat", "readout_class"], ["cont", "y_csat"]]],
+    ["Provenance and missingness", [["cat", "source"], ["cont", "n_miss"], ["cat", "temp_state"]]]
+  ];
+  const nameOf = (kind, key) => kind === "cat" ? D.cat[key].label : D.cont[key].label;
+
+  // ---------- state ----------
+  const S = { lens: D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0], by: ["cat", "protein"], hidden: new Set(), k: 1, tx: 0, ty: 0, hover: -1, pin: -1, psize: 3.5, style: "solid", outline: "light", hl: "",
+    showBin: true, showCsat: true, na: "any", ts: "any", tmin: null, tmax: null, csat: "any", text: "", mode: "explore", tryRes: null };
+  const cv = $("cv"), ctx = cv.getContext("2d");
+  let W = 0, H = 0, dpr = 1;
+  const vis = new Uint8Array(N), sx = new Float32Array(N), sy = new Float32Array(N);
+  let colors = new Array(N), groups = [], faded = [], legendSpec = null;
+  const hay = I.rid.map((r, i) => (I.name[i] + " " + I.uni[i] + " " + I.paper[i] + " " + r + " " + I.ent[i]).toLowerCase());
+  const lvIdx = (f, name) => D.cat[f].levels.indexOf(name);
+  const binLv = lvIdx("readout_class", "binary");
+
+  // ---------- filters ----------
+  function applyFilters() {
+    const q = S.text.trim().toLowerCase();
+    const rc = D.cat.readout_class.codes, na = D.cat.na_class.codes, ts = D.cat.temp_state.codes, cs = D.cat.csat_status.codes;
+    const naL = D.cat.na_class.levels, tsL = D.cat.temp_state.levels, csL = D.cat.csat_status.levels;
+    const hid = S.hidden, byCodes = S.by[0] === "cat" ? D.cat[S.by[1]].codes : null;
+    for (let i = 0; i < N; i++) {
+      let ok = true;
+      const isBin = rc[i] === binLv;
+      if (isBin ? !S.showBin : !S.showCsat) ok = false;
+      if (ok && S.na !== "any" && naL[na[i]] !== S.na) ok = false;
+      if (ok && S.ts !== "any" && tsL[ts[i]] !== S.ts) ok = false;
+      if (ok && (S.tmin != null || S.tmax != null)) { const t = I.T[i]; if (t == null || (S.tmin != null && t < S.tmin) || (S.tmax != null && t > S.tmax)) ok = false; }
+      if (ok && S.csat !== "any" && csL[cs[i]] !== S.csat) ok = false;
+      if (ok && q && hay[i].indexOf(q) < 0) ok = false;
+      if (ok && byCodes && hid.has(byCodes[i])) ok = false;
+      vis[i] = ok ? 1 : 0;
+    }
+  }
+
+  // ---------- colors ----------
+  function catColors(f) {
+    const c = D.cat[f];
+    return c.levels.map((lv, i) => {
+      if (MISSING_LV.has(lv)) return css("--missing");
+      if (f === "protein" && lv === "no UniProt") return css("--neutral2");
+      if (NEUTRAL_LV.has(lv)) return css("--neutral");
+      const h = (FIXED[f] || {})[lv] || CAT14[i % CAT14.length];
+      return adj(h);
+    });
+  }
+  function computeColors() {
+    const [kind, key] = S.by;
+    const rcCodes = D.cat.readout_class.codes;
+    const pr = new Float32Array(N);
+    if (kind === "cat") {
+      const pal = catColors(key), codes = D.cat[key].codes, lv = D.cat[key].levels;
+      for (let i = 0; i < N; i++) { colors[i] = pal[codes[i]]; pr[i] = (NEUTRAL_LV.has(lv[codes[i]]) || (key === "protein" && lv[codes[i]] === "no UniProt") ? 0 : 1); }
+      legendSpec = { kind, key, pal };
+    } else {
+      const c = D.cont[key], neutral = css("--neutral"), miss = css("--missing");
+      const spCol = key === "tempC" ? "#BFDDF0" : (key === "na_ratio" || key === "y_csat" ? css("--neutral") : "#BFDDF0");
+      for (let i = 0; i < N; i++) {
+        const k = c.kind[i];
+        if (k === 0) { colors[i] = contColor(c, c.vals[i]); pr[i] = 1; }
+        else if (k === 1) { colors[i] = miss; pr[i] = 2; }
+        else { colors[i] = spCol; pr[i] = key === "tempC" ? 0 : 0; }
+      }
+      legendSpec = { kind, key, miss, spCol, neutral };
+    }
+    // 绘制分组：优先级 → 颜色；csat 记录在最上层
+    const byKey = new Map();
+    faded = [];
+    for (let i = 0; i < N; i++) {
+      if (!vis[i]) { faded.push(i); continue; }
+      const p = pr[i] + (rcCodes[i] !== binLv ? 5 : 0);
+      const key2 = p + "|" + colors[i];
+      let g = byKey.get(key2);
+      if (!g) { g = { p, col: colors[i], idx: [] }; byKey.set(key2, g); }
+      g.idx.push(i);
+    }
+    groups = Array.from(byKey.values()).sort((a, b) => a.p - b.p);
+    buildTerritory(); computeLabels();
+  }
+
+  // ---------- territories (smooth colour blobs under the dots) and cluster labels ----------
+  const GRID = 256;
+  let terr = null, labels = [], contours = [];
+  const rgbCache = new Map();
+  function toRGB(c) {
+    let v = rgbCache.get(c);
+    if (!v) { if (c[0] === "#") v = hex(c); else { const m = /(\d+)\D+(\d+)\D+(\d+)/.exec(c); v = [+m[1], +m[2], +m[3]]; } rgbCache.set(c, v); }
+    return v;
+  }
+  function toHSL(c) {
+    const r = c[0] / 255, g = c[1] / 255, b = c[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+    let h = 0, s = 0;
+    if (d > 1e-9) { s = d / (1 - Math.abs(2 * l - 1)); h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; if (h < 0) h += 360; }
+    return [h, s, l];
+  }
+  function fromHSL(h, s, l) {
+    const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2;
+    const q = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+    return q.map(v => Math.round((v + m) * 255));
+  }
+  const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const tintOf = c => { const [h, s] = toHSL(c); return isDark() ? fromHSL(h, Math.min(1, s * 0.7), 0.27) : fromHSL(h, Math.min(1, 0.5 + s * 0.45), 0.83); };
+  const inkOf = c => { const [h, s] = toHSL(c); return isDark() ? fromHSL(h, Math.min(1, s), 0.8) : fromHSL(h, Math.min(1, s), 0.27); };
+  const edgeOf = c => { const [h, s, l] = toHSL(c); return isDark() ? fromHSL(h, s, Math.min(0.92, l + 0.2)) : fromHSL(h, s, Math.max(0.1, l * 0.72)); };
+  const neutralLv = (key, lv) => NEUTRAL_LV.has(lv) || MISSING_LV.has(lv) || (key === "protein" && lv === "no UniProt");
+
+  // 密度网格上的等值线（marching squares）：f > 0 的区域的边界；返回若干条折线（网格坐标）
+  function contourLines(f, G) {
+    const adj = new Map(), pts = new Map();
+    const link = (i1, x1, y1, i2, x2, y2) => {
+      pts.set(i1, [x1, y1]); pts.set(i2, [x2, y2]);
+      let a = adj.get(i1); if (!a) adj.set(i1, a = []); a.push(i2);
+      let b = adj.get(i2); if (!b) adj.set(i2, b = []); b.push(i1);
+    };
+    const CASE = [null, [[3, 0]], [[0, 1]], [[3, 1]], [[1, 2]], null, [[0, 2]], [[3, 2]], [[3, 2]], [[0, 2]], null, [[1, 2]], [[3, 1]], [[0, 1]], [[3, 0]], null];
+    for (let y = 0; y < G - 1; y++) for (let x = 0; x < G - 1; x++) {
+      const j = y * G + x, a = f[j], b = f[j + 1], c = f[j + G + 1], d = f[j + G];
+      const k = (a > 0 ? 1 : 0) | (b > 0 ? 2 : 0) | (c > 0 ? 4 : 0) | (d > 0 ? 8 : 0);
+      if (k === 0 || k === 15) continue;
+      const ids = [2 * j, 2 * (j + 1) + 1, 2 * (j + G), 2 * j + 1];
+      const xs = [x + a / (a - b || 1), x + 1, x + d / (d - c || 1), x], ys = [y, y + b / (b - c || 1), y + 1, y + a / (a - d || 1)];
+      let segs = CASE[k];
+      if (!segs) { const hi = (a + b + c + d) / 4 > 0; segs = k === 5 ? (hi ? [[0, 1], [3, 2]] : [[3, 0], [1, 2]]) : (hi ? [[3, 0], [1, 2]] : [[0, 1], [3, 2]]); }
+      for (const [e1, e2] of segs) link(ids[e1], xs[e1], ys[e1], ids[e2], xs[e2], ys[e2]);
+    }
+    const seen = new Set(), out = [];
+    for (const start of adj.keys()) {
+      if (seen.has(start)) continue;
+      seen.add(start); const chain = [start];
+      for (let dir = 0; dir < 2; dir++) {
+        let cur = start;
+        for (;;) {
+          let nxt = -1; for (const nb of adj.get(cur)) if (!seen.has(nb)) { nxt = nb; break; }
+          if (nxt < 0) break;
+          seen.add(nxt); if (dir === 0) chain.push(nxt); else chain.unshift(nxt); cur = nxt;
+        }
+      }
+      if (chain.length < 5) continue;
+      const arr = new Float32Array(chain.length * 2); chain.forEach((id, i) => { const q = pts.get(id); arr[2 * i] = q[0]; arr[2 * i + 1] = q[1]; });
+      out.push({ pts: arr, closed: adj.get(chain[0]).includes(chain[chain.length - 1]) });
+    }
+    return out;
+  }
+  function chaikin(a, closed) {
+    const n = a.length / 2; if (n < 3) return a;
+    const o = []; if (!closed) o.push(a[0], a[1]);
+    for (let i = 0, m = closed ? n : n - 1; i < m; i++) { const j = (i + 1) % n, x0 = a[2 * i], y0 = a[2 * i + 1], x1 = a[2 * j], y1 = a[2 * j + 1]; o.push(0.75 * x0 + 0.25 * x1, 0.75 * y0 + 0.25 * y1, 0.25 * x0 + 0.75 * x1, 0.25 * y0 + 0.75 * y1); }
+    if (!closed) o.push(a[2 * (n - 1)], a[2 * n - 1]);
+    return Float32Array.from(o);
+  }
+
+  // 把可见点按颜色分组撒到网格上，得到平滑的"领地"（填色）和同一张密度场上的等值线（轮廓）
+  const TH = 2.2;   // 领地边缘处的密度，与填色的半透明阈值一致
+  function buildTerritory() {
+    terr = null; contours = [];
+    const wantFill = S.style !== "dots", st = S.outline, wantLines = st !== "none";
+    if (!wantFill && !wantLines) return;
+    const [kind, key] = S.by, G = GRID, e = D.emb[S.lens], ex = e[0], ey = e[1], R = 8, sig = 3.0, dark = isDark(), glow = S.style === "glow";
+    const ker = []; for (let dy = -R; dy <= R; dy++) for (let dx = -R; dx <= R; dx++) { const d2 = dx * dx + dy * dy; if (d2 <= R * R) ker.push(dx, dy, Math.exp(-d2 / (2 * sig * sig))); }
+    const splat = (grid, i, w) => { const gx = Math.round(ex[i] * (G - 1)), gy = Math.round(ey[i] * (G - 1)); for (let t = 0; t < ker.length; t += 3) { const x = gx + ker[t], y = gy + ker[t + 1]; if (x < 0 || y < 0 || x >= G || y >= G) continue; grid[y * G + x] += w * ker[t + 2]; } };
+    const GG = G * G, tot = new Float32Array(GG), img = wantFill ? new ImageData(G, G) : null, px = img ? img.data : null, neutralFill = dark ? [30, 41, 52] : [232, 237, 242];
+    const put = (j, col, a) => { px[4 * j] = col[0]; px[4 * j + 1] = col[1]; px[4 * j + 2] = col[2]; px[4 * j + 3] = Math.round(255 * a); };
+    const alphaOf = W => glow ? (dark ? 0.55 : 0.45) * (1 - Math.exp(-W / 2.2)) : smooth(1.6, 2.8, W);
+    const ink = dark ? [230, 236, 242] : [23, 33, 43], greyEdge = dark ? [150, 160, 170] : [140, 150, 160], mul = st === "rings" ? [1, 2.4, 5.5] : [1];
+    const addLines = (f, col, edge, ring) => { for (const L of contourLines(f, G)) { const p = chaikin(L.pts, L.closed); for (let i = 0; i < p.length; i++) p[i] /= (G - 1); contours.push({ pts: p, closed: L.closed, col, edge, ring }); } };
+    const unionLines = col => { for (let ri = 0; ri < mul.length; ri++) { const f = new Float32Array(GG); for (let j = 0; j < GG; j++) f[j] = tot[j] - TH * mul[ri]; addLines(f, col, col, ri); } };
+    if (kind === "cat") {
+      const codes = D.cat[key].codes, lv = D.cat[key].levels, pal = legendSpec.pal, members = new Map();
+      for (let i = 0; i < N; i++) if (vis[i]) { const c = codes[i]; let a = members.get(c); if (!a) members.set(c, a = []); a.push(i); }
+      const tmp = new Float32Array(GG), best = new Float32Array(GG), second = new Float32Array(GG), bestL = new Int16Array(GG).fill(-1), perLevel = new Map();
+      const perLevelLines = wantLines && st !== "silhouette" && st !== "halo";
+      for (const [c, idx] of members) {
+        tmp.fill(0); const w = neutralLv(key, lv[c]) ? 0.3 : 1;
+        for (const i of idx) splat(tmp, i, w);
+        for (let j = 0; j < GG; j++) { const t = tmp[j]; if (t > 0) { tot[j] += t; if (t > best[j]) { second[j] = best[j]; best[j] = t; bestL[j] = c; } else if (t > second[j]) second[j] = t; } }
+        if (perLevelLines) perLevel.set(c, tmp.slice());
+      }
+      if (wantFill) {
+        const fillOf = new Map();
+        for (const c of members.keys()) fillOf.set(c, neutralLv(key, lv[c]) ? (glow ? null : neutralFill) : (glow ? toRGB(pal[c]) : tintOf(toRGB(pal[c]))));
+        for (let j = 0; j < GG; j++) { if (tot[j] < 0.4) continue; const col = fillOf.get(bestL[j]); if (col) put(j, col, alphaOf(tot[j])); }
+      }
+      if (wantLines) {
+        if (!perLevelLines) unionLines(ink);
+        else for (const [c, Dl] of perLevel) {
+          const neutral = neutralLv(key, lv[c]), base = toRGB(pal[c]), edge = neutral ? greyEdge : edgeOf(base);
+          for (let ri = 0; ri < mul.length; ri++) {
+            const f = new Float32Array(GG); let any = false;
+            for (let j = 0; j < GG; j++) { const o = bestL[j] === c ? second[j] : best[j], v = Dl[j] - Math.max(TH * mul[ri], o); f[j] = v; if (v > 0) any = true; }
+            if (any) addLines(f, base, edge, ri);
+          }
+        }
+      }
+    } else {
+      const sr = new Float32Array(GG), sg = new Float32Array(GG), sb = new Float32Array(GG);
+      for (let i = 0; i < N; i++) {
+        if (!vis[i]) continue;
+        const c = toRGB(colors[i]), gx = Math.round(ex[i] * (G - 1)), gy = Math.round(ey[i] * (G - 1));
+        for (let t = 0; t < ker.length; t += 3) { const x = gx + ker[t], y = gy + ker[t + 1]; if (x < 0 || y < 0 || x >= G || y >= G) continue; const j = y * G + x, w = ker[t + 2]; tot[j] += w; sr[j] += w * c[0]; sg[j] += w * c[1]; sb[j] += w * c[2]; }
+      }
+      if (wantFill) for (let j = 0; j < GG; j++) { const W = tot[j]; if (W < 0.4) continue; const c = [sr[j] / W, sg[j] / W, sb[j] / W]; put(j, glow ? c : tintOf(c), alphaOf(W)); }
+      if (wantLines) unionLines(st === "colored" || st === "rings" ? greyEdge : ink);
+    }
+    if (wantFill) { const cvs = document.createElement("canvas"); cvs.width = G; cvs.height = G; cvs.getContext("2d").putImageData(img, 0, 0); terr = cvs; }
+  }
+  // 轮廓：very light = 墨色 20% 的细线；colored = 各类别的深色；dashed = 虚线；rings = 三层等值线；silhouette / halo = 整张图的外轮廓
+  function drawOutlines() {
+    if (!contours.length) return;
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, st = S.outline, ink = isDark() ? [230, 236, 242] : [23, 33, 43];
+    ctx.lineJoin = "round"; ctx.lineCap = "round";
+    const trace = C => {
+      const p = C.pts; ctx.moveTo((pad + p[0] * w) * S.k + S.tx, (pad + p[1] * h) * S.k + S.ty);
+      for (let i = 2; i < p.length; i += 2) ctx.lineTo((pad + p[i] * w) * S.k + S.tx, (pad + p[i + 1] * h) * S.k + S.ty);
+      if (C.closed) ctx.closePath();
+    };
+    const pass = (lw, alpha, colOf, dash) => {
+      ctx.setLineDash(dash || []); ctx.lineWidth = lw * dpr; ctx.globalAlpha = alpha;
+      let last = null;
+      for (const C of contours) {
+        const col = colOf(C), key = col.join(",");
+        if (key !== last) { if (last !== null) ctx.stroke(); ctx.beginPath(); ctx.strokeStyle = rgb(col); last = key; }
+        trace(C);
+      }
+      if (last !== null) ctx.stroke();
+    };
+    const byCol = contours.slice().sort((a, b) => (a.edge.join(",") < b.edge.join(",") ? -1 : 1));
+    if (st === "light") pass(1, 0.22, () => ink);
+    else if (st === "dashed") pass(1, 0.4, () => ink, [5 * dpr, 4 * dpr]);
+    else if (st === "silhouette") pass(1.5, 0.34, () => ink);
+    else if (st === "halo") { pass(9, 0.07, () => ink); pass(1, 0.3, () => ink); }
+    else if (st === "colored") { const keep = contours; contours = byCol; pass(1.3, 0.7, C => C.edge); contours = keep; }
+    else if (st === "rings") for (let ri = 0; ri < 3; ri++) { const keep = contours; contours = byCol.filter(C => C.ring === ri); pass(1, [0.7, 0.45, 0.28][ri], C => C.edge); contours = keep; }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  function drawTerritory() {
+    if (!terr) return;
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, G = GRID, f = G / (G - 1);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(terr, (pad - 0.5 / (G - 1) * w) * S.k + S.tx, (pad - 0.5 / (G - 1) * h) * S.k + S.ty, w * f * S.k, h * f * S.k);
+  }
+  // 每个类别标出它最大的几个"岛"（最多 3 个）：取最拥挤的格子，周围 0.10 内的点算一个岛；
+  // 第一个岛只要占该类别 4% 以上就标，其余的要占 8% 以上，免得把分散的类别标成只在一处
+  function computeLabels() {
+    labels = [];
+    const [kind, key] = S.by; if (kind !== "cat") return;
+    const c = D.cat[key], codes = c.codes, e = D.emb[S.lens], ex = e[0], ey = e[1], GR = 40, members = new Map();
+    for (let i = 0; i < N; i++) if (vis[i]) { const k = codes[i]; let a = members.get(k); if (!a) members.set(k, a = []); a.push(i); }
+    for (const [k, idx] of members) {
+      if (neutralLv(key, c.levels[k]) || idx.length < 30) continue;
+      let text = ((LAB[key] && LAB[key][c.levels[k]]) || c.levels[k]).replace(/ \(two UniProt IDs\)/, ""); if (text.length > 24) text = text.slice(0, 23) + "…";
+      let pool = idx, made = 0;
+      while (made < 3 && pool.length >= 8) {
+        const cnt = new Map();
+        for (const i of pool) { const kk = Math.floor(ex[i] * GR) * 1000 + Math.floor(ey[i] * GR); cnt.set(kk, (cnt.get(kk) || 0) + 1); }
+        let best = -1, bk = 0;
+        for (const [kk, n] of cnt) { const gx = Math.floor(kk / 1000), gy = kk % 1000; let s = n; for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) if (dx || dy) s += cnt.get((gx + dx) * 1000 + gy + dy) || 0; if (s > best) { best = s; bk = kk; } }
+        const cx = (Math.floor(bk / 1000) + 0.5) / GR, cy = ((bk % 1000) + 0.5) / GR;
+        let sx0 = 0, sy0 = 0, n0 = 0; for (const i of pool) if (Math.hypot(ex[i] - cx, ey[i] - cy) < 0.07) { sx0 += ex[i]; sy0 += ey[i]; n0++; }
+        if (!n0) break;
+        const mx = sx0 / n0, my = sy0 / n0, isl = pool.filter(i => Math.hypot(ex[i] - mx, ey[i] - my) < 0.10);
+        if (isl.length / idx.length < (made ? 0.08 : 0.04) || isl.length < (made ? 15 : 8)) break;
+        labels.push({ text, x: mx, y: my, col: legendSpec.pal[k], n: isl.length }); made++;
+        pool = pool.filter(i => Math.hypot(ex[i] - mx, ey[i] - my) >= 0.13);
+      }
+    }
+    labels.sort((a, b) => b.n - a.n);
+  }
+  function drawLabels() {
+    if (!labels.length) return;
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, fs = 12 * dpr, halo = css("--canvas"), boxes = [];
+    ctx.font = "600 " + fs + "px " + css("--font-ui"); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+    for (const L of labels) {
+      const x = (pad + L.x * w) * S.k + S.tx, y = (pad + L.y * h) * S.k + S.ty;
+      if (x < 0 || y < 0 || x > W || y > H) continue;
+      const tw = ctx.measureText(L.text).width, b = [x - tw / 2 - 3 * dpr, y - fs * 0.75, x + tw / 2 + 3 * dpr, y + fs * 0.75];
+      if (boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1])) continue;
+      boxes.push(b);
+      ctx.lineWidth = 4 * dpr; ctx.strokeStyle = halo; ctx.globalAlpha = 0.92; ctx.strokeText(L.text, x, y);
+      ctx.globalAlpha = 1; ctx.fillStyle = rgb(inkOf(toRGB(L.col))); ctx.fillText(L.text, x, y);
+    }
+    ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
+  }
+
+  // ---------- drawing ----------
+  function resize() {
+    const wrap = $("wrap"), r = wrap.getBoundingClientRect();
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    W = Math.max(200, Math.round(r.width * dpr)); H = Math.max(200, Math.round(r.height * dpr));
+    cv.width = W; cv.height = H;
+  }
+  function project() {
+    const e = D.emb[S.lens], ex = e[0], ey = e[1], pad = 16 * dpr, k = S.k, tx = S.tx, ty = S.ty, w = W - 2 * pad, h = H - 2 * pad;
+    for (let i = 0; i < N; i++) { sx[i] = (pad + ex[i] * w) * k + tx; sy[i] = (pad + ey[i] * h) * k + ty; }
+  }
+  const TAU = Math.PI * 2;
+  function render() {
+    project();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = css("--canvas"); ctx.fillRect(0, 0, W, H);
+    drawTerritory();
+    drawOutlines();
+    const base = S.psize * 0.5 * dpr * clamp(Math.pow(S.k, 0.42), 1, 3.2);
+    ctx.globalAlpha = 0.11; ctx.fillStyle = css("--neutral2"); ctx.beginPath();
+    for (const i of faded) { const x = sx[i], y = sy[i]; if (x < -6 || y < -6 || x > W + 6 || y > H + 6) continue; ctx.moveTo(x + base, y); ctx.arc(x, y, base, 0, TAU); }
+    ctx.fill(); ctx.globalAlpha = 1;
+    const rc = D.cat.readout_class.codes;
+    for (const g of groups) {
+      const neutral = g.p % 5 === 0;
+      ctx.fillStyle = g.col; ctx.globalAlpha = neutral ? 0.55 : 0.85; ctx.beginPath();
+      for (const i of g.idx) {
+        const x = sx[i], y = sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue;
+        const r = rc[i] !== binLv ? base * 1.7 : base;
+        ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU);
+      }
+      ctx.fill();
+      if (!neutral) { ctx.globalAlpha = 0.5; ctx.lineWidth = 0.6 * dpr; ctx.strokeStyle = g.edge || (g.edge = rgb(edgeOf(toRGB(g.col)))); ctx.stroke(); }
+    }
+    ctx.globalAlpha = 1;
+    drawHighlight(base);
+    drawLabels();
+    const tg = S.mode === "try" ? tryGeom() : null;
+    if (tg) drawTry(tg, base);
+    for (const j of [S.pin, S.hover]) {
+      if (j < 0) continue;
+      ctx.beginPath(); ctx.arc(sx[j], sy[j], base * 2.6 + 2 * dpr, 0, TAU);
+      ctx.lineWidth = 1.6 * dpr; ctx.strokeStyle = css("--ink"); ctx.stroke();
+    }
+    let nShown = 0; for (let i = 0; i < N; i++) nShown += vis[i];
+    $("count").textContent = nShown.toLocaleString("en-US") + " of " + N.toLocaleString("en-US") + " records" + (tg ? " · star: your experiment, rings: 15 nearest" + (tg.spread > 0.2 ? " (neighbours are scattered over the map, so the star is only a rough guide)" : "") : "");
+  }
+
+  // ---------- legend ----------
+  function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function buildLegend() {
+    const box = $("legend"); box.textContent = "";
+    const [kind, key] = S.by;
+    box.appendChild(el("h2", null, nameOf(kind, key)));
+    if (kind === "cat") {
+      const c = D.cat[key], cnt = new Array(c.levels.length).fill(0);
+      // 计数只受筛选条件影响（不受图例开关影响）
+      const saved = S.hidden; S.hidden = new Set(); applyFilters(); for (let i = 0; i < N; i++) if (vis[i]) cnt[c.codes[i]]++; S.hidden = saved; applyFilters();
+      const items = el("div", "lg-items");
+      c.levels.forEach((lv, i) => {
+        if (!cnt[i] && !S.hidden.has(i)) return;
+        const b = el("button", "lg" + (S.hidden.has(i) ? " off" : ""));
+        b.type = "button";
+        const dot = el("i"); dot.style.background = legendSpec.pal[i];
+        b.append(dot, el("span", null, (LAB[key] && LAB[key][lv]) || lv), el("b", null, cnt[i].toLocaleString("en-US")));
+        b.title = "Click to hide or show";
+        b.addEventListener("click", () => { if (S.hidden.has(i)) S.hidden.delete(i); else S.hidden.add(i); refresh(); });
+        items.appendChild(b);
+      });
+      box.appendChild(items);
+    } else {
+      const c = D.cont[key], bar = el("div", "bar"), g = document.createElement("canvas");
+      g.width = 320; g.height = 12; const gx = g.getContext("2d");
+      for (let x = 0; x < 320; x++) { const v = c.discrete ? Math.floor(x / 320 * c.discrete) : c.lo + (c.hi - c.lo) * x / 319; gx.fillStyle = contColor(c, v); gx.fillRect(x, 0, 1, 12); }
+      const ticks = el("div", "ticks");
+      const t1 = c.discrete ? "0" : String(c.lo), t2 = c.discrete ? "6 or more" : String(c.hi);
+      ticks.append(el("span", null, t1), el("span", null, c.unit), el("span", null, t2));
+      bar.append(g, ticks); box.appendChild(bar);
+      const chips = el("div", "chips");
+      const n1 = new Map();
+      for (let i = 0; i < N; i++) if (vis[i] && c.kind[i] > 0) n1.set(c.kind[i], (n1.get(c.kind[i]) || 0) + 1);
+      for (const [k, n] of n1) {
+        const it = el("div", "lg"); const dot = el("i"); dot.style.background = k === 1 ? legendSpec.miss : legendSpec.spCol;
+        it.append(dot, el("span", null, k === 1 ? c.missing : c.special), el("b", null, n.toLocaleString("en-US")));
+        chips.appendChild(it);
+      }
+      if (chips.childNodes.length) box.appendChild(chips);
+    }
+  }
+
+  // ---------- card ----------
+  function kv(dl, k, v) { if (v == null || v === "") return; dl.append(el("dt", null, k), el("dd", null, String(v))); }
+  function buildCard() {
+    const card = $("card"); card.textContent = "";
+    const j = S.pin >= 0 ? S.pin : (S.mode === "try" ? -1 : S.hover);
+    if (j < 0 && S.mode === "try") { if (tryApi) card.appendChild(tryApi.resultEl); return; }
+    if (j < 0) {
+      card.appendChild(el("h2", null, "Dataset"));
+      const m = D.meta, st = el("div", "stats");
+      [[m.n, "records in the map"], [m.n_binary, "binary records"], [m.n_csat, "csat records"], [m.n_seq, "protein sequences"]].forEach(([n, l]) => { const d = el("div", "stat"); d.append(el("b", null, n.toLocaleString("en-US")), el("span", null, l)); st.appendChild(d); });
+      card.appendChild(st);
+      card.appendChild(el("h2", null, "How to read"));
+      const ul = el("ul");
+      ["Each dot is one experiment: a protein, an optional nucleic acid, and its conditions.",
+       "Distance combines protein sequence (ESMC-600M), nucleic acid, conditions and buffer. A missing value counts as its own state.",
+       "Labels, csat values and source are not inputs. They only color the dots.",
+       "Neighbours from the same paper dominate. Across papers and proteins the phase-separation label is barely shared."].forEach(t => ul.appendChild(el("li", null, t)));
+      card.appendChild(ul);
+      return;
+    }
+    card.appendChild(el("h2", null, S.pin >= 0 ? "Pinned record" : "Record under cursor"));
+    const nm = I.name[j] + (I.uni[j] ? " · " + I.uni[j] : "");
+    card.appendChild(el("h3", null, nm));
+    card.appendChild(el("div", "muted", I.rid[j] + " · " + I.paper[j]));
+    const tags = el("div"); tags.style.margin = "8px 0 0";
+    { const sl = D.cat.source.levels[D.cat.source.codes[j]]; tags.appendChild(el("span", "tag", LAB.source[sl] || sl)); }
+    tags.appendChild(el("span", "tag", I.lab[j]));
+    card.appendChild(tags);
+    const dl = el("dl", "kv");
+    if (I.ent[j]) kv(dl, "Entity", I.ent[j]);
+    kv(dl, "Length", I.len[j] != null ? I.len[j] + " aa" : "no sequence");
+    if (I.csat[j]) { const y = D.cont.y_csat.vals[j]; kv(dl, "Readout", I.csat[j] + (y != null ? " · " + fmt(Math.pow(10, y)) + " µM" : "")); }
+    else kv(dl, "Morphology", I.morph[j]);
+    kv(dl, "Temperature", I.T[j] != null ? I.T[j] + " °C" : I.tstate[j]);
+    kv(dl, "pH", I.pH[j] != null ? I.pH[j] : "missing");
+    kv(dl, "NaCl", I.NaCl[j] != null ? fmt(I.NaCl[j]) + " mM" : "missing");
+    kv(dl, "Protein conc.", I.conc[j] != null ? fmt(I.conc[j]) + " µM" : "missing");
+    kv(dl, "Crowder", D.cat.crowder.levels[D.cat.crowder.codes[j]]);
+    kv(dl, "Buffer", I.buf[j] || D.cat.buffer_f.levels[D.cat.buffer_f.codes[j]]);
+    kv(dl, "Other", I.oth[j]);
+    kv(dl, "Nucleic acid", I.na[j] === "none" ? "none" : I.na[j] + (I.nalen[j] != null ? " · " + fmt(I.nalen[j]) + " nt" : "") + (I.naratio[j] != null ? " · ratio 10^" + I.naratio[j] : ""));
+    kv(dl, "Missing dims", I.nmiss[j]);
+    card.appendChild(dl);
+    const acts = el("div", "acts");
+    const mk = (t, f, p) => { const b = el("button", p ? "primary" : null, t); b.type = "button"; b.addEventListener("click", f); acts.appendChild(b); };
+    if (S.mode !== "try") mk("Highlight this protein", () => setText(I.uni[j] || I.name[j]));
+    if (S.mode !== "try") mk("Highlight this paper", () => setText(I.paper[j]));
+    if (S.mode !== "try" && I.T[j] != null) mk("Same temperature ±2 °C", () => { $("tMin").value = I.T[j] - 2; $("tMax").value = I.T[j] + 2; $("fTS").value = "any"; readControls(); });
+    if (S.pin >= 0) mk(S.mode === "try" ? "Back to results" : "Unpin", () => { S.pin = -1; refreshLight(); });
+    card.appendChild(acts);
+  }
+  function setText(t) { $("fText").value = t; readControls(); }
+
+  // ---------- wiring ----------
+  function readControls() {
+    S.lens = $("lens").value;
+    const v = $("colorby").value.split(":"); const nb = [v[0], v[1]];
+    if (nb[0] !== S.by[0] || nb[1] !== S.by[1]) { S.by = nb; S.hidden = new Set(); }
+    S.showBin = $("showBin").checked; S.showCsat = $("showCsat").checked; S.na = $("fNA").value; S.ts = $("fTS").value; S.csat = $("fCsat").value;
+    const a = parseFloat($("tMin").value), b = parseFloat($("tMax").value); S.tmin = isNaN(a) ? null : a; S.tmax = isNaN(b) ? null : b;
+    S.text = $("fText").value; S.psize = parseFloat($("psize").value); S.style = $("mapstyle").value; S.outline = $("outline").value;
+    refresh();
+  }
+  function refresh() { applyFilters(); computeColors(); buildLegend(); buildCard(); render(); }
+  function refreshLight() { buildCard(); render(); }
+  function fit() { S.k = 1; S.tx = 0; S.ty = 0; render(); }
+  function resetAll() {
+    ["fNA", "fTS", "fCsat"].forEach(id => $(id).value = "any"); $("tMin").value = ""; $("tMax").value = ""; $("fText").value = "";
+    $("showBin").checked = true; $("showCsat").checked = true; $("psize").value = "3.5"; S.pin = -1; S.hover = -1; S.hidden = new Set(); S.k = 1; S.tx = 0; S.ty = 0; readControls();
+  }
+  // ---------- Highlight tool entries ----------
+  const toolIdx = id => D.tools ? D.tools.list.findIndex(t => t.id === id) : -1;
+  function populateHL() {
+    const sel = $("hl"); sel.textContent = "";
+    const none = el("option", null, "None"); none.value = ""; sel.appendChild(none);
+    const groups = new Map();
+    D.tools.list.forEach(t => {
+      let g = groups.get(t.group); if (!g) { g = document.createElement("optgroup"); g.label = t.group; groups.set(t.group, g); sel.appendChild(g); }
+      const o = el("option", null, t.label + (t.kind === "prot" ? " (" + t.n_prot.toLocaleString("en-US") + " proteins)" : " (" + t.n_rec.toLocaleString("en-US") + ")")); o.value = t.id; g.appendChild(o);
+    });
+  }
+  function updateHLNote() {
+    const box = $("hlnote"); box.textContent = "";
+    const t = S.hl ? D.tools.list[toolIdx(S.hl)] : null;
+    box.hidden = !t; if (!t) return;
+    const light = t.kind === "prot", dot = el("i"); dot.style.background = t.color; dot.style.opacity = light ? "0.5" : "1";
+    box.className = "hlnote" + (light ? " light" : "");
+    box.append(dot, el("b", null, t.label), el("span", null, light ? t.n_prot.toLocaleString("en-US") + " proteins · " + t.n_rec.toLocaleString("en-US") + " records (light dots)" : t.n_rec.toLocaleString("en-US") + " records highlighted"));
+    if (light) box.appendChild(el("span", "badge", "no conditions"));
+    box.appendChild(el("p", null, t.note));
+  }
+  function setHighlight(id, fromTry) {
+    S.hl = id || ""; $("hl").value = S.hl; updateHLNote();
+    if (tryApi && !fromTry) tryApi.setTool(S.hl);
+    render();
+  }
+  // 带条件的工具：条目用饱和色点 + 外圈；只有蛋白的：同一蛋白的所有记录用浅色点，不画外圈
+  function drawHighlight(base) {
+    if (!S.hl || !TM) return;
+    const t = toolIdx(S.hl), T = D.tools.list[t], bit = 1 << t, light = T.kind === "prot", rc = D.cat.readout_class.codes;
+    ctx.globalAlpha = light ? 0.4 : 0.58; ctx.fillStyle = css("--canvas"); ctx.fillRect(0, 0, W, H);
+    const nm = T.n_rec, r0 = base * (light ? 1.2 : nm < 100 ? 2.6 : nm < 600 ? 1.9 : 1.5);
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      if (!vis[i] || !(TM[i] & bit)) continue;
+      const x = sx[i], y = sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue;
+      const r = rc[i] !== binLv ? r0 * 1.5 : r0; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU);
+    }
+    if (light) { ctx.fillStyle = rgb(tintOf(toRGB(T.color))); ctx.globalAlpha = 0.9; ctx.fill(); ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6 * dpr; ctx.strokeStyle = T.color; ctx.stroke(); }
+    else { ctx.fillStyle = T.color; ctx.globalAlpha = 0.95; ctx.fill(); ctx.globalAlpha = 1; ctx.lineWidth = dpr; ctx.strokeStyle = css("--canvas"); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+
+  // ---------- Try your own experiment: star, rings, mode switch ----------
+  const LENS_DIST = { tsne_full: "full", umap_full: "full", umap_prot: "prot", umap_cond: "cond", umap_fullM: "fullM" };
+  function tryGeom() {
+    const R = S.tryRes; if (!R) return null;
+    const dl = LENS_DIST[S.lens] || "full", dist = R.dist[dl], e = D.emb[S.lens], nn = R.nn[dl];
+    let sw = 0, x = 0, y = 0;
+    for (const j of nn.slice(0, 8)) { const w = 1 / (dist[j] + 0.02); sw += w; x += w * e[0][j]; y += w * e[1][j]; }
+    x /= sw; y /= sw;
+    let v = 0; for (const j of nn) v += (e[0][j] - x) * (e[0][j] - x) + (e[1][j] - y) * (e[1][j] - y);
+    return { x, y, nn, spread: Math.sqrt(v / nn.length) };
+  }
+  function drawStar(cx, cy, R) {
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? R * 0.45 : R; ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
+    ctx.closePath(); ctx.lineJoin = "round";
+    ctx.lineWidth = 4.5 * dpr; ctx.strokeStyle = css("--canvas"); ctx.stroke();
+    ctx.fillStyle = "#E4007C"; ctx.fill(); ctx.lineWidth = 1.2 * dpr; ctx.strokeStyle = css("--ink"); ctx.stroke();
+  }
+  function drawTry(g, base) {
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, px = (pad + g.x * w) * S.k + S.tx, py = (pad + g.y * h) * S.k + S.ty;
+    ctx.strokeStyle = css("--ink"); ctx.lineWidth = dpr; ctx.globalAlpha = 0.25; ctx.beginPath();
+    for (const j of g.nn) { if (!vis[j]) continue; ctx.moveTo(px, py); ctx.lineTo(sx[j], sy[j]); }
+    ctx.stroke(); ctx.lineWidth = 1.5 * dpr;
+    g.nn.forEach((j, r) => { if (!vis[j]) return; ctx.globalAlpha = r < 3 ? 0.95 : 0.6; ctx.beginPath(); ctx.arc(sx[j], sy[j], base * 2.1 + (r < 3 ? 2.5 : 1) * dpr, 0, TAU); ctx.stroke(); });
+    ctx.globalAlpha = 1; drawStar(px, py, 11 * dpr);
+  }
+  let tryApi = null;
+  function b64ToBuf(b) { const bin = atob(b), n = bin.length, u = new Uint8Array(n); for (let i = 0; i < n; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
+  function showRecord(j) { S.pin = j; S.hover = j; buildCard(); render(); }
+  function setTryResult(res) { S.tryRes = res; render(); }
+  function ensureTry() {
+    if (tryApi) return tryApi;
+    const X = D.space;
+    const SP = new RecordsSpace.Space({ params: X.params, recordsMeta: X.recordsMeta, recordsBuf: b64ToBuf(X.recordsB64), seqsMeta: X.seqsMeta, seqsBuf: b64ToBuf(X.seqsB64), approx: X.approx, coverage: X.coverage });
+    tryApi = initTryPanel({ D, I, SP, CP: CondParser, $, el, showRecord, fmt, setTryResult, setHighlight });
+    tryApi.setTool(S.hl);
+    return tryApi;
+  }
+  function setMode(m) {
+    S.mode = m;
+    $("layout").classList.toggle("try-mode", m === "try");
+    $("rail").hidden = m === "try"; $("tryPane").hidden = m !== "try";
+    $("modeExplore").classList.toggle("on", m === "explore"); $("modeTry").classList.toggle("on", m === "try");
+    $("modeExplore").setAttribute("aria-pressed", String(m === "explore")); $("modeTry").setAttribute("aria-pressed", String(m === "try"));
+    if (m === "try") { resetAll(); ensureTry(); }
+    resize(); refresh();
+  }
+
+  function init() {
+    const lens = $("lens"); Object.keys(D.emb).forEach(k => { const o = el("option", null, D.emb_labels[k]); o.value = k; lens.appendChild(o); });
+    lens.value = S.lens;
+    const cb = $("colorby");
+    GROUPS.forEach(([g, items]) => { const og = document.createElement("optgroup"); og.label = g; items.forEach(([kind, key]) => { const o = el("option", null, nameOf(kind, key)); o.value = kind + ":" + key; og.appendChild(o); }); cb.appendChild(og); });
+    cb.value = "cat:protein";
+    const m = D.meta;
+    $("sub").textContent = m.n.toLocaleString("en-US") + " experiments from " + m.n_papers + " papers and datasets · " + m.n_binary.toLocaleString("en-US") + " binary + " + m.n_csat.toLocaleString("en-US") + " csat records";
+    ["lens", "colorby", "mapstyle", "outline", "showBin", "showCsat", "fNA", "fTS", "fCsat", "tMin", "tMax", "fText", "psize"].forEach(id => { $(id).addEventListener(id === "fText" || id === "tMin" || id === "tMax" || id === "psize" ? "input" : "change", readControls); });
+    $("reset").addEventListener("click", resetAll);
+    $("modeExplore").addEventListener("click", () => setMode("explore"));
+    $("modeTry").addEventListener("click", () => setMode("try"));
+    if (D.tools) { populateHL(); $("hl").addEventListener("change", () => setHighlight($("hl").value)); } else $("hl").parentElement.hidden = true;
+    $("zin").addEventListener("click", () => zoomAt(W / 2, H / 2, 1.4));
+    $("zout").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.4));
+    $("zfit").addEventListener("click", fit);
+    resize(); refresh();
+    new ResizeObserver(() => { resize(); render(); }).observe($("wrap"));
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
+    new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  }
+
+  // ---------- pointer: hover, pin, pan, zoom ----------
+  function zoomAt(cx, cy, f) {
+    const k2 = clamp(S.k * f, 1, 60), r = k2 / S.k;
+    S.tx = cx - (cx - S.tx) * r; S.ty = cy - (cy - S.ty) * r; S.k = k2; render();
+  }
+  function nearest(px, py) {
+    let best = -1, bd = (14 * dpr) * (14 * dpr);
+    for (let i = 0; i < N; i++) { if (!vis[i]) continue; const dx = sx[i] - px, dy = sy[i] - py, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
+    return best;
+  }
+  const ptrs = new Map(); let drag = null, pinch = null;
+  const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; };
+  cv.addEventListener("pointerdown", e => {
+    cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, pos(e));
+    if (ptrs.size === 1) drag = { x: pos(e)[0], y: pos(e)[1], tx: S.tx, ty: S.ty, moved: 0 };
+    if (ptrs.size === 2) { const [a, b] = Array.from(ptrs.values()); pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]) }; drag = null; }
+  });
+  cv.addEventListener("pointermove", e => {
+    const p = pos(e);
+    if (ptrs.has(e.pointerId)) ptrs.set(e.pointerId, p);
+    if (pinch && ptrs.size === 2) {
+      const [a, b] = Array.from(ptrs.values()), d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      zoomAt((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, d / pinch.d); pinch.d = d; return;
+    }
+    if (drag && e.buttons) {
+      const dx = p[0] - drag.x, dy = p[1] - drag.y; drag.moved = Math.max(drag.moved, Math.hypot(dx, dy));
+      if (drag.moved > 4 * dpr) { S.tx = drag.tx + dx; S.ty = drag.ty + dy; render(); }
+      return;
+    }
+    const j = nearest(p[0], p[1]);
+    if (j !== S.hover) { S.hover = j; if (S.pin < 0 && S.mode !== "try") buildCard(); render(); }
+  });
+  const up = e => {
+    if (drag && drag.moved <= 4 * dpr && ptrs.size === 1) {
+      const p = pos(e), j = nearest(p[0], p[1]); S.pin = j; S.hover = j; buildCard(); render();
+    }
+    ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = null; if (ptrs.size === 0) drag = null;
+  };
+  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+  cv.addEventListener("pointerleave", () => { if (S.hover >= 0 && !ptrs.size) { S.hover = -1; if (S.pin < 0) buildCard(); render(); } });
+  cv.addEventListener("wheel", e => { e.preventDefault(); const p = pos(e); zoomAt(p[0], p[1], e.deltaY < 0 ? 1.18 : 1 / 1.18); }, { passive: false });
+  cv.addEventListener("dblclick", fit);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && S.pin >= 0) { S.pin = -1; refreshLight(); } });
+  init();
+})();
+</script>
