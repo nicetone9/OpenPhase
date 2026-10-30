@@ -173,7 +173,26 @@ def main():
                      "seqsB64": b64(f"{XP}/seqs.bin"), "approx": json.load(open(f"{XP}/approx.json")), "coverage": json.load(open(f"{XP}/coverage.json")),
                      "exampleDefs": json.load(open(f"{EXP}/examples/example_defs.json"))}
     data["tools"] = json.load(open(f"{EXP}/tools_data.json"))
-    assert len(data["tools"]["mask"]) == n
+    assert len(data["tools"]["mask_lo"]) == n
+    # 蛋白宇宙：没有条件、只有蛋白的条目（rs13 由 Colab 的 rs12 输出整理）；记录在这个透镜里的位置 = 它的数据集序列的位置
+    up = f"{EXP}/universe_data.json"
+    if os.path.exists(up):
+        U = json.load(open(up))
+        raw = base64.b64decode(U["xyds"])
+        q = struct.unpack("<" + "H" * (len(raw) // 2), raw)
+        xs, ys, seen = [], [], Counter()
+        for x in rows:
+            sr = int(float(x["seq_row"])) if x["seq_row"] not in ("", None) else -1
+            if 0 <= sr < U["ds_n"]:
+                r_ = seen[sr]; seen[sr] += 1                      # 同一蛋白的第 r_ 条记录：向日葵排布，半径 ∝ √r_，只为让重叠的点散成一小团
+                rad, ang = 0.0017 * math.sqrt(r_), r_ * 2.399963229728653
+                xs.append(round(min(max(q[2 * sr] / 65535 + rad * math.cos(ang), 0.0), 1.0), 4)); ys.append(round(min(max(q[2 * sr + 1] / 65535 + rad * math.sin(ang), 0.0), 1.0), 4))
+            else:
+                xs.append(-1); ys.append(-1)
+        data["emb"]["umap_universe"] = [xs, ys]
+        data["emb_labels"]["umap_universe"] = "Protein universe (UMAP)"
+        data["universe"] = U
+        print("universe proteins", U["n"], "| records placed", sum(1 for v in xs if v >= 0))
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     def js(name):

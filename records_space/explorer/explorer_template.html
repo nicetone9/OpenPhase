@@ -137,6 +137,11 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
 .tsec.nocond:focus-within .fld, .tsec.nocond:focus-within textarea{ opacity:1; }
 .entryrow{ display:flex; flex-direction:column; gap:6px; }
 .entryinfo{ font-size:0.78rem; color:var(--mute); padding:6px 8px; border-left:4px solid var(--hl, var(--line)); background:var(--mid); border-radius:6px; }
+.glyphkey{ display:flex; flex-wrap:wrap; gap:4px 18px; padding:2px 6px; font-size:0.76rem; color:var(--mute); }
+.glyphkey span{ display:inline-flex; align-items:center; gap:6px; }
+.glyphkey i{ width:11px; height:11px; border-radius:50%; box-sizing:border-box; flex:none; }
+.g-fill{ background:var(--accent); border:1px solid var(--canvas); } .g-ring{ border:1.5px solid var(--neutral2); }
+.hlnote button{ font-size:0.74rem; padding:2px 9px; }
 </style>
 
 <div class="app">
@@ -181,6 +186,7 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
         <div class="count" id="count"></div>
       </div>
       <div class="hlnote" id="hlnote" hidden></div>
+      <div class="glyphkey" id="glyphkey" hidden><span><i class="g-fill"></i> protein with conditions (a record)</span><span><i class="g-ring"></i> protein without conditions (tool entry only)</span></div>
       <section class="legend" id="legend" aria-label="Legend"></section>
     </main>
     <section class="card" id="card" aria-live="polite"></section>
@@ -195,7 +201,16 @@ const DATA = /*__DATA__*/null;
 (function () {
   "use strict";
   const D = DATA, N = D.n, I = D.info;
-  const TM = D.tools ? Uint32Array.from(D.tools.mask) : null;
+  const TM0 = D.tools ? Uint32Array.from(D.tools.mask_lo) : null, TM1 = D.tools ? Uint32Array.from(D.tools.mask_hi) : null;
+  const inTool = (i, t) => ((t < 32 ? TM0[i] >>> t : TM1[i] >>> (t - 32)) & 1) === 1;
+  let UV = null;   // 蛋白宇宙：各工具提到的、没有条件的蛋白（位置、嵌入、名称、位掩码）
+  if (D.universe) {
+    const u = D.universe;
+    UV = { n: u.n, acc: u.acc, name: u.name, gene: u.gene, org: u.org || [], obs: u.obs || [], len: u.len, nn: u.nn, nncos: u.nncos, missing: u.missing, xy: new Uint16Array(b64ToBuf(u.xy)), zn: new Int8Array(b64ToBuf(u.zn)),
+      lo: new Uint32Array(b64ToBuf(u.lo)), hi: new Uint32Array(b64ToBuf(u.hi)) };
+    UV.has = (k, t) => ((t < 32 ? UV.lo[k] >>> t : UV.hi[k] >>> (t - 32)) & 1) === 1;
+    UV.sx = new Float32Array(UV.n); UV.sy = new Float32Array(UV.n);
+  }
   const $ = id => document.getElementById(id);
   const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const isDark = () => { const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
@@ -256,7 +271,7 @@ const DATA = /*__DATA__*/null;
   const nameOf = (kind, key) => kind === "cat" ? D.cat[key].label : D.cont[key].label;
 
   // ---------- state ----------
-  const S = { lens: D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0], by: ["cat", "protein"], hidden: new Set(), k: 1, tx: 0, ty: 0, hover: -1, pin: -1, psize: 3.5, style: "solid", outline: "light", hl: "",
+  const S = { lens: D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0], by: ["cat", "protein"], hidden: new Set(), k: 1, tx: 0, ty: 0, hover: -1, pin: -1, hoverU: -1, pinU: -1, psize: 3.5, style: "solid", outline: "light", hl: "",
     showBin: true, showCsat: true, na: "any", ts: "any", tmin: null, tmax: null, csat: "any", text: "", mode: "explore", tryRes: null };
   const cv = $("cv"), ctx = cv.getContext("2d");
   let W = 0, H = 0, dpr = 1;
@@ -271,9 +286,9 @@ const DATA = /*__DATA__*/null;
     const q = S.text.trim().toLowerCase();
     const rc = D.cat.readout_class.codes, na = D.cat.na_class.codes, ts = D.cat.temp_state.codes, cs = D.cat.csat_status.codes;
     const naL = D.cat.na_class.levels, tsL = D.cat.temp_state.levels, csL = D.cat.csat_status.levels;
-    const hid = S.hidden, byCodes = S.by[0] === "cat" ? D.cat[S.by[1]].codes : null;
+    const hid = S.hidden, byCodes = S.by[0] === "cat" ? D.cat[S.by[1]].codes : null, eU = S.lens === "umap_universe" ? D.emb.umap_universe[0] : null;
     for (let i = 0; i < N; i++) {
-      let ok = true;
+      let ok = !(eU && eU[i] < 0);
       const isBin = rc[i] === binLv;
       if (isBin ? !S.showBin : !S.showCsat) ok = false;
       if (ok && S.na !== "any" && naL[na[i]] !== S.na) ok = false;
@@ -547,6 +562,7 @@ const DATA = /*__DATA__*/null;
   }
   const TAU = Math.PI * 2;
   function render() {
+    $("glyphkey").hidden = !(UV && S.lens === "umap_universe");
     project();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = css("--canvas"); ctx.fillRect(0, 0, W, H);
@@ -556,6 +572,7 @@ const DATA = /*__DATA__*/null;
     ctx.globalAlpha = 0.11; ctx.fillStyle = css("--neutral2"); ctx.beginPath();
     for (const i of faded) { const x = sx[i], y = sy[i]; if (x < -6 || y < -6 || x > W + 6 || y > H + 6) continue; ctx.moveTo(x + base, y); ctx.arc(x, y, base, 0, TAU); }
     ctx.fill(); ctx.globalAlpha = 1;
+    drawUniverse(base);
     const rc = D.cat.readout_class.codes;
     for (const g of groups) {
       const neutral = g.p % 5 === 0;
@@ -579,7 +596,7 @@ const DATA = /*__DATA__*/null;
       ctx.lineWidth = 1.6 * dpr; ctx.strokeStyle = css("--ink"); ctx.stroke();
     }
     let nShown = 0; for (let i = 0; i < N; i++) nShown += vis[i];
-    $("count").textContent = nShown.toLocaleString("en-US") + " of " + N.toLocaleString("en-US") + " records" + (tg ? " · star: your experiment, rings: 15 nearest" + (tg.spread > 0.2 ? " (neighbours are scattered over the map, so the star is only a rough guide)" : "") : "");
+    $("count").textContent = nShown.toLocaleString("en-US") + " of " + N.toLocaleString("en-US") + " records" + uniCount() + (tg ? " · star: your experiment, rings: 15 nearest" + (tg.spread > 0.2 ? " (neighbours are scattered over the map, so the star is only a rough guide)" : "") : "");
   }
 
   // ---------- legend ----------
@@ -628,6 +645,8 @@ const DATA = /*__DATA__*/null;
   function kv(dl, k, v) { if (v == null || v === "") return; dl.append(el("dt", null, k), el("dd", null, String(v))); }
   function buildCard() {
     const card = $("card"); card.textContent = "";
+    const ku = S.pinU >= 0 ? S.pinU : (S.pin < 0 && S.mode !== "try" ? S.hoverU : -1);
+    if (ku >= 0 && S.pin < 0) { buildUniCard(ku); return; }
     const j = S.pin >= 0 ? S.pin : (S.mode === "try" ? -1 : S.hover);
     if (j < 0 && S.mode === "try") { if (tryApi) card.appendChild(tryApi.resultEl); return; }
     if (j < 0) {
@@ -692,7 +711,7 @@ const DATA = /*__DATA__*/null;
   function fit() { S.k = 1; S.tx = 0; S.ty = 0; render(); }
   function resetAll() {
     ["fNA", "fTS", "fCsat"].forEach(id => $(id).value = "any"); $("tMin").value = ""; $("tMax").value = ""; $("fText").value = "";
-    $("showBin").checked = true; $("showCsat").checked = true; $("psize").value = "3.5"; S.pin = -1; S.hover = -1; S.hidden = new Set(); S.k = 1; S.tx = 0; S.ty = 0; readControls();
+    $("showBin").checked = true; $("showCsat").checked = true; $("psize").value = "3.5"; S.pin = -1; S.hover = -1; S.pinU = -1; S.hoverU = -1; S.hidden = new Set(); S.k = 1; S.tx = 0; S.ty = 0; readControls();
   }
   // ---------- Highlight tool entries ----------
   const toolIdx = id => D.tools ? D.tools.list.findIndex(t => t.id === id) : -1;
@@ -702,51 +721,109 @@ const DATA = /*__DATA__*/null;
     const groups = new Map();
     D.tools.list.forEach(t => {
       let g = groups.get(t.group); if (!g) { g = document.createElement("optgroup"); g.label = t.group; groups.set(t.group, g); sel.appendChild(g); }
-      const o = el("option", null, t.label + (t.kind === "prot" ? " (" + t.n_prot.toLocaleString("en-US") + " proteins)" : " (" + t.n_rec.toLocaleString("en-US") + ")")); o.value = t.id; g.appendChild(o);
+      const o = el("option", null, t.label + (t.kind === "prot" ? " (" + (t.n_prot + (UV ? t.n_out : 0)).toLocaleString("en-US") + " proteins)" : " (" + t.n_rec.toLocaleString("en-US") + ")")); o.value = t.id; g.appendChild(o);
     });
   }
+  const uniN = new Map();
+  function uniMembers(ti) { let n = uniN.get(ti); if (n == null) { n = 0; for (let k = 0; k < UV.n; k++) if (UV.has(k, ti)) n++; uniN.set(ti, n); } return n; }
   function updateHLNote() {
     const box = $("hlnote"); box.textContent = "";
-    const t = S.hl ? D.tools.list[toolIdx(S.hl)] : null;
+    const ti = S.hl ? toolIdx(S.hl) : -1, t = ti >= 0 ? D.tools.list[ti] : null;
     box.hidden = !t; if (!t) return;
-    const light = t.kind === "prot", dot = el("i"); dot.style.background = t.color; dot.style.opacity = light ? "0.5" : "1";
+    const light = t.kind === "prot", dot = el("i"), fmtn = n => n.toLocaleString("en-US");
+    if (light) { dot.style.border = "2px solid " + t.color; dot.style.boxSizing = "border-box"; } else dot.style.background = t.color;
     box.className = "hlnote" + (light ? " light" : "");
-    box.append(dot, el("b", null, t.label), el("span", null, light ? t.n_prot.toLocaleString("en-US") + " proteins · " + t.n_rec.toLocaleString("en-US") + " records (light dots)" : t.n_rec.toLocaleString("en-US") + " records highlighted"));
-    if (light) box.appendChild(el("span", "badge", "no conditions"));
-    box.appendChild(el("p", null, t.note));
+    box.append(dot, el("b", null, t.label));
+    if (light) {
+      const out = UV ? uniMembers(ti) : 0;
+      box.append(el("span", null, fmtn(t.n_prot) + " proteins in the map (" + fmtn(t.n_rec) + " records)" + (UV ? " · " + fmtn(out) + " more without records" + (t.n_out > out ? " (" + fmtn(t.n_out - out) + " had no UniProt sequence)" : "") : "")), el("span", "badge", "no conditions"));
+      if (UV && S.lens !== "umap_universe") { const b = el("button", null, "Show all in the protein universe"); b.type = "button"; b.addEventListener("click", () => setLens("umap_universe")); box.appendChild(b); }
+    } else box.appendChild(el("span", null, fmtn(t.n_rec) + " records highlighted"));
+    box.appendChild(el("p", null, t.note + (light ? " Rings mark proteins without conditions; filled dots are records with conditions." : "")));
   }
   function setHighlight(id, fromTry) {
-    S.hl = id || ""; $("hl").value = S.hl; updateHLNote();
+    S.hl = id || ""; $("hl").value = S.hl;
+    const t0 = S.hl ? D.tools.list[toolIdx(S.hl)] : null;
+    if (t0 && t0.kind === "prot" && UV && S.lens !== "umap_universe") { $("lens").value = "umap_universe"; readControls(); }   // 只有蛋白的工具：切到蛋白宇宙才看得全
+    updateHLNote();
     if (tryApi && !fromTry) tryApi.setTool(S.hl);
     render();
   }
-  // 带条件的工具：条目用饱和色点 + 外圈；只有蛋白的：同一蛋白的所有记录用浅色点，不画外圈
+  function setLens(l) { if (!D.emb[l]) return; $("lens").value = l; readControls(); updateHLNote(); }
+  // 有条件 = 实心点（带外圈）；只有蛋白 = 空心圈。带条件的工具高亮它的记录；只有蛋白的工具高亮同一蛋白的记录和蛋白宇宙里的成员
   function drawHighlight(base) {
-    if (!S.hl || !TM) return;
-    const t = toolIdx(S.hl), T = D.tools.list[t], bit = 1 << t, light = T.kind === "prot", rc = D.cat.readout_class.codes;
+    if (!S.hl || !TM0) return;
+    const t = toolIdx(S.hl), T = D.tools.list[t], light = T.kind === "prot", rc = D.cat.readout_class.codes;
     ctx.globalAlpha = light ? 0.4 : 0.58; ctx.fillStyle = css("--canvas"); ctx.fillRect(0, 0, W, H);
-    const nm = T.n_rec, r0 = base * (light ? 1.2 : nm < 100 ? 2.6 : nm < 600 ? 1.9 : 1.5);
+    const nm = T.n_rec, r0 = base * (light ? 1.45 : nm < 100 ? 2.6 : nm < 600 ? 1.9 : 1.5);
     ctx.beginPath();
     for (let i = 0; i < N; i++) {
-      if (!vis[i] || !(TM[i] & bit)) continue;
+      if (!vis[i] || !inTool(i, t)) continue;
       const x = sx[i], y = sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue;
       const r = rc[i] !== binLv ? r0 * 1.5 : r0; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU);
     }
-    if (light) { ctx.fillStyle = rgb(tintOf(toRGB(T.color))); ctx.globalAlpha = 0.9; ctx.fill(); ctx.globalAlpha = 0.45; ctx.lineWidth = 0.6 * dpr; ctx.strokeStyle = T.color; ctx.stroke(); }
+    if (light) { ctx.lineWidth = 1.2 * dpr; ctx.strokeStyle = T.color; ctx.globalAlpha = 0.9; ctx.stroke(); }
     else { ctx.fillStyle = T.color; ctx.globalAlpha = 0.95; ctx.fill(); ctx.globalAlpha = 1; ctx.lineWidth = dpr; ctx.strokeStyle = css("--canvas"); ctx.stroke(); }
+    if (light && UV && S.lens === "umap_universe") {
+      const r1 = Math.max(1.7 * dpr, base * 0.95);
+      ctx.beginPath();
+      for (let k = 0; k < UV.n; k++) { if (!UV.has(k, t)) continue; const x = UV.sx[k], y = UV.sy[k]; if (x < -6 || y < -6 || x > W + 6 || y > H + 6) continue; ctx.moveTo(x + r1, y); ctx.arc(x, y, r1, 0, TAU); }
+      ctx.lineWidth = dpr; ctx.strokeStyle = T.color; ctx.globalAlpha = 0.85; ctx.stroke();
+    }
     ctx.globalAlpha = 1;
   }
 
+  // ---------- Protein universe: proteins the tools mention that have no records (hollow rings) ----------
+  const uniCount = () => (UV && S.lens === "umap_universe" ? " · " + UV.n.toLocaleString("en-US") + " proteins without conditions (rings)" : "");
+  function projectU() {
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, k = S.k, tx = S.tx, ty = S.ty, xy = UV.xy, f = 1 / 65535;
+    for (let j = 0; j < UV.n; j++) { UV.sx[j] = (pad + xy[2 * j] * f * w) * k + tx; UV.sy[j] = (pad + xy[2 * j + 1] * f * h) * k + ty; }
+  }
+  function drawUniverse(base) {
+    if (!UV || S.lens !== "umap_universe") return;
+    projectU();
+    const r = Math.max(1.2 * dpr, base * 0.62);
+    ctx.beginPath();
+    for (let j = 0; j < UV.n; j++) { const x = UV.sx[j], y = UV.sy[j]; if (x < -4 || y < -4 || x > W + 4 || y > H + 4) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); }
+    ctx.lineWidth = 0.7 * dpr; ctx.strokeStyle = css("--neutral2"); ctx.globalAlpha = S.hl ? 0.22 : 0.45; ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  function nearestU(px, py) {
+    if (!UV || S.lens !== "umap_universe") return -1;
+    let best = -1, bd = (11 * dpr) * (11 * dpr);
+    for (let j = 0; j < UV.n; j++) { const dx = UV.sx[j] - px, dy = UV.sy[j] - py, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = j; } }
+    return best;
+  }
+  function buildUniCard(k) {
+    const card = $("card"); card.textContent = "";
+    card.appendChild(el("h2", null, S.pinU >= 0 ? "Pinned protein (no conditions)" : "Protein under cursor (no conditions)"));
+    card.appendChild(el("h3", null, (UV.name[k] || UV.acc[k]) + " · " + UV.acc[k]));
+    const tags = el("div"); tags.style.margin = "8px 0 0"; tags.append(el("span", "tag", "protein only"), el("span", "badge", "no conditions")); if (UV.gene[k]) tags.appendChild(el("span", "tag", UV.gene[k])); card.appendChild(tags);
+    const dl = el("dl", "kv"); kv(dl, "Length", UV.len[k] + " aa"); if (UV.org[k]) kv(dl, "Organism", UV.org[k]);
+    const names = []; D.tools.list.forEach((tl, ti) => { if (tl.kind === "prot" && UV.has(k, ti)) names.push(tl.label); });
+    kv(dl, "In", names.length ? names.slice(0, 6).join(" · ") + (names.length > 6 ? " · +" + (names.length - 6) : "") : "");
+    if (UV.obs[k]) kv(dl, "Entry", "No longer in UniProtKB; sequence taken from UniParc");
+    const ns = D.space.seqsMeta.seqs[UV.nn[k]];
+    if (ns) { const nn_ = (ns.name && ns.name !== "unnamed") ? ns.name : (ns.uniprot || "unnamed"); kv(dl, "Closest protein with records", (nn_.length > 70 ? nn_.slice(0, 69).trimEnd() + "…" : nn_) + " · cosine " + (UV.nncos[k] / 100).toFixed(2)); }
+    card.appendChild(dl);
+    const acts = el("div", "acts"); const mk = (tx, f, pr) => { const b = el("button", pr ? "primary" : null, tx); b.type = "button"; b.addEventListener("click", f); acts.appendChild(b); };
+    mk("Use in Try your own experiment", () => { S.pinU = -1; setMode("try"); if (tryApi) tryApi.loadUniverse(k); }, true);
+    if (S.pinU >= 0) mk("Unpin", () => { S.pinU = -1; refreshLight(); });
+    card.appendChild(acts);
+  }
+
   // ---------- Try your own experiment: star, rings, mode switch ----------
-  const LENS_DIST = { tsne_full: "full", umap_full: "full", umap_prot: "prot", umap_cond: "cond", umap_fullM: "fullM" };
+  const LENS_DIST = { tsne_full: "full", umap_full: "full", umap_prot: "prot", umap_cond: "cond", umap_fullM: "fullM", umap_universe: "prot" };
   function tryGeom() {
     const R = S.tryRes; if (!R) return null;
     const dl = LENS_DIST[S.lens] || "full", dist = R.dist[dl], e = D.emb[S.lens], nn = R.nn[dl];
+    const E = tryApi && tryApi.state.entry;
+    if (E && E.u >= 0 && UV && S.lens === "umap_universe") return { x: UV.xy[2 * E.u] / 65535, y: UV.xy[2 * E.u + 1] / 65535, nn, spread: 0, own: true };   // 它自己的位置
     let sw = 0, x = 0, y = 0;
-    for (const j of nn.slice(0, 8)) { const w = 1 / (dist[j] + 0.02); sw += w; x += w * e[0][j]; y += w * e[1][j]; }
+    for (const j of nn.slice(0, 8)) { if (e[0][j] < 0) continue; const w = 1 / (dist[j] + 0.02); sw += w; x += w * e[0][j]; y += w * e[1][j]; }
+    if (!sw) return null;
     x /= sw; y /= sw;
-    let v = 0; for (const j of nn) v += (e[0][j] - x) * (e[0][j] - x) + (e[1][j] - y) * (e[1][j] - y);
-    return { x, y, nn, spread: Math.sqrt(v / nn.length) };
+    let v = 0, c = 0; for (const j of nn) { if (e[0][j] < 0) continue; v += (e[0][j] - x) * (e[0][j] - x) + (e[1][j] - y) * (e[1][j] - y); c++; }
+    return { x, y, nn, spread: Math.sqrt(v / Math.max(c, 1)) };
   }
   function drawStar(cx, cy, R) {
     ctx.beginPath();
@@ -765,13 +842,13 @@ const DATA = /*__DATA__*/null;
   }
   let tryApi = null;
   function b64ToBuf(b) { const bin = atob(b), n = bin.length, u = new Uint8Array(n); for (let i = 0; i < n; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
-  function showRecord(j) { S.pin = j; S.hover = j; buildCard(); render(); }
+  function showRecord(j) { S.pin = j; S.hover = j; S.pinU = -1; buildCard(); render(); }
   function setTryResult(res) { S.tryRes = res; render(); }
   function ensureTry() {
     if (tryApi) return tryApi;
     const X = D.space;
     const SP = new RecordsSpace.Space({ params: X.params, recordsMeta: X.recordsMeta, recordsBuf: b64ToBuf(X.recordsB64), seqsMeta: X.seqsMeta, seqsBuf: b64ToBuf(X.seqsB64), approx: X.approx, coverage: X.coverage });
-    tryApi = initTryPanel({ D, I, SP, CP: CondParser, $, el, showRecord, fmt, setTryResult, setHighlight });
+    tryApi = initTryPanel({ D, I, SP, CP: CondParser, $, el, showRecord, fmt, setTryResult, setHighlight, UV });
     tryApi.setTool(S.hl);
     return tryApi;
   }
@@ -836,12 +913,12 @@ const DATA = /*__DATA__*/null;
       if (drag.moved > 4 * dpr) { S.tx = drag.tx + dx; S.ty = drag.ty + dy; render(); }
       return;
     }
-    const j = nearest(p[0], p[1]);
-    if (j !== S.hover) { S.hover = j; if (S.pin < 0 && S.mode !== "try") buildCard(); render(); }
+    const j = nearest(p[0], p[1]), ju = j < 0 ? nearestU(p[0], p[1]) : -1;
+    if (j !== S.hover || ju !== S.hoverU) { S.hover = j; S.hoverU = ju; if (S.pin < 0 && S.pinU < 0 && S.mode !== "try") buildCard(); render(); }
   });
   const up = e => {
     if (drag && drag.moved <= 4 * dpr && ptrs.size === 1) {
-      const p = pos(e), j = nearest(p[0], p[1]); S.pin = j; S.hover = j; buildCard(); render();
+      const p = pos(e), j = nearest(p[0], p[1]); S.pin = j; S.hover = j; S.pinU = j < 0 ? nearestU(p[0], p[1]) : -1; buildCard(); render();
     }
     ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = null; if (ptrs.size === 0) drag = null;
   };
@@ -849,7 +926,7 @@ const DATA = /*__DATA__*/null;
   cv.addEventListener("pointerleave", () => { if (S.hover >= 0 && !ptrs.size) { S.hover = -1; if (S.pin < 0) buildCard(); render(); } });
   cv.addEventListener("wheel", e => { e.preventDefault(); const p = pos(e); zoomAt(p[0], p[1], e.deltaY < 0 ? 1.18 : 1 / 1.18); }, { passive: false });
   cv.addEventListener("dblclick", fit);
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && S.pin >= 0) { S.pin = -1; refreshLight(); } });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && (S.pin >= 0 || S.pinU >= 0)) { S.pin = -1; S.pinU = -1; refreshLight(); } });
   init();
 })();
 </script>

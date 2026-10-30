@@ -11,7 +11,8 @@ function initTryPanel(ctx) {
   const NA_TYPE = [["", "not given"], ["polyU", "polyU"], ["polyA", "polyA"], ["polyC", "polyC"], ["polyG", "polyG"], ["tRNA", "tRNA"], ["total_RNA", "total RNA"], ["mRNA", "mRNA"], ["G4", "G-quadruplex"], ["ssDNA", "ssDNA"], ["dsDNA", "dsDNA"], ["plasmid_or_long_DNA", "plasmid / long DNA"]];
   const ADD_LAB = { reducing: "DTT / TCEP / BME", chelator: "EDTA / EGTA", glycerol: "glycerol", nucleotide: "ATP / NTP", denaturant: "urea / GdnHCl / TMAO", hexanediol: "1,6-hexanediol", detergent: "detergent", protein_add: "BSA / other protein", polyanion: "heparin / polyanion", metal: "metal ion", dye_probe: "dye / probe" };
   const blank = () => ({ temp: "", rt: false, pH: "", conc: "", buf: "", NaCl: "", KCl: "", MgCl2: "", crowd: "", pct: "", na: "none", naType: "", naLen: "", naConc: "" });
-  const TOOLS = D.tools ? D.tools.list : [], ENTRIES = D.tools ? D.tools.entries : {};
+  const TOOLS = D.tools ? D.tools.list : [], ENTRIES = D.tools ? D.tools.entries : {}, UV = ctx.UV || null;
+  const uniCount = (ti) => { let n = 0; if (UV) for (let k = 0; k < UV.n; k++) if (UV.has(k, ti)) n++; return n; };
   const T = { entry: null, condEdited: false, seq: "", text: "", unseen: false, approx: false, dirty: false, seqInfo: null, zn: null, similar: [], exactIdx: -1, result: null, add: new Set(), f: blank() };
   const examples = D.space.exampleDefs, exacts = examples.filter((e) => e.zn_exact);
   const root = $("tryPane"), out = el("div", "tres"), X = {};
@@ -35,7 +36,7 @@ function initTryPanel(ctx) {
   unLab.append(X.unseen, document.createTextNode(" Leave this protein and its relatives out (treat as unseen)"));
   X.tool = mkSelect("tToolSel", [["", "Or load an entry from a tool…"]]); X.tool.setAttribute("aria-label", "Tool");
   { const groups = {}; for (const t of TOOLS) (groups[t.group] = groups[t.group] || []).push(t);
-    for (const g of Object.keys(groups)) { const og = document.createElement("optgroup"); og.label = g; for (const t of groups[g]) { const o = el("option", null, t.label + " (" + t.n_ent.toLocaleString("en-US") + (t.kind === "prot" ? " proteins)" : " entries)")); o.value = t.id; og.appendChild(o); } X.tool.appendChild(og); } }
+    for (const g of Object.keys(groups)) { const og = document.createElement("optgroup"); og.label = g; for (const t of groups[g]) { const o = el("option", null, t.label + " (" + (t.n_ent + (t.kind === "prot" ? uniCount(TOOLS.indexOf(t)) : 0)).toLocaleString("en-US") + (t.kind === "prot" ? " proteins)" : " entries)")); o.value = t.id; og.appendChild(o); } X.tool.appendChild(og); } }
   X.entry = el("input"); X.entry.type = "text"; X.entry.id = "tEntry"; X.entry.autocomplete = "off"; X.entry.spellcheck = false; X.entry.placeholder = "Type to search this tool's entries"; X.entry.setAttribute("list", "tEntryList"); X.entry.hidden = true;
   X.entryList = el("datalist"); X.entryList.id = "tEntryList"; X.entryNote = el("p", "muted");
   X.entryRow = el("div", "entryrow"); X.entryRow.append(X.tool, X.entry, X.entryList, X.entryNote);
@@ -89,6 +90,16 @@ function initTryPanel(ctx) {
   function sequenceStep() {
     const box = X.seqInfo; box.textContent = "";
     T.zn = null; T.similar = []; T.exactIdx = -1; T.seqInfo = null;
+    if (T.entry && T.entry.u >= 0) {
+      const k = T.entry.u, tl = TOOLS[T.entry.tool], zd = SP.zdim, z = new Float32Array(zd); let n = 0;
+      for (let t = 0; t < zd; t++) { z[t] = UV.zn[k * zd + t] / 127; n += z[t] * z[t]; }
+      n = Math.sqrt(n) || 1; for (let t = 0; t < zd; t++) z[t] /= n;
+      T.zn = z; T.seqInfo = { cls: "novel", length: UV.len[k], mw: null, seq: null, exact: -1, similarSeqs: [] };
+      const ns = SP.seqMeta[UV.nn[k]], nname = ns ? (ns.name && ns.name !== "unnamed" ? ns.name : (ns.uniprot || "unnamed construct")) : "";
+      box.appendChild(el("p", "muted", (UV.name[k] || UV.acc[k]) + " (" + UV.acc[k] + ") · " + UV.len[k] + " aa · from a " + tl.label + " entry."));
+      box.appendChild(el("p", "muted", "No record in this map has this protein. Protein part: its ESMC embedding stored in this page (8-bit)" + (ns ? "; the closest protein with records is " + nname + " (cosine " + (UV.nncos[k] / 100).toFixed(2) + ")." : ".")));
+      return;
+    }
     if (T.entry) {
       const p = SP.rec.pidx[T.entry.rec], tl = TOOLS[T.entry.tool];
       if (p >= 0) {
@@ -185,7 +196,7 @@ function initTryPanel(ctx) {
   function compute() {
     const spec = buildSpec(), q = SP.buildQuery(spec), dist = SP.distances(q);
     let exclude = T.unseen ? SP.excludeMask(T.similar.concat(T.exactIdx >= 0 ? [T.exactIdx] : [])) : null;
-    if (T.entry) { exclude = exclude || new Uint8Array(SP.N); exclude[T.entry.rec] = 1; }
+    if (T.entry && T.entry.rec >= 0) { exclude = exclude || new Uint8Array(SP.N); exclude[T.entry.rec] = 1; }
     const nn = {}; for (const lens of ["full", "prot", "cond", "fullM"]) nn[lens] = SP.nearest(dist[lens], 15, exclude);
     const mean15 = (lens) => nn[lens].reduce((a, j) => a + dist[lens][j], 0) / nn[lens].length;
     const cls = T.seqInfo ? T.seqInfo.cls : "none";
@@ -257,6 +268,7 @@ function initTryPanel(ctx) {
   };
   const labShort = (j) => (I.csat[j] ? "csat" : I.lab[j] === "phase separation" ? "PS" : I.lab[j] === "no phase separation" ? "no PS" : "");
   const condBits = (j) => [I.T[j] != null ? I.T[j] + " °C" : null, I.pH[j] != null ? "pH " + I.pH[j] : null].filter(Boolean).join(" ");
+  const uniText = (k) => (UV.name[k] || UV.acc[k]) + " · " + UV.acc[k];
   const entryText = (j, tl) => nm(j) + " · " + tagOf(j, tl) + (tl.kind === "prot" ? "" : " · " + labShort(j) + (condBits(j) ? " · " + condBits(j) : ""));
   const recLabel = (j) => { if (I.csat[j]) { const y = D.cont.y_csat.vals[j]; return "csat" + (y != null ? " " + fmt(Math.pow(10, y)) + " µM" : "") + " (" + I.csat[j] + ")"; } return I.lab[j]; };
   function fillEntryList(tid) {
@@ -264,9 +276,14 @@ function initTryPanel(ctx) {
     const tl = TOOLS.find((t) => t.id === tid); X.entry.hidden = !tl;
     if (!tl) return;
     const frag = document.createDocumentFragment();
-    for (const j of ENTRIES[tid]) { let txt = entryText(j, tl); if (entryMap.has(txt)) txt += " #" + j; entryMap.set(txt, j); const o = document.createElement("option"); o.value = txt; frag.appendChild(o); }
+    for (const j of ENTRIES[tid]) { let txt = entryText(j, tl); if (entryMap.has(txt)) txt += " #" + j; entryMap.set(txt, { rec: j }); const o = document.createElement("option"); o.value = txt; frag.appendChild(o); }
+    let nU = 0;
+    if (UV && tl.kind === "prot") {
+      const ti = TOOLS.indexOf(tl);
+      for (let k = 0; k < UV.n; k++) { if (!UV.has(k, ti)) continue; let txt = uniText(k); if (entryMap.has(txt)) txt += " #u" + k; entryMap.set(txt, { u: k }); const o = document.createElement("option"); o.value = txt; frag.appendChild(o); nU++; }
+    }
     X.entryList.appendChild(frag);
-    X.entryNote.textContent = tl.kind === "prot" ? "Proteins only: choosing one fills the protein and leaves the conditions empty." : "Choosing an entry fills the protein and its conditions.";
+    X.entryNote.textContent = tl.kind === "prot" ? "Proteins only: choosing one fills the protein and leaves the conditions empty." + (nU ? " " + nU.toLocaleString("en-US") + " of them have no record in this map (their embeddings are stored in this page)." : "") : "Choosing an entry fills the protein and its conditions.";
   }
   function setTool(id) { X.tool.value = id || ""; fillEntryList(id || ""); }
   // 记录 -> 表单：把 records.bin 里缩放过的数值还原成毫摩尔、百分比等（数据集序列不放进页面，蛋白用它的嵌入）
@@ -309,6 +326,7 @@ function initTryPanel(ctx) {
   function entryInfo() {
     const j = T.entry.rec, tl = TOOLS[T.entry.tool], d = el("div", "entryinfo");
     d.style.setProperty("--hl", tl.color);
+    if (T.entry.u >= 0) { d.append(el("b", null, tl.label + ": "), document.createTextNode("a protein-level entry with no conditions, and no record in this map has this protein. The neighbours are found from the protein alone; every condition counts as unknown, so they show which neighbourhood of the dataset it resembles, nothing more.")); return d; }
     if (tl.kind === "prot") d.append(el("b", null, tl.label + ": "), document.createTextNode("a protein-level entry with no conditions. The neighbours are found from the protein alone; every condition counts as unknown."));
     else d.append(el("b", null, "Entry from " + tl.label + ": "), document.createTextNode("dataset label " + recLabel(j) + " · " + I.paper[j] + ". This record itself is left out of the neighbours."));
     return d;
@@ -321,11 +339,21 @@ function initTryPanel(ctx) {
     T.dirty = false; seqDirty = true; textDirty = false;
     writeForm(); highlightSections(); flush();
   }
+  function loadUniverse(k, ti) {
+    if (!UV || k < 0 || k >= UV.n) return;
+    if (ti == null || ti < 0 || !UV.has(k, ti)) ti = TOOLS.findIndex((tl, i) => tl.kind === "prot" && UV.has(k, i));
+    const tl = TOOLS[ti]; if (!tl) return;
+    T.entry = { rec: -1, u: k, tool: ti }; T.condEdited = false;
+    X.ex.value = ""; X.exNote.textContent = ""; T.seq = ""; X.seq.value = ""; T.text = ""; X.text.value = ""; showRead(null);
+    T.f = blank(); T.add = new Set(); T.dirty = false; seqDirty = true; textDirty = false;
+    X.tool.value = tl.id; fillEntryList(tl.id); X.entry.value = uniText(k);
+    writeForm(); highlightSections(); flush();
+  }
   function dropEntry() { if (!T.entry) return; T.entry = null; X.entry.value = ""; highlightSections(); }
 
   // ---------------------------------------------------------------- 事件
   X.tool.addEventListener("change", () => { ctx.setHighlight(X.tool.value, true); fillEntryList(X.tool.value); });
-  X.entry.addEventListener("input", () => { const j = entryMap.get(X.entry.value); if (j != null) loadEntry(j, TOOLS.findIndex((t) => t.id === X.tool.value)); });
+  X.entry.addEventListener("input", () => { const e = entryMap.get(X.entry.value); if (!e) return; const ti = TOOLS.findIndex((t) => t.id === X.tool.value); if (e.u != null) loadUniverse(e.u, ti); else loadEntry(e.rec, ti); });
   X.seq.addEventListener("input", () => { dropEntry(); T.seq = X.seq.value; seqDirty = true; later(350); });
   X.text.addEventListener("input", () => { T.text = X.text.value; textDirty = true; later(450); });
   X.unseen.addEventListener("change", () => { T.unseen = X.unseen.checked; flush(); });
@@ -354,5 +382,5 @@ function initTryPanel(ctx) {
     try { navigator.clipboard.writeText(req).then(done, () => fallback(req)); } catch (e) { fallback(req); }
   });
   writeForm(); fillEntryList(""); flush();
-  return { load: loadExample, state: T, refresh: flush, resultEl: out, setTool, loadEntry };
+  return { load: loadExample, state: T, refresh: flush, resultEl: out, setTool, loadEntry, loadUniverse };
 }
