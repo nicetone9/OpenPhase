@@ -31,6 +31,13 @@ The map is a t-SNE of this distance (UMAP views are alternatives). The weights a
   It does **not** predict phase separation: neighbours from the same paper share the label (AUROC 0.84), neighbours from other papers and proteins barely do (0.50 with protein similarity, 0.59 with conditions only).
   New sequences get an exact ESMC embedding only when they are in the dataset or are one of the built-in examples; any other pasted sequence gets a rough in-browser approximation (composition and dipeptide regression), and the page says so.
 
+## Negatives and unlabelled proteins (`pu/`)
+
+A second page, [`pu/index.html`](pu/index.html), puts positives, negatives and unlabelled proteins in the same ESMC-600M space (no conditions anywhere):
+37,216 proteins from 28 sets (the training positives of 11 predictors, PPMC drivers and clients, the LTP and HTP benchmark sets, and the training negatives of 10 predictors and PPMC NP/ND), with a Swiss-Prot reference sample (12,000 random + 4,000 human proteins) as the unlabelled background.
+Grey and light grey-blue carry the page; colour is kept for labelled proteins (positive only, negative only, and **4,530 proteins that are positive for one tool and negative for another**). Pick a set to highlight it, show densities, search by UniProt, gene or name, and click a protein for the sets it belongs to. A ring marks proteins that also have records with conditions in the main explorer.
+Proteins were embedded as described above (UniProt, UniParc for entries that no longer exist) and laid out with UMAP; UMAP keeps neighbourhoods, not distances. The Swiss-Prot reference sample is a background, not a set of verified negatives. The set memberships come from the published training sets as collected in a benchmarking project; check each source's licence before reusing them.
+
 ## Folder
 
 ```
@@ -39,6 +46,7 @@ explorer/             page template, the three JavaScript modules (condition par
 export/               arrays the page embeds: record conditions, k-mer sketches and ESMC-derived embeddings of the dataset sequences, parameters
 scripts/              input building, page building, example and tool tables (paths are those of the original machine)
 colab/                code that ran on Colab (embeddings, distances, t-SNE/UMAP, figures, export)
+pu/                   the negatives and unlabelled proteins page (built by scripts/rs16_build_pu.py)
 figs/                 static figures of the map
 ```
 
