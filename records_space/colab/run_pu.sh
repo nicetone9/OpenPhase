@@ -1,12 +1,12 @@
 #!/bin/zsh
-# 新开 GPU 会话（A100 → L4 → T4 依次试），跑 rs15 的 PU 页地图，把输出拉回本机后停掉会话。用法：run_pu.sh <会话名> [limit]
+# 新开 GPU 会话（A100 → L4 → T4 依次试），跑 rs15 的 PU 页地图，把输出拉回本机后停掉会话。用法：[OUT_DIR=… RESUME_DIR=…] run_pu.sh <会话名> [limit]
 # colab 的输出里带会话代理令牌的 URL，所以滤掉含 colab.dev 的行。
 setopt nullglob
 S=$1; LIM=${2:-0}
 T="$(cd "$(dirname "$0")/.." && pwd)"
 WORLD="$T/../world_and_cluster_maps_2026-10-27/data"
 TASK2="$T/../task2_single_component_condition"
-L="$T/data/pu/colab_out"
+L=${OUT_DIR:-$T/data/pu/colab_out}      # 本机镜像目录；RESUME_DIR 里已有的分片和序列文件会先传上去，重跑时不再取序列、不再算嵌入
 mkdir -p $L
 for g in A100 L4 T4; do
   echo "$(date +%T) 申请 $g"
@@ -34,6 +34,7 @@ echo $LIM > /tmp/limit_$S.txt; up /tmp/limit_$S.txt /content/rs13/data/limit.txt
 up "$T/colab/rs12_universe.py" /content/rs13/code/rs12_universe.py
 up "$T/colab/rs15_pu.py" /content/rs13/code/rs15_pu.py
 up "$T/colab/drv_pu.py" /content/rs13/code/drv_pu.py
+if [ -n "$RESUME_DIR" ]; then for f in $RESUME_DIR/emb_shard_*.npz $RESUME_DIR/universe.fasta; do up "$f" /content/rs13/out/$(basename $f); done; fi
 echo "$(date +%T) 上传完成，开始运行（limit=$LIM）"
 (timeout 14400 colab exec -s $S --timeout 14000 -f "$T/colab/drv_pu.py" > $L/_exec.log 2>&1 &)
 zsh "$T/colab/mirror.sh" $S /content/rs13/out $L ALL_DONE

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""rs14（本机，纯标准库）：负例 / 未标注（PU）页的蛋白清单。
-集合：28 个——正例 16 个（11 个工具的训练正例、PPMC 的 DE/CE/C_D、LTP、HTP），负例 12 个（10 个工具的训练负例、PPMC 的 NP/ND）。
+"""rs14（本机，纯标准库）：负例 / 未标注（U）页的蛋白清单。**这一页只有负例和未标注，不放正例**（用户 10/30 说明）。
+负例集合：12 个——10 个工具的训练负例、PPMC 的 NP/ND。正例集合（11 个工具的训练正例、PPMC 的 DE/CE/C_D、LTP、HTP）只用来判断哪些蛋白不能当"未标注"，位掩码里不留正例的位。
+清单里的蛋白：在任一负例集合里的蛋白（即使它在别的工具里是正例，这一页也不标）+ 参考集里没有任何工具列出的蛋白（U）；只在正例集合里的蛋白不进这一页。
 背景（U）：world_and_cluster_maps 的 Swiss-Prot 参考集 16,000 条（跨界，已算好 ESMC-600M 第 18 层）。
 每个蛋白的嵌入来源，优先级 uni（蛋白宇宙那次 Colab 的输出）> bg（Swiss-Prot 参考集）> seqs（PPMC 全长序列）> new（还没算，要上 Colab 取序列并算）。
 输出 data/pu/：pu_manifest.tsv、pu_new_ids.tsv（rs12 的取序列与嵌入函数的输入格式）、sets.json、bg_acc.txt、seqs_rows.tsv。"""
@@ -82,11 +83,11 @@ for b, (_, _, _, _, S) in enumerate(SETS):
         mask[u] |= 1 << b
 P_BITS = sum(1 << b for b, s in enumerate(SETS) if s[2] == "P")
 N_BITS = sum(1 << b for b, s in enumerate(SETS) if s[2] == "N")
-allp = set(mask) | set(bg_row)
+allp = {u for u, m in mask.items() if m & N_BITS} | {u for u in bg_row if not (mask.get(u, 0) & (P_BITS | N_BITS))}
 rows, new_ids = [], []
 for u in sorted(allp):
-    m = mask.get(u, 0)
-    role = "U" if not m else ("C" if (m & P_BITS and m & N_BITS) else ("P" if m & P_BITS else "N"))
+    m = mask.get(u, 0) & N_BITS            # 只留负例集合的位，正例信息不进这一页
+    role = "N" if m else "U"
     if u in uni_meta:
         src, srow, nm, gn, og, ln = "uni", -1, uni_meta[u]["name"], uni_meta[u]["gene"], uni_meta[u]["organism"], uni_meta[u]["length"]
     elif u in bg_row:
@@ -107,8 +108,8 @@ with open(f"{ROOT}/data/pu/pu_manifest.tsv", "w") as f:
 with open(f"{ROOT}/data/pu/pu_new_ids.tsv", "w") as f:
     f.write("uniprot\tmask_lo\tmask_hi\n")
     for u in new_ids:
-        f.write(f"{u}\t{mask.get(u, 0)}\t0\n")
-json.dump([{"id": s[0], "label": s[1], "role": s[2], "color": s[3], "bit": b, "n": len(s[4])} for b, s in enumerate(SETS)], open(f"{ROOT}/data/pu/sets.json", "w"), ensure_ascii=False, indent=1)
+        f.write(f"{u}\t{mask.get(u, 0) & N_BITS}\t0\n")
+json.dump([{"id": s[0], "label": s[1], "role": s[2], "color": s[3], "bit": b, "n": len(s[4])} for b, s in enumerate(SETS) if s[2] == "N"], open(f"{ROOT}/data/pu/sets.json", "w"), ensure_ascii=False, indent=1)
 open(f"{ROOT}/data/pu/bg_acc.txt", "w").write("\n".join(e["acc"] for e in bg))
 print("sets", len(SETS), "| proteins", len(rows), "| roles", dict(Counter(r[4] for r in rows)), "| sources", dict(Counter(r[1] for r in rows)))
 print("new to embed:", len(new_ids), "| of which in the records space:", sum(1 for u in new_ids if u in space_ids))
