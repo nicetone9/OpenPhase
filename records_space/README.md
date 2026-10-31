@@ -38,10 +38,25 @@ A second page, [`negatives/index.html`](negatives/index.html), shows only negati
 The page is grey and light grey-blue throughout. Pick a negative set to highlight it, colour the negatives by the number of sets that list them (17,194 of them are in two or more), show densities, search by UniProt, gene or name, and click a protein for the sets it belongs to. A ring marks proteins that also have records with conditions in the main explorer.
 Proteins were embedded as described above (UniProt, UniParc for entries that no longer exist) and laid out with UMAP using only these proteins; UMAP keeps neighbourhoods, not distances. The Swiss-Prot sample is a background, not a set of verified negatives, and training negatives are mostly proteins that were not listed as phase-separating. The set memberships come from the published training sets as collected in a benchmarking project; check each source's licence before reusing them.
 
+## Site and links
+
+The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
+
+The explorer takes its starting state from the address, so a link can open it on a system or a source:
+
+| parameter | values | example |
+|---|---|---|
+| `na` | `none`, `RNA`, `DNA` | `#na=RNA` |
+| `csat` | `only` (csat records), `hide` (binary records only) | `#na=RNA&csat=hide` |
+| `hl` | a tool or database: `llpsense`, `droppler`, `rnapsec`, `llpsdb`, `phasepdb3`, `bremer`, `ausserwoger`, or a protein-only set | `#hl=rnapsec` |
+| `protein` | a protein name from the colour legend | `#protein=FUS` |
+| `q` | text for the find box | `#q=P35637` |
+| `lens` | `tsne_full`, `umap_full`, `umap_prot`, `umap_cond`, `umap_fullM`, `umap_universe` | `#lens=umap_universe` |
+
 ## Folder
 
 ```
-index.html            the explorer (built by scripts/rs05_build_explorer.py)
+index.html            the explorer (built by scripts/rs05_build_explorer.py); the site home page is ../index.html
 explorer/             page template, the three JavaScript modules (condition parser, space, panel), tool entry table, protein universe table (embeddings, names, tool masks), example definitions
 export/               arrays the page embeds: record conditions, k-mer sketches and ESMC-derived embeddings of the dataset sequences, parameters
 scripts/              input building, page building, example and tool tables (paths are those of the original machine)

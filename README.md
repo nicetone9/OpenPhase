@@ -1,7 +1,28 @@
+<p align="center">
+  <a href="https://nicetone9.github.io/OpenPhase/"><img src="assets/openphase-main.webp" alt="OpenPhase: from a system and its conditions to prediction, phase diagram and generation" width="100%"></a>
+</p>
+
+<p align="center">
+  <b><a href="https://nicetone9.github.io/OpenPhase/">Open the OpenPhase site</a></b> &nbsp;·&nbsp;
+  <a href="https://nicetone9.github.io/OpenPhase/records_space/">Records and protein universe (P)</a> &nbsp;·&nbsp;
+  <a href="https://nicetone9.github.io/OpenPhase/records_space/negatives/">Negatives and unlabelled (N + U)</a>
+</p>
+
 # OpenPhase
 
 OpenPhase: Condition-Aware Exploration of Biomolecular Phase Separation
 OpenPhase is an open-source platform and dataset designed to accelerate knowledge discovery in Liquid-Liquid Phase Separation (LLPS). It is the first condition-aware platform for system-level exploration of how environmental factors influence biomolecular phase behavior.   
+
+## 🌐 Interactive site
+
+**[nicetone9.github.io/OpenPhase](https://nicetone9.github.io/OpenPhase/)** is the home page of the OpenPhase data resources. Click a part of the system figures to open the explorer on that system; every page has a light / dark switch and runs entirely in the browser.
+
+| System | What it holds | Page |
+|---|---|---|
+| **P** | 11,439 single-protein experiment records in one map, plus 6,338 proteins that the tools list as positives but that have no record (hollow rings) | [records_space/](https://nicetone9.github.io/OpenPhase/records_space/) |
+| **N + U** | 35,107 proteins: the training negatives of ten tools and PPMC against a Swiss-Prot reference sample. No positives, no conditions | [records_space/negatives/](https://nicetone9.github.io/OpenPhase/records_space/negatives/) |
+
+Multi-protein systems (protein(2), protein(3), complexes) are shown on the home page but are not in the explorer yet. Details, data notes and licences: [`records_space/README.md`](records_space/README.md).
 
 ## 🚀 Key Features
 

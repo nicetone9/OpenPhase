@@ -76,6 +76,9 @@ canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; curs
 [hidden]{ display:none !important; }
 .count{ max-width:calc(100% - 20px); }
 .modes{ display:flex; gap:4px; margin-left:auto; }
+.theme{ padding:5px 11px; border-radius:99px; font-size:0.95rem; line-height:1; }
+.home{ font-size:0.82rem; color:var(--mute); text-decoration:none; white-space:nowrap; }
+.home:hover{ color:var(--accent); }
 .mode{ padding:5px 14px; border-radius:99px; }
 .mode.on{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
 .try{ grid-area:rail; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; min-width:0; font-size:0.85rem; }
@@ -146,13 +149,27 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
 
 <div class="app">
   <header class="top">
+    <a class="home" id="homeLink" href="../" hidden>&larr; OpenPhase</a>
     <h1>Records space</h1>
     <p class="sub" id="sub"></p>
     <div class="modes" role="group" aria-label="Mode">
       <button id="modeExplore" class="mode on" type="button" aria-pressed="true">Explore</button>
       <button id="modeTry" class="mode" type="button" aria-pressed="false">Try your own experiment</button>
     </div>
+    <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
   </header>
+  <script>
+  (function () {
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink");
+    var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    function show(t) { if (btn) { btn.textContent = t === "dark" ? "\u2600" : "\u263E"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
+    var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
+    root.setAttribute("data-theme", cur); show(cur);
+    if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
+    if (home && /github\.io$|^localhost$|^127\./.test(location.hostname)) home.hidden = false;
+  })();
+  </script>
   <div class="layout" id="layout">
     <aside class="rail" id="rail" aria-label="Controls">
       <div class="grp"><span class="lab">Show</span>
@@ -695,6 +712,26 @@ const DATA = /*__DATA__*/null;
     card.appendChild(acts);
   }
   function setText(t) { $("fText").value = t; readControls(); }
+  // 地址栏参数（目录页的链接用）：#na=RNA|DNA|none  #csat=only|hide  #hl=<工具>  #q=<搜索>  #protein=<蛋白，如 FUS>  #lens=<地图>  #mode=try；没写的参数回到默认值
+  function applyHash() {
+    const h = location.hash.replace(/^#/, ""); if (!h) return;
+    const P = new URLSearchParams(h), has = (id, v) => [...$(id).options].some(o => o.value === v);
+    $("lens").value = P.has("lens") && has("lens", P.get("lens")) ? P.get("lens") : (D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0]);
+    $("colorby").value = P.has("protein") ? "cat:protein" : "cat:protein";
+    $("fNA").value = P.has("na") && has("fNA", P.get("na")) ? P.get("na") : "any";
+    $("showBin").checked = P.get("csat") !== "only"; $("showCsat").checked = P.get("csat") !== "hide";
+    $("fText").value = P.get("q") || "";
+    readControls();
+    S.hidden = new Set();
+    if (P.has("protein")) {
+      const c = D.cat.protein, want = P.get("protein").toLowerCase();
+      const hit = c.levels.findIndex(lv => (((LAB.protein && LAB.protein[lv]) || lv) + "").toLowerCase() === want || (lv + "").toLowerCase() === want);
+      if (hit >= 0) S.hidden = new Set(c.levels.map((_, i) => i).filter(i => i !== hit));
+    }
+    refresh();
+    setHighlight(P.has("hl") && D.tools && D.tools.list.some(t => t.id === P.get("hl")) ? P.get("hl") : "");
+    if (P.get("mode") === "try") setMode("try");
+  }
 
   // ---------- wiring ----------
   function readControls() {
@@ -879,6 +916,7 @@ const DATA = /*__DATA__*/null;
     $("zout").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.4));
     $("zfit").addEventListener("click", fit);
     resize(); refresh();
+    applyHash(); window.addEventListener("hashchange", applyHash);
     new ResizeObserver(() => { resize(); render(); }).observe($("wrap"));
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
     new MutationObserver(refresh).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });

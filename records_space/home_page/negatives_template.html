@@ -1,0 +1,321 @@
+<title>LLPS Negatives and Unlabelled</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: control rail | square map stage | protein card. Same look as the Records Space Explorer; grey and light grey-blue carry the whole page. */
+:root{
+  --bg:#F3F6F9; --panel:#FFFFFF; --ink:#17212B; --mute:#5A6877; --line:#D9E1E8; --accent:#146DB5; --accent-ink:#FFFFFF;
+  --chip:#E8EEF3; --neutral:#D3D9DF; --neutral2:#A9B1B9; --canvas:#FFFFFF; --mid:#F1F4F7;
+  --u:#CBD2DA; --n:#6F97BC; --n1:#BCD0E2; --n2:#8FB1CE; --n3:#5E8DB6; --n4:#2F6296;
+  --font-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+    --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --canvas:#10161D; --mid:#222C37;
+    --u:#46525F; --n:#5E8AAD; --n1:#3F5A73; --n2:#5A82A6; --n3:#7BA6CF; --n4:#A8CDF0; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+  --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --canvas:#10161D; --mid:#222C37;
+  --u:#46525F; --n:#5E8AAD; --n1:#3F5A73; --n2:#5A82A6; --n3:#7BA6CF; --n4:#A8CDF0; color-scheme:dark;
+}
+[hidden]{ display:none !important; }
+body{ background:var(--bg); color:var(--ink); font-family:var(--font-ui); line-height:1.45; }
+.app{ max-width:1500px; margin-inline:auto; padding-block:16px 28px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.top{ display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 18px; margin-bottom:14px; }
+h1{ margin:0; font-size:1.35rem; font-weight:600; letter-spacing:-0.01em; }
+.sub{ margin:0; color:var(--mute); font-size:0.86rem; min-width:0; }
+.layout{ display:grid; gap:14px; grid-template-columns:minmax(0,1fr); grid-template-areas:"stage" "card" "rail"; align-items:start; }
+.stage{ grid-area:stage; } .card{ grid-area:card; } .rail{ grid-area:rail; }
+@media (min-width:760px){ .layout{ grid-template-columns:220px minmax(0,1fr); grid-template-areas:"rail stage" "card card"; } }
+@media (min-width:960px){ .layout{ grid-template-columns:220px minmax(0,1fr) 280px; grid-template-areas:"rail stage card"; } .card{ position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; } }
+.toolbar{ display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:10px; }
+.rail, .card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; min-width:0; }
+.rail{ display:flex; flex-direction:column; gap:12px; }
+.grp{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+.grp > label, .lab{ font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+select, input[type=search]{ font:inherit; font-size:0.85rem; color:var(--ink); background:var(--mid); border:1px solid var(--line); border-radius:6px; padding:6px 8px; min-width:0; width:100%; }
+select:focus-visible, input:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+.chk{ display:flex; gap:8px; align-items:center; font-size:0.85rem; }
+button{ font:inherit; font-size:0.82rem; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; }
+button:hover{ border-color:var(--accent); }
+.hint{ margin:0; color:var(--mute); font-size:0.76rem; }
+.stage{ min-width:0; display:flex; flex-direction:column; gap:10px; }
+.canvas-wrap{ position:relative; width:min(100%, 82vh); aspect-ratio:1 / 1; margin-inline:auto; background:var(--canvas); border:1px solid var(--line); border-radius:10px; overflow:hidden; touch-action:none; }
+canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; cursor:crosshair; }
+.zoom{ position:absolute; right:8px; top:8px; display:flex; gap:4px; }
+.zoom button{ padding:3px 9px; background:var(--panel); }
+.count{ position:absolute; left:10px; bottom:8px; font-family:var(--font-data); font-size:0.72rem; color:var(--mute); pointer-events:none; }
+.card h2{ margin:0 0 8px; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+.layers{ display:flex; flex-direction:column; gap:3px; }
+.lay{ display:flex; align-items:center; gap:8px; font-size:0.82rem; padding:3px 2px; cursor:pointer; }
+.lay input{ margin:0; }
+.lay i{ width:11px; height:11px; border-radius:50%; flex:none; }
+.lay span{ flex:1; min-width:0; }
+.lay b{ font-family:var(--font-data); font-weight:400; color:var(--mute); font-size:0.74rem; }
+.glyphkey{ display:flex; flex-wrap:wrap; gap:4px 18px; padding:2px 6px; font-size:0.76rem; color:var(--mute); }
+.glyphkey span{ display:inline-flex; align-items:center; gap:6px; }
+.glyphkey i{ width:11px; height:11px; border-radius:50%; box-sizing:border-box; flex:none; }
+.g-ring{ border:1.5px solid var(--ink); }
+.g-hl{ background:var(--accent); border:1px solid var(--canvas); }
+.hlnote{ border:1px dashed var(--line); border-radius:8px; padding:8px 10px; font-size:0.8rem; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; }
+.hlnote i{ width:11px; height:11px; border-radius:50%; flex:none; }
+.hlnote p{ flex-basis:100%; margin:2px 0 0; color:var(--mute); font-size:0.76rem; }
+.tiles{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px; margin:0 0 10px; }
+.tile{ background:var(--mid); border-radius:8px; padding:8px 10px; }
+.tile b{ display:block; font-size:1.05rem; font-weight:600; font-family:var(--font-data); }
+.tile span{ font-size:0.74rem; color:var(--mute); }
+.card h3{ margin:0 0 6px; font-size:0.98rem; font-weight:600; overflow-wrap:anywhere; }
+.pill{ display:inline-block; font-size:0.7rem; font-weight:600; border-radius:999px; padding:1px 8px; margin-right:4px; color:var(--ink); }
+.kv{ display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin:8px 0 0; font-size:0.8rem; }
+.kv dt{ color:var(--mute); } .kv dd{ margin:0; min-width:0; overflow-wrap:anywhere; }
+.card ul{ margin:0; padding-left:18px; font-size:0.82rem; color:var(--mute); } .card li{ margin:2px 0; }
+.card p{ font-size:0.82rem; margin:6px 0; color:var(--mute); }
+.acts{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+.matches{ display:flex; flex-direction:column; gap:3px; margin-top:4px; }
+.matches button{ text-align:left; font-size:0.78rem; padding:4px 8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.theme{ margin-left:auto; padding:5px 11px; border-radius:99px; font-size:0.95rem; line-height:1; }
+.home{ font-size:0.82rem; color:var(--mute); text-decoration:none; white-space:nowrap; }
+.home:hover{ color:var(--accent); }
+a{ color:var(--accent); }
+</style>
+<div class="app">
+  <header class="top">
+    <a class="home" id="homeLink" href="../../" hidden>&larr; OpenPhase</a>
+    <h1>LLPS negatives and unlabelled proteins</h1>
+    <p class="sub" id="sub"></p>
+    <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
+  </header>
+  <script>
+  (function () {
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink");
+    var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    function show(t) { if (btn) { btn.textContent = t === "dark" ? "\u2600" : "\u263E"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
+    var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
+    root.setAttribute("data-theme", cur); show(cur);
+    if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
+    if (home && /github\.io$|^localhost$|^127\./.test(location.hostname)) home.hidden = false;
+  })();
+  </script>
+  <div class="layout" id="layout">
+    <aside class="rail" id="rail">
+      <div class="grp"><label>Show</label><div class="layers" id="layers"></div></div>
+      <div class="grp"><label for="fq">Find protein</label><input type="search" id="fq" placeholder="P35637, FUS, tau…" autocomplete="off" spellcheck="false"><div class="matches" id="matches"></div></div>
+      <div class="grp"><label class="chk"><input type="checkbox" id="mark" checked><span>Mark proteins that also have records</span></label><p class="hint">A dark ring marks a protein that has experiments with conditions in the Records space.</p></div>
+      <button id="reset" type="button">Reset view</button>
+      <p class="hint">Scroll to zoom, drag to pan, click a point to pin it.</p>
+    </aside>
+    <section class="stage">
+      <div class="toolbar">
+        <div class="grp"><label for="hl">Highlight a negative set</label><select id="hl"></select></div>
+        <div class="grp"><label for="shade">Colour negatives by</label><select id="shade"><option value="one">One colour</option><option value="count">Number of sets listing it</option></select></div>
+        <div class="grp"><label for="dens">Density</label><select id="dens"><option value="none">None</option><option value="neg">Negatives</option><option value="unl">Unlabelled reference</option><option value="both">Both</option></select></div>
+      </div>
+      <div class="hlnote" id="hlnote" hidden></div>
+      <div class="canvas-wrap" id="wrap"><canvas id="cv" role="img" aria-label="Map of proteins: unlabelled reference proteins and negatives"></canvas>
+        <div class="zoom"><button id="zin" type="button" aria-label="Zoom in">+</button><button id="zout" type="button" aria-label="Zoom out">−</button><button id="zfit" type="button">Fit</button></div>
+        <div class="count" id="count"></div></div>
+      <div class="glyphkey" id="shadekey" hidden><span>Negative in</span><span><i style="background:var(--n1)"></i> 1 set</span><span><i style="background:var(--n2)"></i> 2</span><span><i style="background:var(--n3)"></i> 3</span><span><i style="background:var(--n4)"></i> 4 or more</span></div>
+      <div class="glyphkey" id="glyphkey"><span><i class="g-ring"></i> also has records with conditions (Records space)</span><span><i class="g-hl"></i> member of the highlighted set</span></div>
+    </section>
+    <aside class="card" id="card"></aside>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  const D = /*__DATA__*/null;
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const fmtn = (n) => n.toLocaleString("en-US");
+  const buf = (s) => { const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u.buffer; };
+  const N = D.n, X = new Uint16Array(buf(D.x)), Y = new Uint16Array(buf(D.y)), ROLE = new Uint8Array(buf(D.role)), FLAG = new Uint8Array(buf(D.flag)), MASK = new Uint32Array(buf(D.mask)), LEN = new Uint16Array(buf(D.len));
+  const SETS = D.sets, ROLES = [["U", "Unlabelled (Swiss-Prot reference)", "--u"], ["N", "Negative in at least one tool", "--n"]];
+  const inSet = (i, b) => ((MASK[i] >>> b) & 1) === 1;
+  const pop = (x) => { x = x - ((x >>> 1) & 0x55555555); x = (x & 0x33333333) + ((x >>> 2) & 0x33333333); return (((x + (x >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24; };
+  const CNT = new Uint8Array(N); for (let i = 0; i < N; i++) CNT[i] = pop(MASK[i]);
+  const cnt = [0, 0]; let multi = 0; for (let i = 0; i < N; i++) { cnt[ROLE[i]]++; if (CNT[i] >= 2) multi++; }
+  const S = { k: 1, tx: 0, ty: 0, on: [true, true], hl: -1, dens: "none", shade: "one", mark: true, hover: -1, pin: -1 };
+  const cv = $("cv"), ctx = cv.getContext("2d"), wrap = $("wrap");
+  let W = 0, H = 0, dpr = 1, raf = 0;
+  const sx = new Float32Array(N), sy = new Float32Array(N);
+
+  // ---------------------------------------------------------------- page text
+  $("sub").textContent = fmtn(N) + " proteins in one ESMC-600M protein space: the training negatives of ten tools and PPMC, and a Swiss-Prot reference sample as the unlabelled background. Positives are not shown.";
+  const layers = $("layers"), cbs = [];
+  ROLES.forEach((r, k) => {
+    const lab = el("label", "lay"), cb = el("input"); cb.type = "checkbox"; cb.checked = true; cbs.push(cb);
+    const dot = el("i"); dot.style.background = "var(" + r[2] + ")";
+    lab.append(cb, dot, el("span", null, r[1]), el("b", null, fmtn(cnt[k])));
+    cb.addEventListener("change", () => { S.on[k] = cb.checked; render(); });
+    layers.appendChild(lab);
+  });
+  const hl = $("hl"); hl.appendChild(Object.assign(el("option", null, "None"), { value: "-1" }));
+  SETS.forEach((s, b) => { const o = el("option", null, s.label + " (" + fmtn(s.nn) + ")"); o.value = String(b); hl.appendChild(o); });
+
+  // ---------------------------------------------------------------- geometry
+  function resize() {
+    const r = wrap.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width * dpr)); H = Math.max(1, Math.round(r.height * dpr)); cv.width = W; cv.height = H; render();
+  }
+  function project() {
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, k = S.k, tx = S.tx, ty = S.ty, f = 1 / 65535;
+    for (let i = 0; i < N; i++) { sx[i] = (pad + X[i] * f * w) * k + tx; sy[i] = (pad + Y[i] * f * h) * k + ty; }
+  }
+  const baseR = () => Math.min(4.2, 1.0 + 0.55 * Math.log2(S.k + 0.5)) * dpr;
+  function zoomAt(px, py, f) {
+    const k2 = Math.min(60, Math.max(1, S.k * f)), r = k2 / S.k; S.tx = px - (px - S.tx) * r; S.ty = py - (py - S.ty) * r; S.k = k2;
+    if (S.k === 1) { S.tx = 0; S.ty = 0; }
+    render();
+  }
+
+  // ---------------------------------------------------------------- density fields (smooth glow under the points)
+  const G = 192, dens = {};
+  function field(sel) {
+    const g = new Float32Array(G * G);
+    for (let i = 0; i < N; i++) if (sel(ROLE[i])) { const gx = Math.min(G - 1, (X[i] / 65535 * G) | 0), gy = Math.min(G - 1, (Y[i] / 65535 * G) | 0); g[gy * G + gx] += 1; }
+    const R = 7, sig = 2.4, ker = []; let s = 0;
+    for (let d = -R; d <= R; d++) { const v = Math.exp(-d * d / (2 * sig * sig)); ker.push(v); s += v; }
+    for (let d = 0; d < ker.length; d++) ker[d] /= s;
+    const tmp = new Float32Array(G * G), out = new Float32Array(G * G);
+    for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) { let a = 0; for (let d = -R; d <= R; d++) { const xx = x + d; if (xx >= 0 && xx < G) a += g[y * G + xx] * ker[d + R]; } tmp[y * G + x] = a; }
+    for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) { let a = 0; for (let d = -R; d <= R; d++) { const yy = y + d; if (yy >= 0 && yy < G) a += tmp[yy * G + x] * ker[d + R]; } out[y * G + x] = a; }
+    const sorted = Float32Array.from(out).sort(), top = sorted[Math.floor(sorted.length * 0.995)] || 1;
+    return { v: out, top };
+  }
+  function densLayer(name, sel, colorVar, alpha) {
+    if (!dens[name]) dens[name] = field(sel);
+    const f = dens[name], off = document.createElement("canvas"); off.width = G; off.height = G;
+    const c = off.getContext("2d"), im = c.createImageData(G, G), m = /^#?([0-9a-f]{6})$/i.exec(css(colorVar).replace("#", "")), rgb = m ? [parseInt(m[1].slice(0, 2), 16), parseInt(m[1].slice(2, 4), 16), parseInt(m[1].slice(4, 6), 16)] : [120, 120, 120];
+    for (let i = 0; i < G * G; i++) { const t = Math.min(1, f.v[i] / f.top); im.data[4 * i] = rgb[0]; im.data[4 * i + 1] = rgb[1]; im.data[4 * i + 2] = rgb[2]; im.data[4 * i + 3] = Math.round(255 * alpha * Math.pow(t, 0.7)); }
+    c.putImageData(im, 0, 0);
+    const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad;
+    ctx.imageSmoothingEnabled = true; ctx.drawImage(off, pad * S.k + S.tx, pad * S.k + S.ty, w * S.k, h * S.k);
+  }
+
+  // ---------------------------------------------------------------- drawing
+  function dotsOf(role, r, color, alpha, lo, hi) {
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      if (ROLE[i] !== role || CNT[i] < lo || CNT[i] > hi) continue;
+      const x = sx[i], y = sy[i]; if (x < -6 || y < -6 || x > W + 6 || y > H + 6) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, Math.PI * 2);
+    }
+    ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.fill(); ctx.globalAlpha = 1;
+  }
+  function render() { if (!raf) raf = requestAnimationFrame(draw); }
+  function draw() {
+    raf = 0; if (!W) return;
+    const bg = css("--canvas"), ink = css("--ink"); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H); project();
+    const base = baseR(), dim = S.hl >= 0 ? 0.55 : 1;
+    if (S.dens === "unl" || S.dens === "both") densLayer("unl", (r) => r === 0, "--u", 0.6);
+    if (S.dens === "neg" || S.dens === "both") densLayer("neg", (r) => r === 1, "--n", 0.5);
+    if (S.on[0]) dotsOf(0, base * 0.9, css("--u"), 0.8 * dim, 0, 255);
+    if (S.on[1]) {
+      if (S.shade === "count") { [[1, 1, "--n1", 0.8], [2, 2, "--n2", 0.85], [3, 3, "--n3", 0.9], [4, 255, "--n4", 0.95]].forEach(([lo, hi, v, a]) => dotsOf(1, base * 1.15, css(v), a * dim, lo, hi)); }
+      else dotsOf(1, base * 1.15, css("--n"), 0.85 * dim, 0, 255);
+    }
+    if (S.hl >= 0) {
+      ctx.globalAlpha = 0.5; ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
+      const set = SETS[S.hl], r = base * 1.9;
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) { if (!S.on[ROLE[i]] || !inSet(i, set.bit)) continue; const x = sx[i], y = sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, Math.PI * 2); }
+      ctx.fillStyle = set.color; ctx.globalAlpha = 0.95; ctx.fill(); ctx.globalAlpha = 1; ctx.lineWidth = dpr * 0.8; ctx.strokeStyle = bg; ctx.stroke();
+    }
+    if (S.mark) {
+      ctx.beginPath(); const r = base * 2.1;
+      for (let i = 0; i < N; i++) { if (!(FLAG[i] & 2) || !S.on[ROLE[i]]) continue; const x = sx[i], y = sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, Math.PI * 2); }
+      ctx.lineWidth = 1.2 * dpr; ctx.strokeStyle = ink; ctx.globalAlpha = 0.85; ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    for (const j of [S.pin, S.hover]) if (j >= 0) { ctx.beginPath(); ctx.arc(sx[j], sy[j], base * 3.4, 0, Math.PI * 2); ctx.lineWidth = 1.8 * dpr; ctx.strokeStyle = ink; ctx.stroke(); }
+    let vis = 0; for (let i = 0; i < N; i++) if (S.on[ROLE[i]]) vis++;
+    $("count").textContent = fmtn(vis) + " of " + fmtn(N) + " proteins" + (S.hl >= 0 ? " · highlighted: " + fmtn(SETS[S.hl].nn) : "");
+  }
+
+  // ---------------------------------------------------------------- highlight note and card
+  function updateNote() {
+    const box = $("hlnote"); box.textContent = ""; box.hidden = S.hl < 0; if (S.hl < 0) return;
+    const s = SETS[S.hl], dot = el("i"); dot.style.background = s.color;
+    box.append(dot, el("b", null, s.label), el("span", null, fmtn(s.nn) + " proteins on the map"));
+    box.appendChild(el("p", null, "A negative set: proteins this source treats as not phase-separating. Negative sets are mostly proteins that were not listed as phase-separating, so many may be unlabelled rather than shown not to phase-separate."));
+  }
+  function buildCard() {
+    const card = $("card"); card.textContent = "";
+    const i = S.pin >= 0 ? S.pin : S.hover;
+    if (i < 0) {
+      card.appendChild(el("h2", null, "Overview"));
+      const t = el("div", "tiles");
+      for (const [b, l] of [[fmtn(N), "proteins on the map"], [fmtn(cnt[1]), "negative in at least one tool"], [fmtn(cnt[0]), "unlabelled reference proteins"], [fmtn(multi), "negative in two or more tools (" + Math.round(100 * multi / Math.max(cnt[1], 1)) + "%)"]]) { const d = el("div", "tile"); d.append(el("b", null, b), el("span", null, l)); t.appendChild(d); }
+      card.appendChild(t);
+      if (D.pairs && D.pairs.length) {
+        card.appendChild(el("h2", null, "Where the negative sets overlap"));
+        const ul2 = el("ul"); for (const [a, b, c] of D.pairs.slice(0, 4)) ul2.appendChild(el("li", null, fmtn(c) + " proteins are negative in both " + a.replace(" · training negatives", "") + " and " + b.replace(" · training negatives", "")));
+        card.appendChild(ul2);
+      }
+      card.appendChild(el("h2", null, "How to read"));
+      const ul = el("ul");
+      for (const x of ["One dot is one protein, placed by its ESMC-600M embedding (layer 18, UMAP). Nothing here has conditions, and positives are not shown.",
+        "Blue-grey: a protein in at least one tool's training negatives (or in PPMC's NP / ND). Grey: a Swiss-Prot reference protein that no tool lists.",
+        "Pick a source in Highlight a negative set to see its proteins. Colour negatives by the number of sets listing them, or show densities, to see where negatives and the reference sit.",
+        "Hover a point to read it, click to pin it."]) ul.appendChild(el("li", null, x));
+      card.appendChild(ul);
+      card.appendChild(el("p", null, "The grey reference sample is Swiss-Prot: 12,000 random proteins plus 4,000 human proteins, 50 to 1,000 aa (" + fmtn(D.bg_n) + " of them are on the map; the rest are in a negative set and are coloured as negatives). It is a background, not a set of verified negatives."));
+      return;
+    }
+    card.appendChild(el("h2", null, S.pin >= 0 ? "Pinned protein" : "Protein under cursor"));
+    card.appendChild(el("h3", null, D.name[i] || D.gene[i] || D.acc[i]));
+    const tags = el("div"); const pill = el("span", "pill", ROLE[i] === 1 ? "Negative" : "Unlabelled"); pill.style.background = "var(" + ROLES[ROLE[i]][2] + ")"; tags.appendChild(pill);
+    if (FLAG[i] & 2) { const hr = el("span", "pill", "has records"); hr.style.background = "var(--ink)"; hr.style.color = "var(--canvas)"; tags.appendChild(hr); }
+    card.appendChild(tags);
+    const dl = el("dl", "kv"), kv = (k, v) => { if (v) { dl.appendChild(el("dt", null, k)); const d = el("dd"); if (v instanceof Node) d.appendChild(v); else d.textContent = v; dl.appendChild(d); } };
+    const a = el("a", null, D.acc[i]); a.href = "https://www.uniprot.org/uniprotkb/" + D.acc[i]; a.target = "_blank"; a.rel = "noopener";
+    kv("UniProt", a); kv("Gene", D.gene[i]); kv("Organism", D.org[i]); kv("Length", LEN[i] ? LEN[i] + " aa" : "");
+    kv("Reference", (FLAG[i] & 1) ? "In the Swiss-Prot reference sample" : "Not in the reference sample");
+    if (FLAG[i] & 4) kv("Entry", "No longer in UniProtKB; sequence from UniParc");
+    card.appendChild(dl);
+    const neg = []; SETS.forEach((s, b) => { if (inSet(i, s.bit)) neg.push(s.label); });
+    if (neg.length) { card.appendChild(el("h2", null, "Negative in")); const ul = el("ul"); for (const x of neg) ul.appendChild(el("li", null, x)); card.appendChild(ul); }
+    else card.appendChild(el("p", null, "No tool lists this protein: it belongs to the unlabelled reference sample."));
+    const acts = el("div", "acts");
+    if (S.pin >= 0) { const b = el("button", null, "Unpin"); b.type = "button"; b.addEventListener("click", () => { S.pin = -1; buildCard(); render(); }); acts.appendChild(b); }
+    card.appendChild(acts);
+  }
+
+  // ---------------------------------------------------------------- interaction
+  function nearest(px, py) {
+    let best = -1, bd = (11 * dpr) * (11 * dpr);
+    for (let i = 0; i < N; i++) { if (!S.on[ROLE[i]]) continue; const dx = sx[i] - px, dy = sy[i] - py, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
+    return best;
+  }
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; };
+  let drag = null;
+  cv.addEventListener("pointerdown", (e) => { cv.setPointerCapture(e.pointerId); drag = { x: e.clientX, y: e.clientY, tx: S.tx, ty: S.ty, moved: false }; });
+  cv.addEventListener("pointermove", (e) => {
+    if (drag && e.buttons) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; if (drag.moved && S.k > 1) { S.tx = drag.tx + dx * dpr; S.ty = drag.ty + dy * dpr; render(); } return; }
+    const p = pos(e), j = nearest(p[0], p[1]); if (j !== S.hover) { S.hover = j; if (S.pin < 0) buildCard(); render(); }
+  });
+  cv.addEventListener("pointerup", (e) => { const was = drag; drag = null; if (was && !was.moved) { const p = pos(e), j = nearest(p[0], p[1]); S.pin = j; S.hover = j; buildCard(); render(); } });
+  cv.addEventListener("pointerleave", () => { if (S.hover >= 0) { S.hover = -1; if (S.pin < 0) buildCard(); render(); } });
+  cv.addEventListener("wheel", (e) => { e.preventDefault(); const p = pos(e); zoomAt(p[0], p[1], Math.exp(-e.deltaY * 0.0016)); }, { passive: false });
+  $("zin").addEventListener("click", () => zoomAt(W / 2, H / 2, 1.6)); $("zout").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.6)); $("zfit").addEventListener("click", () => { S.k = 1; S.tx = 0; S.ty = 0; render(); });
+  $("reset").addEventListener("click", () => { S.k = 1; S.tx = 0; S.ty = 0; S.pin = -1; S.hover = -1; S.hl = -1; S.dens = "none"; S.shade = "one"; hl.value = "-1"; $("dens").value = "none"; $("shade").value = "one"; $("shadekey").hidden = true; $("fq").value = ""; $("matches").textContent = ""; updateNote(); buildCard(); render(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && S.pin >= 0) { S.pin = -1; buildCard(); render(); } });
+  hl.addEventListener("change", () => { S.hl = parseInt(hl.value, 10); updateNote(); render(); });
+  $("dens").addEventListener("change", () => { S.dens = $("dens").value; render(); });
+  $("shade").addEventListener("change", () => { S.shade = $("shade").value; $("shadekey").hidden = S.shade !== "count"; render(); });
+  $("mark").addEventListener("change", () => { S.mark = $("mark").checked; render(); });
+  $("fq").addEventListener("input", () => {
+    const q = $("fq").value.trim().toLowerCase(), box = $("matches"); box.textContent = ""; if (q.length < 2) return;
+    const hits = []; for (let i = 0; i < N && hits.length < 8; i++) { if (D.acc[i].toLowerCase().startsWith(q) || (D.gene[i] && D.gene[i].toLowerCase() === q) || (D.name[i] && D.name[i].toLowerCase().includes(q))) hits.push(i); }
+    for (const i of hits) { const b = el("button", null, (D.name[i] || D.gene[i] || D.acc[i]) + " · " + D.acc[i]); b.type = "button"; b.addEventListener("click", () => { S.pin = i; S.hover = i; if (!S.on[ROLE[i]]) { S.on[ROLE[i]] = true; cbs[ROLE[i]].checked = true; } const pad = 16 * dpr, f = 1 / 65535; S.k = Math.max(S.k, 4); S.tx = W / 2 - (pad + X[i] * f * (W - 2 * pad)) * S.k; S.ty = H / 2 - (pad + Y[i] * f * (H - 2 * pad)) * S.k; buildCard(); render(); }); box.appendChild(b); }
+  });
+  new ResizeObserver(resize).observe(wrap);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  updateNote(); buildCard(); resize();
+})();
+</script>

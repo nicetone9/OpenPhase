@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OpenPhase</title>
+<meta name="description" content="OpenPhase: condition-aware exploration of biomolecular phase separation. Interactive maps of LLPS experiments, tool proteins, negatives and unlabelled proteins.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F3F6F9; --panel:#FFFFFF; --ink:#17212B; --mute:#5A6877; --line:#D9E1E8; --accent:#146DB5; --accent-ink:#FFFFFF;
+  --chip:#E8EEF3; --mid:#F1F4F7; --teal:#3E6760; --gold:#E0B060;
+  --font-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+    --chip:#1C2530; --mid:#222C37; --teal:#7FB5AB; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+  --chip:#1C2530; --mid:#222C37; --teal:#7FB5AB; color-scheme:dark;
+}
+*{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-ui); line-height:1.5; }
+.app{ max-width:1180px; margin-inline:auto; padding:16px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
+.top{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; margin-bottom:16px; }
+.logo{ height:38px; width:auto; display:block; }
+:root[data-theme="dark"] .logo{ filter:brightness(1.9) saturate(0.85); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .logo{ filter:brightness(1.9) saturate(0.85); } }
+.sub{ margin:0; color:var(--mute); font-size:0.9rem; min-width:0; flex:1 1 260px; }
+.links{ display:flex; flex-wrap:wrap; gap:6px 14px; font-size:0.84rem; align-items:center; }
+.links a{ color:var(--mute); text-decoration:none; } .links a:hover{ color:var(--accent); }
+.theme{ font:inherit; font-size:0.95rem; line-height:1; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:99px; padding:6px 11px; cursor:pointer; }
+.theme:hover{ border-color:var(--accent); }
+a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
+.hero{ margin:0 0 22px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#F4EEDD; }
+.hero img{ display:block; width:100%; height:auto; }
+h2{ margin:26px 0 6px; font-size:1.05rem; font-weight:600; letter-spacing:-0.005em; }
+.lead{ margin:0 0 12px; color:var(--mute); font-size:0.88rem; max-width:80ch; }
+.cards{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); }
+.card{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; display:flex; flex-direction:column; gap:8px; min-width:0; }
+.tag{ align-self:flex-start; font-family:var(--font-data); font-size:0.78rem; font-weight:500; border-radius:99px; padding:2px 11px; background:var(--chip); border:1px solid var(--line); }
+.card h3{ margin:0; font-size:1.08rem; font-weight:600; }
+.card p{ margin:0; color:var(--mute); font-size:0.88rem; }
+.stats{ display:flex; flex-wrap:wrap; gap:4px 16px; font-family:var(--font-data); font-size:0.8rem; color:var(--ink); }
+.stats span{ white-space:nowrap; }
+.acts{ display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:6px; }
+.btn{ display:inline-block; font-size:0.86rem; text-decoration:none; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:8px; padding:7px 14px; }
+.btn:hover{ border-color:var(--accent); }
+.btn.primary{ background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
+.paper{ position:relative; background:#FFFFFF; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.paper img{ display:block; width:100%; height:auto; }
+.hs{ position:absolute; display:block; border-radius:8px; outline:2px solid transparent; outline-offset:-2px; transition:background-color .12s, outline-color .12s; }
+.hs.round{ border-radius:50%; }
+a.hs:hover, a.hs:focus-visible{ background:rgba(20,109,181,0.12); outline-color:#146DB5; z-index:3; }
+.hs::after{ content:attr(data-label); position:absolute; left:50%; top:8px; transform:translateX(-50%); white-space:nowrap; background:#17212B; color:#fff; font-size:0.74rem; line-height:1.2; padding:4px 9px; border-radius:6px; opacity:0; pointer-events:none; transition:opacity .12s; z-index:5; }
+a.hs:hover::after, a.hs:focus-visible::after, .hs.off:hover::after{ opacity:1; }
+.hs.off{ cursor:not-allowed; }
+.hs.off:hover{ background:rgba(90,104,119,0.10); outline-color:#8A97A5; }
+body.debug .hs{ outline:1px dashed #E4002B; background:rgba(228,0,43,0.08); }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 0; }
+.chip{ font-size:0.8rem; text-decoration:none; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:99px; padding:3px 11px; }
+.chip:hover{ border-color:var(--accent); }
+.chip.off{ color:var(--mute); border-style:dashed; cursor:not-allowed; }
+.cap{ margin:8px 2px 0; color:var(--mute); font-size:0.8rem; }
+footer{ margin-top:34px; padding-top:14px; border-top:1px solid var(--line); color:var(--mute); font-size:0.78rem; display:flex; flex-wrap:wrap; gap:4px 18px; }
+footer a{ color:var(--mute); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <img class="logo" src="assets/openphase-wordmark.webp" alt="OpenPhase" width="2172" height="724">
+    <p class="sub">Condition-aware exploration of biomolecular phase separation</p>
+    <nav class="links" aria-label="Links">
+      <a href="records_space/">Explorer (P)</a>
+      <a href="records_space/negatives/">Negatives and unlabelled (N + U)</a>
+      <a href="https://github.com/nicetone9/OpenPhase">GitHub</a>
+    </nav>
+    <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
+  </header>
+
+  <figure class="hero"><img src="assets/openphase-main.webp" alt="OpenPhase: from a system and its conditions to prediction, phase diagram and generation" width="1672" height="941"></figure>
+
+  <section aria-labelledby="h-systems">
+    <h2 id="h-systems">Two systems</h2>
+    <p class="lead">One map holds the experiments and the proteins the tools list as positives; the other holds the negatives and unlabelled proteins. They are kept apart on purpose.</p>
+    <div class="cards">
+      <article class="card">
+        <span class="tag">P</span>
+        <h3>Records and the protein universe</h3>
+        <p>Every single-protein experiment in the dataset in one map, with the proteins that the tools list as positives but that have no record drawn as hollow rings. Colour by protein, conditions, readout or source; try your own sequence and conditions.</p>
+        <div class="stats"><span>11,439 records</span><span>419 papers and datasets</span><span>6,338 tool proteins without conditions</span></div>
+        <div class="acts"><a class="btn primary" href="records_space/">Open the explorer</a><a class="btn" href="records_space/#lens=umap_universe">Protein universe view</a></div>
+      </article>
+      <article class="card">
+        <span class="tag">N + U</span>
+        <h3>Negatives and unlabelled proteins</h3>
+        <p>The training negatives of ten tools and PPMC against a Swiss-Prot reference sample, in the same protein space. No positives and no conditions on this page; shade the negatives by how many sets list them.</p>
+        <div class="stats"><span>35,107 proteins</span><span>23,433 negatives in 12 sets</span><span>11,674 unlabelled</span></div>
+        <div class="acts"><a class="btn primary" href="records_space/negatives/">Open the map</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-p1">
+    <h2 id="h-p1">Browse by system</h2>
+    <p class="lead">Single-protein systems, protein(1). Click a part of the figure to open the explorer on it: a panel in the lower row filters the explorer to that system, a circle highlights that source, FUS jumps to FUS.</p>
+    <div class="paper">
+      <img src="assets/fig-protein1-systems.webp" alt="Records of the protein(1) systems: circles by source and protein, FUS, and four t-SNE panels by system type" width="2000" height="1793">
+      <a class="hs" style="left:2.60%;top:64.58%;width:22.70%;height:26.99%" href="records_space/#na=none&csat=hide" data-label="protein(1): protein only, 7,490 records → open" aria-label="protein(1): protein only, 7,490 records"></a>
+      <a class="hs" style="left:26.65%;top:64.58%;width:22.70%;height:26.99%" href="records_space/#na=RNA&csat=hide" data-label="protein(1) + RNA, 2,511 records → open" aria-label="protein(1) + RNA, 2,511 records"></a>
+      <a class="hs" style="left:50.65%;top:64.58%;width:22.70%;height:26.99%" href="records_space/#na=DNA&csat=hide" data-label="protein(1) + DNA, 662 records → open" aria-label="protein(1) + DNA, 662 records"></a>
+      <a class="hs" style="left:74.65%;top:64.58%;width:22.70%;height:26.99%" href="records_space/#csat=only" data-label="protein(1), Csat pool, 776 records → open" aria-label="protein(1), Csat pool, 776 records"></a>
+      <a class="hs" style="left:66.75%;top:8.37%;width:26.75%;height:30.67%" href="records_space/#protein=FUS" data-label="FUS: 836 records, 46 papers → open" aria-label="FUS: 836 records, 46 papers"></a>
+      <a class="hs round" style="left:21.65%;top:10.76%;width:17.20%;height:19.19%" href="records_space/#hl=llpsdb&na=none&csat=hide" data-label="LLPSDB v2, protein only → open" aria-label="LLPSDB v2, protein only"></a>
+      <a class="hs round" style="left:39.65%;top:18.57%;width:7.50%;height:8.37%" href="records_space/#hl=phasepdb3&na=none" data-label="PhaSepDB 3 (pilot), protein only → open" aria-label="PhaSepDB 3 (pilot), protein only"></a>
+      <a class="hs round" style="left:35.25%;top:26.49%;width:9.50%;height:10.60%" href="records_space/#hl=llpsense&na=none" data-label="LLPSense → open" aria-label="LLPSense"></a>
+      <a class="hs round" style="left:42.75%;top:34.58%;width:12.50%;height:13.94%" href="records_space/#hl=llpsdb&na=RNA" data-label="LLPSDB v2, + RNA → open" aria-label="LLPSDB v2, + RNA"></a>
+      <a class="hs round" style="left:55.75%;top:38.48%;width:5.50%;height:6.13%" href="records_space/#hl=phasepdb3&na=RNA" data-label="PhaSepDB 3 (pilot), + RNA → open" aria-label="PhaSepDB 3 (pilot), + RNA"></a>
+      <a class="hs round" style="left:51.75%;top:45.01%;width:11.50%;height:12.83%" href="records_space/#hl=rnapsec" data-label="RNAPSEC → open" aria-label="RNAPSEC"></a>
+      <a class="hs round" style="left:25.00%;top:42.50%;width:10.00%;height:11.15%" href="records_space/#hl=llpsdb&na=DNA" data-label="LLPSDB v2, + DNA → open" aria-label="LLPSDB v2, + DNA"></a>
+      <a class="hs round" style="left:32.90%;top:51.31%;width:5.20%;height:5.80%" href="records_space/#hl=phasepdb3&na=DNA" data-label="PhaSepDB 3 (pilot), + DNA → open" aria-label="PhaSepDB 3 (pilot), + DNA"></a>
+      <a class="hs round" style="left:54.35%;top:11.43%;width:8.50%;height:9.48%" href="records_space/#hl=ausserwoger&csat=only" data-label="Ausserwöger 2025, Csat → open" aria-label="Ausserwöger 2025, Csat"></a>
+      <a class="hs round" style="left:56.35%;top:22.14%;width:6.80%;height:7.59%" href="records_space/#hl=bremer&csat=only" data-label="Bremer 2022, Csat → open" aria-label="Bremer 2022, Csat"></a>
+    </div>
+    <div class="chips" aria-label="Shortcuts"><a class="chip" href="records_space/#na=none&csat=hide">Protein only</a><a class="chip" href="records_space/#na=RNA&csat=hide">+ RNA</a><a class="chip" href="records_space/#na=DNA&csat=hide">+ DNA</a><a class="chip" href="records_space/#csat=only">Csat pool</a><a class="chip" href="records_space/#protein=FUS">FUS</a><a class="chip" href="records_space/#hl=llpsdb">LLPSDB v2</a><a class="chip" href="records_space/#hl=llpsense">LLPSense</a><a class="chip" href="records_space/#hl=rnapsec">RNAPSEC</a><a class="chip" href="records_space/#hl=phasepdb3">PhaSepDB 3</a><a class="chip" href="records_space/#hl=bremer&csat=only">Bremer 2022</a><a class="chip" href="records_space/#hl=ausserwoger&csat=only">Ausserwöger 2025</a></div>
+    <p class="cap">Circles: one source and one system type (area follows the number of records). Lower row: the same embedding in all four panels.</p>
+  </section>
+
+  <section aria-labelledby="h-multi">
+    <h2 id="h-multi">Multi-protein systems</h2>
+    <p class="lead">Systems with two or more proteins, with or without nucleic acids, and complexes. They are not in the explorer yet.</p>
+    <div class="paper">
+      <img src="assets/fig-multi-protein-systems.webp" alt="Maps of the multi-protein systems: protein(2), protein(3), protein(4 or more), with RNA, with DNA, with nucleic acid, and complexes" width="2000" height="1475">
+      <span class="hs off" style="left:1.50%;top:11.19%;width:24.50%;height:37.63%" data-label="protein(2): 953 systems, 4,406 records · not built yet" aria-label="protein(2): 953 systems, 4,406 records, not built yet"></span>
+      <span class="hs off" style="left:26.00%;top:11.19%;width:24.00%;height:37.63%" data-label="protein(3): 114 systems, 547 records · not built yet" aria-label="protein(3): 114 systems, 547 records, not built yet"></span>
+      <span class="hs off" style="left:50.00%;top:11.19%;width:24.00%;height:37.63%" data-label="protein(≥4): 47 systems, 167 records · not built yet" aria-label="protein(≥4): 47 systems, 167 records, not built yet"></span>
+      <span class="hs off" style="left:74.00%;top:11.19%;width:24.25%;height:37.63%" data-label="protein(2) + RNA: 88 systems, 313 records · not built yet" aria-label="protein(2) + RNA: 88 systems, 313 records, not built yet"></span>
+      <span class="hs off" style="left:1.50%;top:51.86%;width:24.50%;height:37.63%" data-label="protein(2) + DNA: 24 systems, 38 records · not built yet" aria-label="protein(2) + DNA: 24 systems, 38 records, not built yet"></span>
+      <span class="hs off" style="left:26.00%;top:51.86%;width:24.00%;height:37.63%" data-label="protein(3) + NA: 21 systems, 156 records · not built yet" aria-label="protein(3) + NA: 21 systems, 156 records, not built yet"></span>
+      <span class="hs off" style="left:50.00%;top:51.86%;width:24.00%;height:37.63%" data-label="With complex: 15 systems, 57 records · not built yet" aria-label="With complex: 15 systems, 57 records, not built yet"></span>
+    </div>
+    <p class="cap">Each panel is its own t-SNE of ESMC-600M component embeddings; axes are not comparable across panels.</p>
+  </section>
+
+  <footer>
+    <span>The pages run entirely in your browser; nothing is sent anywhere. Fonts come from Google Fonts.</span>
+    <span>Source resources have different licences; see the <a href="https://github.com/nicetone9/OpenPhase/tree/main/records_space">records_space README</a>.</span>
+    <span>Version 2026-10-30</span>
+  </footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn");
+  var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
+  var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+  function show(t) { btn.textContent = t === "dark" ? "☀" : "☾"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); }
+  var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
+  root.setAttribute("data-theme", cur); show(cur);
+  btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
+  if (/[?&]debug\b/.test(location.search)) document.body.classList.add("debug");
+})();
+</script>
+</body>
+</html>

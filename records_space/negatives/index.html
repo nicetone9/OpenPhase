@@ -82,6 +82,9 @@ canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; curs
 .acts{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
 .matches{ display:flex; flex-direction:column; gap:3px; margin-top:4px; }
 .matches button{ text-align:left; font-size:0.78rem; padding:4px 8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.theme{ margin-left:auto; padding:5px 11px; border-radius:99px; font-size:0.95rem; line-height:1; }
+.home{ font-size:0.82rem; color:var(--mute); text-decoration:none; white-space:nowrap; }
+.home:hover{ color:var(--accent); }
 a{ color:var(--accent); }
 </style>
 </head>
@@ -89,9 +92,23 @@ a{ color:var(--accent); }
 
 <div class="app">
   <header class="top">
+    <a class="home" id="homeLink" href="../../" hidden>&larr; OpenPhase</a>
     <h1>LLPS negatives and unlabelled proteins</h1>
     <p class="sub" id="sub"></p>
+    <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
   </header>
+  <script>
+  (function () {
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink");
+    var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    function show(t) { if (btn) { btn.textContent = t === "dark" ? "\u2600" : "\u263E"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
+    var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
+    root.setAttribute("data-theme", cur); show(cur);
+    if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
+    if (home && /github\.io$|^localhost$|^127\./.test(location.hostname)) home.hidden = false;
+  })();
+  </script>
   <div class="layout" id="layout">
     <aside class="rail" id="rail">
       <div class="grp"><label>Show</label><div class="layers" id="layers"></div></div>
@@ -306,6 +323,7 @@ a{ color:var(--accent); }
   });
   new ResizeObserver(resize).observe(wrap);
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   updateNote(); buildCard(); resize();
 })();
 </script>
