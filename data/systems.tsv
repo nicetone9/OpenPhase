@@ -1,0 +1,5 @@
+system	description	records	sequences	uniprot	papers	sources	positive	negative
+protein	protein only	7490	1163	311	364	LLPSDB_v2_phase_diagram 3656; LLPSDB_v2_site 1707; LLPSDB_v2 1375; LLPSense 461; PhaSepDB3_pilot_LLM 291	4416	3074
+protein_RNA	protein + RNA	2511	241	85	125	RNAPSEC 1141; LLPSDB_v2_site 536; LLPSDB_v2_phase_diagram 515; LLPSDB_v2 284; PhaSepDB3_pilot_LLM 35	1751	760
+protein_DNA	protein + DNA	662	99	42	41	LLPSDB_v2_phase_diagram 329; LLPSDB_v2_site 197; LLPSDB_v2 90; PhaSepDB3_pilot_LLM 46	446	216
+protein_csat	protein, saturation concentration	776	42	3	2	Bremer2022 410; Ausserwoger2025 366	0	0

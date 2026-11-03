@@ -29,11 +29,22 @@ Multi-protein systems (protein(2), protein(3), complexes) are shown on the home 
 ### Condition-Aware Modeling
 Moves beyond simple sequence prediction to incorporate extrinsic environmental factors (salt concentration, temperature, pH, etc.) that critically influence phase separation behavior.
 
-### Comprehensive Datasets
+### Comprehensive Datasets, organised by system
 
-- **db1**: Processed LLPSDBv2 data containing proteins, RNA, and DNA sequences with phase separation annotations
-- **db2**: Manually collected records from laboratory notebooks covering both in vitro and in vivo experiments
-- **db3**: Preprocessed RNAPSEC data focused on protein-RNA interaction systems and their phase behavior
+The records are organised by **system** (the set of components of an experiment, without concentrations); see [`data/`](data/README.md).
+
+| System | Records | Folder |
+|---|---:|---|
+| protein only | 7,490 | `data/protein/` |
+| protein + RNA | 2,511 | `data/protein_RNA/` |
+| protein + DNA | 662 | `data/protein_DNA/` |
+| protein, saturation concentration | 776 | `data/protein_csat/` |
+
+Records come from LLPSDB v2, LLPSense, RNAPSEC, a PhaSepDB 3 pilot extraction, Bremer 2022 and Ausserwöger 2025, merged and de-duplicated. A nucleic acid is one of the conditions of a record. The three original sources keep their loaders:
+
+- **db1** (`db1.py`): processed LLPSDBv2 data containing proteins, RNA, and DNA sequences with phase separation annotations
+- **db2** (`db2.py`): manually collected records from laboratory notebooks covering both in vitro and in vivo experiments (not in the tables of `data/`)
+- **db3** (`db3.py`): preprocessed RNAPSEC data focused on protein-RNA interaction systems and their phase behavior
 
 ### Standardized Benchmarking
 Formalized tasks and evaluation protocols for:
@@ -58,12 +69,16 @@ Generating potential protein sequences (x) that exhibit desired phase behaviors 
 ## 📂 Repository Structure
 
 ```
-ConditionPhase/
-├── discrete/              # Discrete model architectures
+OpenPhase/
+├── data/                  # records by system (protein, protein_RNA, protein_DNA, protein_csat)
+├── openphase_systems.py   # load the records by system
+├── db1.py                 # LLPSDBv2 dataset interface (one source)
+├── db2.py                 # Laboratory notebook dataset (one source)
+├── db3.py                 # RNAPSEC dataset interface (one source)
+├── Discrete/              # Discrete diffusion model
 ├── ldm/                   # Latent diffusion model components
-├── db1.py                 # LLPSDBv2 dataset interface
-├── db2.py                 # Laboratory notebook dataset
-├── db3.py                 # RNAPSEC dataset interface
+├── MTDP/                  # MTDP embedder
+├── records_space/         # records space and protein universe explorer
 ├── meta_config.py         # Configuration utilities
 ├── meta_embed.py          # Embedding generation
 └── params_all.yaml        # Global hyperparameters
@@ -72,21 +87,29 @@ ConditionPhase/
 ## 🔧 Installation
 
 ```bash
-git clone https://github.com/nicetone9/ConditionPhase.git
-cd ConditionPhase
+git clone https://github.com/nicetone9/OpenPhase.git
+cd OpenPhase
 # Install dependencies (see requirements.txt or setup.py)
 ```
 
 ## 📊 Getting Started
 
-Load and explore datasets:
+Load the records by system:
+
+```python
+from openphase_systems import list_systems, load_system
+
+list_systems()                         # records, sequences, papers and sources of each system
+rna = load_system("protein_RNA")       # a pandas data frame; load_system("protein_RNA", source="RNAPSEC")
+```
+
+Build the embedded datasets of the three original sources:
 
 ```python
 from db1 import DB1Dataset
 from db2 import DB2Dataset
 from db3 import DB3Dataset
 
-# Load datasets
 db1 = DB1Dataset()
 db2 = DB2Dataset()
 db3 = DB3Dataset()
