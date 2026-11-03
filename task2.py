@@ -13,7 +13,7 @@ import swanlab
 from loguru import logger
 from tqdm.auto import trange
 
-from db3 import DB3Dataset
+from zhanglab.db3 import DB3Dataset
 from meta_config import create_meta_config
 from model2 import PhaseCVAE, SelectedSystemDataset
 from meta_plot import plot_grid_same_system, plot_roc_pr_curves

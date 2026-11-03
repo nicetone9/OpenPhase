@@ -40,11 +40,11 @@ The records are organised by **system** (the set of components of an experiment,
 | protein + DNA | 662 | `data/protein_DNA/` |
 | protein, saturation concentration | 776 | `data/protein_csat/` |
 
-Records come from LLPSDB v2, LLPSense, RNAPSEC, a PhaSepDB 3 pilot extraction, Bremer 2022 and Ausserwöger 2025, merged and de-duplicated. A nucleic acid is one of the conditions of a record. The three original sources keep their loaders:
+Records come from LLPSDB v2, LLPSense, RNAPSEC, a PhaSepDB 3 pilot extraction, Bremer 2022 and Ausserwöger 2025, merged and de-duplicated. A nucleic acid is one of the conditions of a record. The three original sources keep their loaders, archived in [`zhanglab/`](zhanglab/README.md):
 
-- **db1** (`db1.py`): processed LLPSDBv2 data containing proteins, RNA, and DNA sequences with phase separation annotations
-- **db2** (`db2.py`): manually collected records from laboratory notebooks covering both in vitro and in vivo experiments (not in the tables of `data/`)
-- **db3** (`db3.py`): preprocessed RNAPSEC data focused on protein-RNA interaction systems and their phase behavior
+- **db1** (`zhanglab/db1.py`): processed LLPSDBv2 data containing proteins, RNA, and DNA sequences with phase separation annotations
+- **db2** (`zhanglab/db2.py`): manually collected records from laboratory notebooks covering both in vitro and in vivo experiments (not in the tables of `data/`)
+- **db3** (`zhanglab/db3.py`): preprocessed RNAPSEC data focused on protein-RNA interaction systems and their phase behavior
 
 ### Standardized Benchmarking
 Formalized tasks and evaluation protocols for:
@@ -72,9 +72,10 @@ Generating potential protein sequences (x) that exhibit desired phase behaviors 
 OpenPhase/
 ├── data/                  # records by system (protein, protein_RNA, protein_DNA, protein_csat)
 ├── openphase_systems.py   # load the records by system
-├── db1.py                 # LLPSDBv2 dataset interface (one source)
-├── db2.py                 # Laboratory notebook dataset (one source)
-├── db3.py                 # RNAPSEC dataset interface (one source)
+├── zhanglab/              # archived loaders of the three original sources
+│   ├── db1.py             # LLPSDBv2 dataset interface
+│   ├── db2.py             # Laboratory notebook dataset
+│   └── db3.py             # RNAPSEC dataset interface
 ├── Discrete/              # Discrete diffusion model
 ├── ldm/                   # Latent diffusion model components
 ├── MTDP/                  # MTDP embedder
@@ -106,9 +107,9 @@ rna = load_system("protein_RNA")       # a pandas data frame; load_system("prote
 Build the embedded datasets of the three original sources:
 
 ```python
-from db1 import DB1Dataset
-from db2 import DB2Dataset
-from db3 import DB3Dataset
+from zhanglab.db1 import DB1Dataset
+from zhanglab.db2 import DB2Dataset
+from zhanglab.db3 import DB3Dataset
 
 db1 = DB1Dataset()
 db2 = DB2Dataset()

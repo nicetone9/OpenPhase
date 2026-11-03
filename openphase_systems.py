@@ -7,8 +7,9 @@ The tables live in ``data/<system>/records.tsv`` (see ``data/README.md`` for the
     protein_DNA    protein + DNA                            662 records
     protein_csat   protein, saturation concentration        776 rows
 
-The older loaders ``db1.py`` (LLPSDB v2), ``db2.py`` (laboratory notebooks) and ``db3.py``
-(RNAPSEC) build one embedded dataset per *source*; this module reads the merged records per *system*.
+The archived loaders ``zhanglab/db1.py`` (LLPSDB v2), ``zhanglab/db2.py`` (laboratory notebooks) and
+``zhanglab/db3.py`` (RNAPSEC) build one embedded dataset per *source*; this module reads the merged records
+per *system*.
 """
 import os.path as osp
 from typing import Dict, Iterable, Optional

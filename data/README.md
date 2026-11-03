@@ -21,7 +21,7 @@ rna = load_system("protein_RNA")            # or load_system("protein_RNA", sour
 ## Sources
 
 LLPSDB v2 (download files, rows listed only on its website, digitised phase-diagram tables), LLPSense, RNAPSEC, a pilot extraction from PhaSepDB 3 papers by language-model agents (`PhaSepDB3_pilot_LLM`), and, for the saturation-concentration system, Bremer 2022 and Ausserwöger 2025.
-`db1.py`, `db2.py` and `db3.py` are the loaders of the three original sources (LLPSDB v2, laboratory notebooks, RNAPSEC); they download from the upstream sources and build one embedded dataset per source.
+`zhanglab/db1.py`, `zhanglab/db2.py` and `zhanglab/db3.py` are the archived loaders of the three original sources (LLPSDB v2, laboratory notebooks, RNAPSEC); they download from the upstream sources and build one embedded dataset per source.
 The records of the laboratory-notebook source (db2) are **not** in these tables.
 
 ## Columns

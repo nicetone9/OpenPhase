@@ -61,7 +61,7 @@ def baseline_rnapsec(system_name, split_method, protein_method, dna_rna_method, 
         f"protein_method: {protein_method}, dna_rna_method: {dna_rna_method}, condition_method: {condition_method}"
     )
     import optuna
-    from db1 import DB1Dataset
+    from zhanglab.db1 import DB1Dataset
     from meta_config import create_meta_config
 
     system_meta_config = create_meta_config(protein=protein_method, dna_rna=dna_rna_method, condition=condition_method)
@@ -145,7 +145,7 @@ def baseline_droppler(system_name, split_method, protein_method, dna_rna_method,
         f"protein_method: {protein_method}, dna_rna_method: {dna_rna_method}, condition_method: {condition_method}"
     )
     import SA
-    from db1 import DB1Dataset
+    from zhanglab.db1 import DB1Dataset
     from meta_config import create_meta_config
     from NNWrappers import NNwrapper
 
@@ -245,7 +245,7 @@ def protein1_condformer(system_name, split_method, protein_method, dna_rna_metho
         f"protein_method: {protein_method}, dna_rna_method: {dna_rna_method}, condition_method: {condition_method}"
     )
 
-    from db1 import DB1Dataset
+    from zhanglab.db1 import DB1Dataset
     from meta_config import create_meta_config
     from model1 import PhaseClassificationHead, Protein1SystemEncoder
 
@@ -352,7 +352,7 @@ def protein1_regression(
     protein_method="rnapsec_protein", condition_method="rnapsec_condition", transfer_model_path="./task1/models/condformer_protein(1)_random_best.pth"
 ):
     """Load the DB2 dataset for IDR system and perform regression."""
-    from db2 import DB2Dataset
+    from zhanglab.db2 import DB2Dataset
     from meta_config import create_meta_config
     from model1 import Protein1SystemEncoder, PhaseRegressionHead
     import torch
