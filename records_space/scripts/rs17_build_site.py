@@ -26,8 +26,10 @@ assert os.path.exists(f"{FIGS}/fig-multi-protein-systems.webp") and os.path.exis
 os.makedirs(f"{SITE}/assets", exist_ok=True)
 for name in ("fig-multi-protein-systems.webp", "fig-protein1-systems.webp"):
     shutil.copy(f"{FIGS}/{name}", f"{SITE}/assets/{name}")
-subprocess.run(["cwebp", "-quiet", "-q", "88", f"{THEME}/openphase-system-conditions-v5.png", "-o", f"{SITE}/assets/openphase-main.webp"], check=True)
-subprocess.run(["cwebp", "-quiet", "-q", "92", "-alpha_q", "100", f"{THEME}/openphase-wordmark-transparent.png", "-o", f"{SITE}/assets/openphase-wordmark.webp"], check=True)
+for src, out, args in ((f"{THEME}/openphase-system-conditions-v5.png", f"{SITE}/assets/openphase-main.webp", ["-q", "88"]),
+                       (f"{THEME}/openphase-wordmark-transparent.png", f"{SITE}/assets/openphase-wordmark.webp", ["-q", "92", "-alpha_q", "100"])):
+    if not os.path.exists(out):                      # 已经转好的不重转（OneDrive 上的原图可能还没下载到本机）
+        subprocess.run(["cwebp", "-quiet", *args, src, "-o", out], check=True)
 
 # ---- 热区
 WB, HB = 2000, 1793          # protein(1) 图
@@ -62,6 +64,15 @@ HOT_A = [
 CHIPS_B = [("Protein only", P + "#na=none&csat=hide"), ("+ RNA", P + "#na=RNA&csat=hide"), ("+ DNA", P + "#na=DNA&csat=hide"), ("Csat pool", P + "#csat=only"), ("FUS", P + "#protein=FUS"),
            ("LLPSDB v2", P + "#hl=llpsdb"), ("LLPSense", P + "#hl=llpsense"), ("RNAPSEC", P + "#hl=rnapsec"), ("PhaSepDB 3", P + "#hl=phasepdb3"),
            ("Bremer 2022", P + "#hl=bremer&csat=only"), ("Ausserwöger 2025", P + "#hl=ausserwoger&csat=only")]
+
+
+def sysby(h):
+    """首页系统图上的链接都按"系统类型"着色，颜色与图里的四个家族一致"""
+    return h + ("&" if "#" in h else "#") + "by=system"
+
+
+HOT_B = [(s, g, sysby(h), lab) for s, g, h, lab in HOT_B]
+CHIPS_B = [(n, sysby(h)) for n, h in CHIPS_B]
 
 
 def box(shape, g, W, H):

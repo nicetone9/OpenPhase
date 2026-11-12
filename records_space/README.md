@@ -38,6 +38,12 @@ A second page, [`negatives/index.html`](negatives/index.html), shows only negati
 The page is grey and light grey-blue throughout. Pick a negative set to highlight it, colour the negatives by the number of sets that list them (17,194 of them are in two or more), show densities, search by UniProt, gene or name, and click a protein for the sets it belongs to. A ring marks proteins that also have records with conditions in the main explorer.
 Proteins were embedded as described above (UniProt, UniParc for entries that no longer exist) and laid out with UMAP using only these proteins; UMAP keeps neighbourhoods, not distances. The Swiss-Prot sample is a background, not a set of verified negatives, and training negatives are mostly proteins that were not listed as phase-separating. The set memberships come from the published training sets as collected in a benchmarking project; check each source's licence before reusing them.
 
+## System type and representative colourings
+
+*Color by → System type* colours the records by the four system types: protein only (7,490 records), protein + RNA (2,511), protein + DNA (662) and the csat pool (776). The four colours are a set of their own, chosen so that none of them repeats the colours of the protein, source or label colourings (CIEDE2000 distance of at least 14 to every other categorical colour, at least 27 among themselves, similar lightness and chroma so that they sit together).
+
+[`figs/FigR6_coloring_gallery.png`](figs/FigR6_coloring_gallery.png) shows what each system type is made of (dot size = share of the system type's records in a category, colour = log2 enrichment over all records) and eight representative colourings of the same t-SNE: system type, protein, label, source, temperature, NaCl, protein concentration and missing blocks. It is drawn by `colab/rs18_coloring_figure.py` (`run_fig6.sh`).
+
 ## Site and links
 
 The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
@@ -50,6 +56,7 @@ The explorer takes its starting state from the address, so a link can open it on
 | `csat` | `only` (csat records), `hide` (binary records only) | `#na=RNA&csat=hide` |
 | `hl` | a tool or database: `llpsense`, `droppler`, `rnapsec`, `llpsdb`, `phasepdb3`, `bremer`, `ausserwoger`, or a protein-only set | `#hl=rnapsec` |
 | `protein` | a protein name from the colour legend | `#protein=FUS` |
+| `by` | what to colour by: `system` (system type), `protein`, `ps`, `source`, `na_class`, … (the keys of the *Color by* menu) | `#by=system` |
 | `q` | text for the find box | `#q=P35637` |
 | `lens` | `tsne_full`, `umap_full`, `umap_prot`, `umap_cond`, `umap_fullM`, `umap_universe` | `#lens=umap_universe` |
 

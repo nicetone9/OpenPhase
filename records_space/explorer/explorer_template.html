@@ -261,7 +261,15 @@ const DATA = /*__DATA__*/null;
   const CAT14 = ["#20B7ED", "#EF7182", "#98C93C", "#A47BDD", "#E7AC24", "#159C98", "#D87234", "#427FDB", "#BE629E", "#35A45B", "#E45A62", "#8F7A55", "#4FD1C5", "#6B2A6B"];
   const NEUTRAL_LV = new Set(["other proteins", "none", "full length / wild type", "none reported", "no csat", "binary", "quantitative only (csat pool)", "none recorded"]);
   const MISSING_LV = new Set(["not given", "missing"]);
+  // 系统类型：由读数类别和核酸类别推出（四种：protein only、protein+RNA、protein+DNA、Csat pool；配色见 FIXED.system）
+  (function () {
+    const rc = D.cat.readout_class, na = D.cat.na_class, codes = new Array(N);
+    for (let i = 0; i < N; i++) { const r = rc.levels[rc.codes[i]], n = na.levels[na.codes[i]]; codes[i] = r !== "binary" ? 3 : n === "RNA" ? 1 : n === "DNA" ? 2 : 0; }
+    D.cat.system = { label: "System type", levels: ["protein only", "protein+RNA", "protein+DNA", "Csat pool"], codes: codes };
+  })();
   const FIXED = {
+    // 系统类型自成一套，不和蛋白（CAT14）等配色重复：四色与 CAT14 及各处配色的 CIEDE2000 色差都 ≥ 14，四色之间 ≥ 27，亮度与彩度接近（偏深的低饱和宝石色），所以看起来协调
+    system: { "protein only": "#018AB2", "protein+RNA": "#964A59", "protein+DNA": "#327C5A", "Csat pool": "#6E5722" },
     na_class: { none: "#159AD6", RNA: "#E45A62", DNA: "#81BA36" },
     construct: { "truncation / domain": "#20B7ED", "point mutant": "#E7AC24", "fusion tag": "#E45A62" },
     temp_band: { "≤ 10 °C": "#146DB5", "10–20 °C": "#20B7ED", "20–30 °C": "#98C93C", "30–40 °C": "#E7AC24", "> 40 °C": "#E45A62", "room temp. only": "#BFDDF0" },
@@ -280,6 +288,7 @@ const DATA = /*__DATA__*/null;
     na_class: { none: "no nucleic acid" }
   };
   const GROUPS = [
+    ["System", [["cat", "system"]]],
     ["Sequence", [["cat", "protein"], ["cont", "len_log"], ["cont", "ncpr"], ["cont", "arom"], ["cat", "construct"], ["cat", "na_class"]]],
     ["Conditions", [["cont", "tempC"], ["cat", "temp_band"], ["cont", "pH_v"], ["cont", "nacl_log"], ["cont", "conc_v"], ["cat", "crowder"], ["cat", "buffer_f"], ["cat", "additive_f"], ["cont", "na_ratio"]]],
     ["Readout", [["cat", "ps"], ["cat", "csat_status"], ["cat", "readout_class"], ["cont", "y_csat"]]],
@@ -289,7 +298,7 @@ const DATA = /*__DATA__*/null;
 
   // ---------- state ----------
   const S = { lens: D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0], by: ["cat", "protein"], hidden: new Set(), k: 1, tx: 0, ty: 0, hover: -1, pin: -1, hoverU: -1, pinU: -1, psize: 3.5, style: "solid", outline: "light", hl: "",
-    showBin: true, showCsat: true, na: "any", ts: "any", tmin: null, tmax: null, csat: "any", text: "", mode: "explore", tryRes: null };
+    onlyProtein: -1, showBin: true, showCsat: true, na: "any", ts: "any", tmin: null, tmax: null, csat: "any", text: "", mode: "explore", tryRes: null };
   const cv = $("cv"), ctx = cv.getContext("2d");
   let W = 0, H = 0, dpr = 1;
   const vis = new Uint8Array(N), sx = new Float32Array(N), sy = new Float32Array(N);
@@ -313,6 +322,7 @@ const DATA = /*__DATA__*/null;
       if (ok && (S.tmin != null || S.tmax != null)) { const t = I.T[i]; if (t == null || (S.tmin != null && t < S.tmin) || (S.tmax != null && t > S.tmax)) ok = false; }
       if (ok && S.csat !== "any" && csL[cs[i]] !== S.csat) ok = false;
       if (ok && q && hay[i].indexOf(q) < 0) ok = false;
+      if (ok && S.onlyProtein >= 0 && D.cat.protein.codes[i] !== S.onlyProtein) ok = false;
       if (ok && byCodes && hid.has(byCodes[i])) ok = false;
       vis[i] = ok ? 1 : 0;
     }
@@ -712,21 +722,20 @@ const DATA = /*__DATA__*/null;
     card.appendChild(acts);
   }
   function setText(t) { $("fText").value = t; readControls(); }
-  // 地址栏参数（目录页的链接用）：#na=RNA|DNA|none  #csat=only|hide  #hl=<工具>  #q=<搜索>  #protein=<蛋白，如 FUS>  #lens=<地图>  #mode=try；没写的参数回到默认值
+  // 地址栏参数（目录页的链接用）：#na=RNA|DNA|none  #csat=only|hide  #hl=<工具>  #q=<搜索>  #protein=<蛋白，如 FUS>  #by=<着色，如 system>  #lens=<地图>  #mode=try；没写的参数回到默认值
   function applyHash() {
     const h = location.hash.replace(/^#/, ""); if (!h) return;
     const P = new URLSearchParams(h), has = (id, v) => [...$(id).options].some(o => o.value === v);
     $("lens").value = P.has("lens") && has("lens", P.get("lens")) ? P.get("lens") : (D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0]);
-    $("colorby").value = P.has("protein") ? "cat:protein" : "cat:protein";
+    $("colorby").value = P.has("by") && has("colorby", "cat:" + P.get("by")) ? "cat:" + P.get("by") : "cat:protein";
     $("fNA").value = P.has("na") && has("fNA", P.get("na")) ? P.get("na") : "any";
     $("showBin").checked = P.get("csat") !== "only"; $("showCsat").checked = P.get("csat") !== "hide";
     $("fText").value = P.get("q") || "";
     readControls();
-    S.hidden = new Set();
+    S.hidden = new Set(); S.onlyProtein = -1;
     if (P.has("protein")) {
       const c = D.cat.protein, want = P.get("protein").toLowerCase();
-      const hit = c.levels.findIndex(lv => (((LAB.protein && LAB.protein[lv]) || lv) + "").toLowerCase() === want || (lv + "").toLowerCase() === want);
-      if (hit >= 0) S.hidden = new Set(c.levels.map((_, i) => i).filter(i => i !== hit));
+      S.onlyProtein = c.levels.findIndex(lv => (((LAB.protein && LAB.protein[lv]) || lv) + "").toLowerCase() === want || (lv + "").toLowerCase() === want);
     }
     refresh();
     setHighlight(P.has("hl") && D.tools && D.tools.list.some(t => t.id === P.get("hl")) ? P.get("hl") : "");
@@ -748,7 +757,7 @@ const DATA = /*__DATA__*/null;
   function fit() { S.k = 1; S.tx = 0; S.ty = 0; render(); }
   function resetAll() {
     ["fNA", "fTS", "fCsat"].forEach(id => $(id).value = "any"); $("tMin").value = ""; $("tMax").value = ""; $("fText").value = "";
-    $("showBin").checked = true; $("showCsat").checked = true; $("psize").value = "3.5"; S.pin = -1; S.hover = -1; S.pinU = -1; S.hoverU = -1; S.hidden = new Set(); S.k = 1; S.tx = 0; S.ty = 0; readControls();
+    $("showBin").checked = true; $("showCsat").checked = true; $("psize").value = "3.5"; S.pin = -1; S.hover = -1; S.pinU = -1; S.hoverU = -1; S.hidden = new Set(); S.onlyProtein = -1; S.k = 1; S.tx = 0; S.ty = 0; readControls();
   }
   // ---------- Highlight tool entries ----------
   const toolIdx = id => D.tools ? D.tools.list.findIndex(t => t.id === id) : -1;
