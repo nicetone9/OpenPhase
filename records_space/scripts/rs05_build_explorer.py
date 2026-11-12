@@ -178,6 +178,14 @@ def main():
     up = f"{EXP}/universe_data.json"
     if os.path.exists(up):
         U = json.load(open(up))
+        # rs19：UniProt 注释（RNA-binding / DNA-binding）推断的系统类型，按 accession 对齐到页面里的宇宙蛋白
+        sp = f"{ROOT}/data/universe/universe_system.json"
+        if os.path.exists(sp):
+            S_ = json.load(open(sp)); pos_ = {a: i for i, a in enumerate(S_["order"])}; idx_ = [pos_.get(a, -1) for a in U["acc"]]
+            U["sys"] = "".join(str(S_["sys"][i]) if i >= 0 else "0" for i in idx_)                          # 0 protein(1)，1 + RNA，2 + DNA
+            U["flag"] = "".join(str(S_["rna"][i] + 2 * S_["dna"][i] + 4 * S_["annotated"][i]) if i >= 0 else "0" for i in idx_)   # 位：1 RNA-binding，2 DNA-binding，4 有 UniProt 注释
+            U["sys_eval"] = json.load(open(f"{ROOT}/data/universe/system_eval.json"))
+            print("universe systems", {k: U["sys"].count(str(k)) for k in (0, 1, 2)})
         raw = base64.b64decode(U["xyds"])
         q = struct.unpack("<" + "H" * (len(raw) // 2), raw)
         xs, ys, seen = [], [], Counter()

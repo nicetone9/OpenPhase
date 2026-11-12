@@ -3,7 +3,7 @@
  * 依赖：CondParser、RecordsSpace；主页面通过 ctx 提供数据、元素工具和地图回调。 */
 function initTryPanel(ctx) {
   "use strict";
-  const { D, I, SP, CP, $, el, showRecord, fmt } = ctx;
+  const { D, I, SP, CP, $, el, elSub, showRecord, fmt, SYS_COL, SYSTEM_LV } = ctx;
   const BUF = [["", "—"], ["Tris", "Tris"], ["HEPES", "HEPES"], ["phosphate", "phosphate / PBS"], ["goodsMES", "MES / MOPS / PIPES"], ["citrate", "citrate"], ["acetate", "acetate"], ["imidazole", "imidazole"], ["other_buf", "other"]];
   const CROWD = [["", "—"], ["none", "none"], ["PEG1k", "PEG 300–1000"], ["PEG6k", "PEG 3000–6000"], ["PEG20k", "PEG 8000–20000"], ["Ficoll", "Ficoll"], ["Dex40", "Dextran ≤ 40 k"], ["Dex70", "Dextran ≥ 70 k"], ["Glycerol", "Glycerol"]];
   const CROWD_KEYS = ["PEG1k", "PEG6k", "PEG20k", "Ficoll", "Dex40", "Dex70", "Glycerol"];
@@ -87,6 +87,31 @@ function initTryPanel(ctx) {
   const later = (ms) => { clearTimeout(timer); timer = setTimeout(flush, ms || 250); };
 
   // ---------------------------------------------------------------- 序列
+  // 序列框里可以贴多条 FASTA：条目数 = 蛋白数，地图上的位置只用第一条（地图里只有单蛋白记录）
+  const fastaEntries = (text) => {
+    const t = text.trim(); if (!t) return [];
+    if (!/^\s*>/m.test(t)) return [t];
+    const out = []; let cur = null;
+    for (const line of t.split(/\r?\n/)) { if (line.trim().startsWith(">")) { cur = [line]; out.push(cur); } else if (cur) cur.push(line); }
+    return out.map((a) => a.join("\n"));
+  };
+  // 系统类型推断：蛋白数 = 序列框里的 FASTA 条目数；核酸 = 核酸框（"快速填写"那句话里写到 RNA / DNA 也会填进去）。
+  // 命名和配色同 Fig. 1 / S1：protein(n) [+ RNA | + DNA]；三个蛋白以上带核酸记作 + NA，用紫色家族
+  function inferSystem() {
+    if (T.entry && T.entry.u >= 0 && UV && UV.sys) {
+      const c = UV.sys[T.entry.u], fl = UV.flag[T.entry.u];
+      return { name: SYSTEM_LV[c], col: SYS_COL[c], why: !(fl & 4) ? "No UniProt annotation found, so counted as a protein on its own." : c === 0 ? "UniProt lists no RNA- or DNA-binding function." : c === 1 ? "UniProt lists it as RNA-binding." : "UniProt lists it as DNA-binding." };
+    }
+    if (T.entry && T.entry.rec >= 0 && TOOLS[T.entry.tool].kind !== "prot") {
+      const sc = D.cat.system.codes[T.entry.rec];
+      return { name: SYSTEM_LV[sc], col: SYS_COL[sc], why: "Taken from this dataset record." };
+    }
+    const n = T.entry ? 1 : Math.max(1, fastaEntries(T.seq).length), na = T.f.na;
+    let name = n >= 4 ? "protein(≥4)" : "protein(" + n + ")", ci = 0;
+    if (na !== "none") { name += n >= 3 ? " + NA" : " + " + na; ci = n >= 3 ? 3 : (na === "RNA" ? 1 : 2); }
+    const why = [n > 1 ? n + " sequences pasted" : T.seq.trim() || T.entry ? "one protein" : "no sequence yet, counted as one protein", na === "none" ? "no nucleic acid" : "with " + na];
+    return { name, col: SYS_COL[ci], why: why.join(", ") + "." + (n > 1 ? " This map holds single-protein records, so the star is placed from the first protein only." : "") };
+  }
   function sequenceStep() {
     const box = X.seqInfo; box.textContent = "";
     T.zn = null; T.similar = []; T.exactIdx = -1; T.seqInfo = null;
@@ -111,7 +136,8 @@ function initTryPanel(ctx) {
       return;
     }
     if (!T.seq.trim()) { box.appendChild(el("p", "muted", "No sequence: the protein part of the distance stays unknown.")); return; }
-    const a = SP.analyzeSequence(T.seq);
+    const fa = fastaEntries(T.seq), a = SP.analyzeSequence(fa[0] || T.seq);
+    if (fa.length > 1) box.appendChild(el("p", "muted", fa.length + " sequences pasted: the map holds single-protein records, so this experiment is placed from the first one."));
     if (a.tooShort) { box.appendChild(el("p", "muted", "Fewer than 10 standard residues: the sequence is not used.")); return; }
     T.seqInfo = a;
     const ex = exactZ(a.seq);
@@ -202,7 +228,7 @@ function initTryPanel(ctx) {
     const cls = T.seqInfo ? T.seqInfo.cls : "none";
     const novel = T.unseen || cls === "novel" || cls === "related" || cls === "none";
     const m15 = { full: mean15("full"), fullM: mean15("fullM") };
-    T.result = { dist, nn, m15, covFull: SP.coverageLevel("full", m15.full, novel), covM: SP.coverageLevel("fullM", m15.fullM, novel), novel, spec, cls };
+    T.result = { dist, nn, m15, covFull: SP.coverageLevel("full", m15.full, novel), covM: SP.coverageLevel("fullM", m15.fullM, novel), novel, spec, cls, sys: inferSystem() };
   }
   const QUANT_TXT = (p) => (p <= 0.25 ? "a well-covered region" : p <= 0.5 ? "typical coverage" : p <= 0.9 ? "less covered than most records" : p <= 0.99 ? "sparsely covered (beyond the 90th percentile)" : "outside what the dataset covers (beyond the 99th percentile)");
   function showEmpty() {
@@ -216,6 +242,7 @@ function initTryPanel(ctx) {
     const v = el("div", "verdict " + verdict);
     v.append(el("b", null, "Coverage: " + verdict + ". "), document.createTextNode("The 15 nearest records are at mean distance " + R.m15.full.toFixed(3) + ": " + QUANT_TXT(R.covFull.pct) + "."));
     out.appendChild(v);
+    { const sd = el("div", "sysinfer"), dot = el("i", "sysdot"); dot.style.background = R.sys.col; sd.append(dot, el("b", null, "System"), elSub("b", null, R.sys.name), el("span", null, R.sys.why)); out.appendChild(sd); }
     if (T.entry) out.appendChild(entryInfo());
     const list = el("div", "nlist");
     R.nn.full.slice(0, 8).forEach((j, r) => {

@@ -40,9 +40,14 @@ Proteins were embedded as described above (UniProt, UniParc for entries that no 
 
 ## System type and representative colourings
 
-*Color by → System type* colours the records by the four system types: protein only (7,490 records), protein + RNA (2,511), protein + DNA (662) and the csat pool (776). The four colours are a set of their own, chosen so that none of them repeats the colours of the protein, source or label colourings (CIEDE2000 distance of at least 14 to every other categorical colour, at least 27 among themselves, similar lightness and chroma so that they sit together).
+*Color by → System type* colours the records by the four system types of Fig. 1: protein(1) (7,490 records), protein(1) + RNA (2,511), protein(1) + DNA (662) and protein(1) · C<sub>sat</sub> (776; saturation-concentration records, kept as a system of their own). The colours are the family colours of Fig. 1 and Fig. S1: blue, red, green and purple.
 
-[`figs/FigR6_coloring_gallery.png`](figs/FigR6_coloring_gallery.png) shows what each system type is made of (dot size = share of the system type's records in a category, colour = log2 enrichment over all records) and eight representative colourings of the same t-SNE: system type, protein, label, source, temperature, NaCl, protein concentration and missing blocks. It is drawn by `colab/rs18_coloring_figure.py` (`run_fig6.sh`).
+An entry with no record has no system, so the page infers one:
+
+- **Protein universe.** A tool protein with no record is drawn as protein(1) + RNA if UniProt lists it as RNA-binding, as protein(1) + DNA if it is only DNA-binding, and as protein(1) otherwise (both: + RNA). Among the 331 proteins that do have records, 52% of those UniProt calls RNA-binding have + RNA records, against 11% of the rest (DNA-binding: 36% against 5%). The ring colour is therefore a guess from the protein alone, not a measurement; `scripts/rs19_universe_system.py` builds it.
+- **Try your own experiment.** The number of proteins is the number of FASTA entries and the nucleic acid is the one in the form, so an experiment is named protein(n) [+ RNA | + DNA | + NA] and its star takes that system's colour. The map holds single-protein records only, so with several proteins the star is placed from the first one.
+
+[`figs/FigR6_coloring_gallery.png`](figs/FigR6_coloring_gallery.png) shows what each system type is made of (dot size = share of the system type's records in a category, colour = log2 enrichment over all records) and eight representative colourings of the same t-SNE: system type, protein, label, source, temperature, NaCl, protein concentration and missing blocks. It is drawn by `scripts/rs20_coloring_figure.py` (`scripts/run_fig6_local.sh`); the numbers behind it are in `figs/FigR6_coloring_gallery.source_data_a.csv` and `..._b.csv`.
 
 ## Site and links
 

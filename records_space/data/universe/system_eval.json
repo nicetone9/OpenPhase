@@ -1,0 +1,32 @@
+{
+ "proteins_with_records": 331,
+ "annotated": 329,
+ "RNA": {
+  "tp": 53,
+  "fp": 50,
+  "fn": 25,
+  "tn": 201,
+  "precision": 0.515,
+  "recall": 0.679,
+  "base_rate": 0.237,
+  "rate_if_not_annotated": 0.111
+ },
+ "DNA": {
+  "tp": 30,
+  "fp": 53,
+  "fn": 12,
+  "tn": 234,
+  "precision": 0.361,
+  "recall": 0.714,
+  "base_rate": 0.128,
+  "rate_if_not_annotated": 0.049
+ },
+ "universe": {
+  "n": 6344,
+  "annotated": 6183,
+  "protein(1)": 4373,
+  "protein(1) + RNA": 1405,
+  "protein(1) + DNA": 566,
+  "both": 195
+ }
+}

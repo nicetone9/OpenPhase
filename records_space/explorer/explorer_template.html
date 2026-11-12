@@ -143,6 +143,10 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
 .glyphkey{ display:flex; flex-wrap:wrap; gap:4px 18px; padding:2px 6px; font-size:0.76rem; color:var(--mute); }
 .glyphkey span{ display:inline-flex; align-items:center; gap:6px; }
 .glyphkey i{ width:11px; height:11px; border-radius:50%; box-sizing:border-box; flex:none; }
+.sysdot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; vertical-align:-0.5px; }
+.sysinfer{ display:flex; align-items:baseline; flex-wrap:wrap; gap:2px 6px; margin:8px 0 2px; font-size:0.84rem; line-height:1.4; }
+.sysinfer b{ font-weight:600; } .sysinfer span{ color:var(--mute); }
+sub{ font-size:0.72em; line-height:0; }
 .g-fill{ background:var(--accent); border:1px solid var(--canvas); } .g-ring{ border:1.5px solid var(--neutral2); }
 .hlnote button{ font-size:0.74rem; padding:2px 9px; }
 </style>
@@ -203,7 +207,7 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
         <div class="count" id="count"></div>
       </div>
       <div class="hlnote" id="hlnote" hidden></div>
-      <div class="glyphkey" id="glyphkey" hidden><span><i class="g-fill"></i> protein with conditions (a record)</span><span><i class="g-ring"></i> protein without conditions (tool entry only)</span></div>
+      <div class="glyphkey" id="glyphkey" hidden><span><i class="g-fill"></i> protein with conditions (a record)</span><span><i class="g-ring"></i> protein without conditions (tool entry only)</span><span id="gkInfer" hidden>ring colour = system inferred from UniProt (RNA- / DNA-binding)</span></div>
       <section class="legend" id="legend" aria-label="Legend"></section>
     </main>
     <section class="card" id="card" aria-live="polite"></section>
@@ -224,7 +228,8 @@ const DATA = /*__DATA__*/null;
   if (D.universe) {
     const u = D.universe;
     UV = { n: u.n, acc: u.acc, name: u.name, gene: u.gene, org: u.org || [], obs: u.obs || [], len: u.len, nn: u.nn, nncos: u.nncos, missing: u.missing, xy: new Uint16Array(b64ToBuf(u.xy)), zn: new Int8Array(b64ToBuf(u.zn)),
-      lo: new Uint32Array(b64ToBuf(u.lo)), hi: new Uint32Array(b64ToBuf(u.hi)) };
+      lo: new Uint32Array(b64ToBuf(u.lo)), hi: new Uint32Array(b64ToBuf(u.hi)),
+      sys: u.sys ? Uint8Array.from(u.sys, c => +c) : null, flag: u.flag ? Uint8Array.from(u.flag, c => +c) : null, sysEval: u.sys_eval || null };   // sys：推断的系统（0 protein(1)，1 + RNA，2 + DNA）；flag：1 RNA-binding，2 DNA-binding，4 有 UniProt 注释
     UV.has = (k, t) => ((t < 32 ? UV.lo[k] >>> t : UV.hi[k] >>> (t - 32)) & 1) === 1;
     UV.sx = new Float32Array(UV.n); UV.sy = new Float32Array(UV.n);
   }
@@ -261,15 +266,17 @@ const DATA = /*__DATA__*/null;
   const CAT14 = ["#20B7ED", "#EF7182", "#98C93C", "#A47BDD", "#E7AC24", "#159C98", "#D87234", "#427FDB", "#BE629E", "#35A45B", "#E45A62", "#8F7A55", "#4FD1C5", "#6B2A6B"];
   const NEUTRAL_LV = new Set(["other proteins", "none", "full length / wild type", "none reported", "no csat", "binary", "quantitative only (csat pool)", "none recorded"]);
   const MISSING_LV = new Set(["not given", "missing"]);
-  // 系统类型：由读数类别和核酸类别推出（四种：protein only、protein+RNA、protein+DNA、Csat pool；配色见 FIXED.system）
+  // 系统类型：命名和配色同论文 Fig. 1 / Fig. S1 的四个家族（蓝 = 单蛋白，红 = + RNA，绿 = + DNA，紫 = 饱和浓度）。
+  // 由读数类别和核酸类别推出；饱和浓度（C_sat）单独成一类，"C_sat" 在界面里显示成带下标的 C_sat
+  const SYSTEM_LV = ["protein(1)", "protein(1) + RNA", "protein(1) + DNA", "protein(1) · C_sat"];
+  const SYS_COL = ["#1B9AD6", "#E4525C", "#6BBE3A", "#7A4AA6"];   // 家族色 P / R / D / C（Fig. 1 实心色那一档）
   (function () {
     const rc = D.cat.readout_class, na = D.cat.na_class, codes = new Array(N);
     for (let i = 0; i < N; i++) { const r = rc.levels[rc.codes[i]], n = na.levels[na.codes[i]]; codes[i] = r !== "binary" ? 3 : n === "RNA" ? 1 : n === "DNA" ? 2 : 0; }
-    D.cat.system = { label: "System type", levels: ["protein only", "protein+RNA", "protein+DNA", "Csat pool"], codes: codes };
+    D.cat.system = { label: "System type", levels: SYSTEM_LV, codes: codes };
   })();
   const FIXED = {
-    // 系统类型自成一套，不和蛋白（CAT14）等配色重复：四色与 CAT14 及各处配色的 CIEDE2000 色差都 ≥ 14，四色之间 ≥ 27，亮度与彩度接近（偏深的低饱和宝石色），所以看起来协调
-    system: { "protein only": "#018AB2", "protein+RNA": "#964A59", "protein+DNA": "#327C5A", "Csat pool": "#6E5722" },
+    system: { [SYSTEM_LV[0]]: SYS_COL[0], [SYSTEM_LV[1]]: SYS_COL[1], [SYSTEM_LV[2]]: SYS_COL[2], [SYSTEM_LV[3]]: SYS_COL[3] },
     na_class: { none: "#159AD6", RNA: "#E45A62", DNA: "#81BA36" },
     construct: { "truncation / domain": "#20B7ED", "point mutant": "#E7AC24", "fusion tag": "#E45A62" },
     temp_band: { "≤ 10 °C": "#146DB5", "10–20 °C": "#20B7ED", "20–30 °C": "#98C93C", "30–40 °C": "#E7AC24", "> 40 °C": "#E45A62", "room temp. only": "#BFDDF0" },
@@ -560,6 +567,20 @@ const DATA = /*__DATA__*/null;
     }
     labels.sort((a, b) => b.n - a.n);
   }
+  // 标签里的 "C_sat" 在画布上画成带下标的 C_sat（C 用正常字号，sat 缩小并下移）
+  const labelParts = text => { const i = text.indexOf("C_sat"); return i < 0 ? null : [text.slice(0, i + 1), text.slice(i + 5)]; };
+  function labelWidth(text, fs) {
+    const p = labelParts(text); if (!p) return ctx.measureText(text).width;
+    const base = ctx.font, w = ctx.measureText(p[0]).width + ctx.measureText(p[1]).width;
+    ctx.font = "600 " + fs * 0.72 + "px " + css("--font-ui"); const ws = ctx.measureText("sat").width; ctx.font = base; return w + ws;
+  }
+  function paintLabel(text, x, y, fs, fn) {
+    const p = labelParts(text); if (!p) { ctx[fn](text, x, y); return; }
+    const base = ctx.font, small = "600 " + fs * 0.72 + "px " + css("--font-ui"), wa = ctx.measureText(p[0]).width, wb = ctx.measureText(p[1]).width;
+    ctx.font = small; const ws = ctx.measureText("sat").width; ctx.font = base;
+    const x0 = x - (wa + ws + wb) / 2, al = ctx.textAlign; ctx.textAlign = "left";
+    ctx[fn](p[0], x0, y); ctx.font = small; ctx[fn]("sat", x0 + wa, y + fs * 0.2); ctx.font = base; ctx[fn](p[1], x0 + wa + ws, y); ctx.textAlign = al;
+  }
   function drawLabels() {
     if (!labels.length) return;
     const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, fs = 12 * dpr, halo = css("--canvas"), boxes = [];
@@ -567,11 +588,11 @@ const DATA = /*__DATA__*/null;
     for (const L of labels) {
       const x = (pad + L.x * w) * S.k + S.tx, y = (pad + L.y * h) * S.k + S.ty;
       if (x < 0 || y < 0 || x > W || y > H) continue;
-      const tw = ctx.measureText(L.text).width, b = [x - tw / 2 - 3 * dpr, y - fs * 0.75, x + tw / 2 + 3 * dpr, y + fs * 0.75];
+      const tw = labelWidth(L.text, fs), b = [x - tw / 2 - 3 * dpr, y - fs * 0.75, x + tw / 2 + 3 * dpr, y + fs * 0.75];
       if (boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1])) continue;
       boxes.push(b);
-      ctx.lineWidth = 4 * dpr; ctx.strokeStyle = halo; ctx.globalAlpha = 0.92; ctx.strokeText(L.text, x, y);
-      ctx.globalAlpha = 1; ctx.fillStyle = rgb(inkOf(toRGB(L.col))); ctx.fillText(L.text, x, y);
+      ctx.lineWidth = 4 * dpr; ctx.strokeStyle = halo; ctx.globalAlpha = 0.92; paintLabel(L.text, x, y, fs, "strokeText");
+      ctx.globalAlpha = 1; ctx.fillStyle = rgb(inkOf(toRGB(L.col))); paintLabel(L.text, x, y, fs, "fillText");
     }
     ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
   }
@@ -590,6 +611,7 @@ const DATA = /*__DATA__*/null;
   const TAU = Math.PI * 2;
   function render() {
     $("glyphkey").hidden = !(UV && S.lens === "umap_universe");
+    $("gkInfer").hidden = !(UV && UV.sys && S.by[0] === "cat" && S.by[1] === "system");
     project();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = css("--canvas"); ctx.fillRect(0, 0, W, H);
@@ -628,6 +650,12 @@ const DATA = /*__DATA__*/null;
 
   // ---------- legend ----------
   function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  // 文字里的 "C_sat" 在 DOM 里写成 C<sub>sat</sub>
+  function elSub(tag, cls, text) {
+    const e = document.createElement(tag); if (cls) e.className = cls;
+    String(text).split("C_sat").forEach((p, i) => { if (i) { e.append("C"); const s = document.createElement("sub"); s.textContent = "sat"; e.appendChild(s); } if (p) e.append(p); });
+    return e;
+  }
   function buildLegend() {
     const box = $("legend"); box.textContent = "";
     const [kind, key] = S.by;
@@ -642,7 +670,7 @@ const DATA = /*__DATA__*/null;
         const b = el("button", "lg" + (S.hidden.has(i) ? " off" : ""));
         b.type = "button";
         const dot = el("i"); dot.style.background = legendSpec.pal[i];
-        b.append(dot, el("span", null, (LAB[key] && LAB[key][lv]) || lv), el("b", null, cnt[i].toLocaleString("en-US")));
+        b.append(dot, elSub("span", null, (LAB[key] && LAB[key][lv]) || lv), el("b", null, cnt[i].toLocaleString("en-US")));
         b.title = "Click to hide or show";
         b.addEventListener("click", () => { if (S.hidden.has(i)) S.hidden.delete(i); else S.hidden.add(i); refresh(); });
         items.appendChild(b);
@@ -695,6 +723,7 @@ const DATA = /*__DATA__*/null;
     card.appendChild(el("h3", null, nm));
     card.appendChild(el("div", "muted", I.rid[j] + " · " + I.paper[j]));
     const tags = el("div"); tags.style.margin = "8px 0 0";
+    { const sc = D.cat.system.codes[j], st = elSub("span", "tag", D.cat.system.levels[sc]), dot = el("i", "sysdot"); dot.style.background = adj(SYS_COL[sc]); st.prepend(dot); tags.appendChild(st); }
     { const sl = D.cat.source.levels[D.cat.source.codes[j]]; tags.appendChild(el("span", "tag", LAB.source[sl] || sl)); }
     tags.appendChild(el("span", "tag", I.lab[j]));
     card.appendChild(tags);
@@ -828,10 +857,14 @@ const DATA = /*__DATA__*/null;
   function drawUniverse(base) {
     if (!UV || S.lens !== "umap_universe") return;
     projectU();
-    const r = Math.max(1.2 * dpr, base * 0.62);
-    ctx.beginPath();
-    for (let j = 0; j < UV.n; j++) { const x = UV.sx[j], y = UV.sy[j]; if (x < -4 || y < -4 || x > W + 4 || y > H + 4) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); }
-    ctx.lineWidth = 0.7 * dpr; ctx.strokeStyle = css("--neutral2"); ctx.globalAlpha = S.hl ? 0.22 : 0.45; ctx.stroke(); ctx.globalAlpha = 1;
+    const r = Math.max(1.2 * dpr, base * 0.62), bySys = !!UV.sys && S.by[0] === "cat" && S.by[1] === "system";
+    // 按系统类型着色时，环的颜色 = 由 UniProt 注释推断的系统（0 protein(1)，1 + RNA，2 + DNA）
+    for (const g of (bySys ? [0, 1, 2] : [-1])) {
+      ctx.beginPath();
+      for (let j = 0; j < UV.n; j++) { if (bySys && UV.sys[j] !== g) continue; const x = UV.sx[j], y = UV.sy[j]; if (x < -4 || y < -4 || x > W + 4 || y > H + 4) continue; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); }
+      ctx.lineWidth = (bySys ? 1 : 0.7) * dpr; ctx.strokeStyle = bySys ? adj(SYS_COL[g]) : css("--neutral2"); ctx.globalAlpha = S.hl ? 0.3 : (bySys ? 0.8 : 0.45); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
   }
   function nearestU(px, py) {
     if (!UV || S.lens !== "umap_universe") return -1;
@@ -843,14 +876,25 @@ const DATA = /*__DATA__*/null;
     const card = $("card"); card.textContent = "";
     card.appendChild(el("h2", null, S.pinU >= 0 ? "Pinned protein (no conditions)" : "Protein under cursor (no conditions)"));
     card.appendChild(el("h3", null, (UV.name[k] || UV.acc[k]) + " · " + UV.acc[k]));
-    const tags = el("div"); tags.style.margin = "8px 0 0"; tags.append(el("span", "tag", "protein only"), el("span", "badge", "no conditions")); if (UV.gene[k]) tags.appendChild(el("span", "tag", UV.gene[k])); card.appendChild(tags);
+    const tags = el("div"); tags.style.margin = "8px 0 0";
+    if (UV.sys) { const sc = UV.sys[k], st = el("span", "tag", SYSTEM_LV[sc]), dot = el("i", "sysdot"); dot.style.background = adj(SYS_COL[sc]); st.prepend(dot); tags.append(st, el("span", "badge", "inferred")); }
+    else tags.append(el("span", "tag", "protein only"));
+    tags.append(el("span", "badge", "no conditions")); if (UV.gene[k]) tags.appendChild(el("span", "tag", UV.gene[k])); card.appendChild(tags);
     const dl = el("dl", "kv"); kv(dl, "Length", UV.len[k] + " aa"); if (UV.org[k]) kv(dl, "Organism", UV.org[k]);
+    if (UV.sys) {
+      const fl = UV.flag[k], c = UV.sys[k], both = (fl & 1) && (fl & 2);
+      kv(dl, "System (inferred)", SYSTEM_LV[c] + " · " + (!(fl & 4) ? "no UniProt annotation found" : c === 0 ? "UniProt lists no RNA- or DNA-binding function" : both ? "UniProt lists RNA- and DNA-binding; shown as + RNA" : c === 1 ? "UniProt lists RNA-binding" : "UniProt lists DNA-binding"));
+    }
     const names = []; D.tools.list.forEach((tl, ti) => { if (tl.kind === "prot" && UV.has(k, ti)) names.push(tl.label); });
     kv(dl, "In", names.length ? names.slice(0, 6).join(" · ") + (names.length > 6 ? " · +" + (names.length - 6) : "") : "");
     if (UV.obs[k]) kv(dl, "Entry", "No longer in UniProtKB; sequence taken from UniParc");
     const ns = D.space.seqsMeta.seqs[UV.nn[k]];
     if (ns) { const nn_ = (ns.name && ns.name !== "unnamed") ? ns.name : (ns.uniprot || "unnamed"); kv(dl, "Closest protein with records", (nn_.length > 70 ? nn_.slice(0, 69).trimEnd() + "…" : nn_) + " · cosine " + (UV.nncos[k] / 100).toFixed(2)); }
     card.appendChild(dl);
+    if (UV.sys && UV.sysEval) {
+      const E = UV.sysEval, pc = x => Math.round(100 * x) + "%";
+      card.appendChild(el("p", "muted", "The system is a guess from the protein alone, not a measurement. Among the " + E.proteins_with_records + " proteins that have records, " + pc(E.RNA.precision) + " of those UniProt calls RNA-binding have + RNA records, against " + pc(E.RNA.rate_if_not_annotated) + " of the rest (DNA-binding: " + pc(E.DNA.precision) + " against " + pc(E.DNA.rate_if_not_annotated) + ")."));
+    }
     const acts = el("div", "acts"); const mk = (tx, f, pr) => { const b = el("button", pr ? "primary" : null, tx); b.type = "button"; b.addEventListener("click", f); acts.appendChild(b); };
     mk("Use in Try your own experiment", () => { S.pinU = -1; setMode("try"); if (tryApi) tryApi.loadUniverse(k); }, true);
     if (S.pinU >= 0) mk("Unpin", () => { S.pinU = -1; refreshLight(); });
@@ -876,7 +920,7 @@ const DATA = /*__DATA__*/null;
     for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? R * 0.45 : R; ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
     ctx.closePath(); ctx.lineJoin = "round";
     ctx.lineWidth = 4.5 * dpr; ctx.strokeStyle = css("--canvas"); ctx.stroke();
-    ctx.fillStyle = "#E4007C"; ctx.fill(); ctx.lineWidth = 1.2 * dpr; ctx.strokeStyle = css("--ink"); ctx.stroke();
+    ctx.fillStyle = (S.tryRes && S.tryRes.sys) ? S.tryRes.sys.col : "#E4007C"; ctx.fill(); ctx.lineWidth = 1.2 * dpr; ctx.strokeStyle = css("--ink"); ctx.stroke();   // 星的颜色 = 推断出的系统类型
   }
   function drawTry(g, base) {
     const pad = 16 * dpr, w = W - 2 * pad, h = H - 2 * pad, px = (pad + g.x * w) * S.k + S.tx, py = (pad + g.y * h) * S.k + S.ty;
@@ -894,7 +938,7 @@ const DATA = /*__DATA__*/null;
     if (tryApi) return tryApi;
     const X = D.space;
     const SP = new RecordsSpace.Space({ params: X.params, recordsMeta: X.recordsMeta, recordsBuf: b64ToBuf(X.recordsB64), seqsMeta: X.seqsMeta, seqsBuf: b64ToBuf(X.seqsB64), approx: X.approx, coverage: X.coverage });
-    tryApi = initTryPanel({ D, I, SP, CP: CondParser, $, el, showRecord, fmt, setTryResult, setHighlight, UV });
+    tryApi = initTryPanel({ D, I, SP, CP: CondParser, $, el, elSub, showRecord, fmt, setTryResult, setHighlight, UV, SYS_COL, SYSTEM_LV });
     tryApi.setTool(S.hl);
     return tryApi;
   }
