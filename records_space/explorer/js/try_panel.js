@@ -97,6 +97,9 @@ function initTryPanel(ctx) {
   };
   // 系统类型推断：蛋白数 = 序列框里的 FASTA 条目数；核酸 = 核酸框（"快速填写"那句话里写到 RNA / DNA 也会填进去）。
   // 命名和配色同 Fig. 1 / S1：protein(n) [+ RNA | + DNA]；三个蛋白以上带核酸记作 + NA，用紫色家族
+  // Point colours of the system colour table (the rows that a pasted experiment can take)
+  const TYPE_COL = { "protein(1)": "#1799D2", "protein(2)": "#4474B7", "protein(3)": "#19858E", "protein(≥4)": "#4C637E", "protein(1) + RNA": "#E45265", "protein(2) + RNA": "#BA553B", "protein(3) + RNA": "#A84076", "protein(≥4) + RNA": "#91432F",
+    "protein(1) + DNA": "#68A92C", "protein(2) + DNA": "#39824E", "protein(3) + DNA": "#217660", "protein(≥4) + DNA": "#657626" };
   function inferSystem() {
     if (T.entry && T.entry.u >= 0 && UV && UV.sys) {
       const c = UV.sys[T.entry.u], fl = UV.flag[T.entry.u];
@@ -107,10 +110,10 @@ function initTryPanel(ctx) {
       return { name: SYSTEM_LV[sc], col: SYS_COL[sc], why: "Taken from this dataset record." };
     }
     const n = T.entry ? 1 : Math.max(1, fastaEntries(T.seq).length), na = T.f.na;
-    let name = n >= 4 ? "protein(≥4)" : "protein(" + n + ")", ci = 0;
-    if (na !== "none") { name += n >= 3 ? " + NA" : " + " + na; ci = n >= 3 ? 3 : (na === "RNA" ? 1 : 2); }
+    let name = n >= 4 ? "protein(≥4)" : "protein(" + n + ")";
+    if (na !== "none") name += " + " + na;
     const why = [n > 1 ? n + " sequences pasted" : T.seq.trim() || T.entry ? "one protein" : "no sequence yet, counted as one protein", na === "none" ? "no nucleic acid" : "with " + na];
-    return { name, col: SYS_COL[ci], why: why.join(", ") + "." + (n > 1 ? " This map holds single-protein records, so the star is placed from the first protein only." : "") };
+    return { name, col: TYPE_COL[name] || "#E4007C", why: why.join(", ") + "." + (n > 1 ? " This map holds single-protein records, so the star is placed from the first protein only." : "") };
   }
   function sequenceStep() {
     const box = X.seqInfo; box.textContent = "";

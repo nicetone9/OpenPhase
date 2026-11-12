@@ -1,0 +1,356 @@
+<title>Multi-protein systems</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: control rail | square map stage | system card. Same look as the Records Space Explorer; the system-type tags use the family colours of Fig. 1 / Fig. S1. */
+:root{
+  --bg:#F3F6F9; --panel:#FFFFFF; --ink:#17212B; --mute:#5A6877; --line:#D9E1E8; --accent:#146DB5; --accent-ink:#FFFFFF;
+  --chip:#E8EEF3; --neutral:#D3D9DF; --neutral2:#A9B1B9; --canvas:#FFFFFF; --mid:#F1F4F7;
+  --fP:#3FC3FF; --fR:#FFC2C4; --fD:#D4F3B6; --fC:#DCCBF2; --tP:#0F6A82; --tR:#C42B2B; --tD:#4A8222; --tC:#6B2A6B;
+  --font-ui:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+    --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --canvas:#10161D; --mid:#222C37;
+    --fP:#1D5C78; --fR:#6E343A; --fD:#3A5A26; --fC:#4B3A70; --tP:#9ADBF2; --tR:#FFB3B8; --tD:#B9E08F; --tC:#D6C2F2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1217; --panel:#151C24; --ink:#E6ECF2; --mute:#93A1B0; --line:#26313C; --accent:#4DB4F2; --accent-ink:#08131C;
+  --chip:#1C2530; --neutral:#3A4652; --neutral2:#6B7A89; --canvas:#10161D; --mid:#222C37;
+  --fP:#1D5C78; --fR:#6E343A; --fD:#3A5A26; --fC:#4B3A70; --tP:#9ADBF2; --tR:#FFB3B8; --tD:#B9E08F; --tC:#D6C2F2; color-scheme:dark;
+}
+[hidden]{ display:none !important; }
+body{ background:var(--bg); color:var(--ink); font-family:var(--font-ui); line-height:1.45; }
+.app{ max-width:1500px; margin-inline:auto; padding-block:16px 28px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+.top{ display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 18px; margin-bottom:14px; }
+h1{ margin:0; font-size:1.35rem; font-weight:600; letter-spacing:-0.01em; }
+.sub{ margin:0; color:var(--mute); font-size:0.86rem; min-width:0; flex:1 1 320px; }
+.layout{ display:grid; gap:14px; grid-template-columns:minmax(0,1fr); grid-template-areas:"stage" "card" "rail"; align-items:start; }
+.stage{ grid-area:stage; } .card{ grid-area:card; } .rail{ grid-area:rail; }
+@media (min-width:760px){ .layout{ grid-template-columns:230px minmax(0,1fr); grid-template-areas:"rail stage" "card card"; } }
+@media (min-width:960px){ .layout{ grid-template-columns:230px minmax(0,1fr) 300px; grid-template-areas:"rail stage card"; } .card{ position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; } }
+@media (max-width:759px){ .layout{ grid-template-areas:"rail" "stage" "card"; } .tabs{ flex-direction:row; flex-wrap:wrap; } .tab{ width:auto; flex:1 1 140px; } }
+.rail, .card{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px; min-width:0; }
+.rail{ display:flex; flex-direction:column; gap:14px; }
+.grp{ display:flex; flex-direction:column; gap:5px; min-width:0; }
+.grp > label, .lab{ font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+select, input[type=search]{ font:inherit; font-size:0.85rem; color:var(--ink); background:var(--mid); border:1px solid var(--line); border-radius:6px; padding:6px 8px; min-width:0; width:100%; }
+select:focus-visible, input:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+button{ font:inherit; font-size:0.82rem; color:var(--ink); background:var(--chip); border:1px solid var(--line); border-radius:6px; padding:6px 10px; cursor:pointer; }
+button:hover{ border-color:var(--accent); }
+.hint{ margin:0; color:var(--mute); font-size:0.76rem; }
+.tabs{ display:flex; flex-direction:column; gap:6px; }
+.tab{ display:flex; flex-direction:column; align-items:flex-start; gap:0; text-align:left; width:100%; border:2px solid transparent; border-radius:10px; padding:6px 10px; background:var(--f); color:#17212B; }
+.tab:hover{ border-color:var(--p); }
+:root[data-theme="dark"] .tab, :root[data-theme="dark"] .pill{ background:color-mix(in srgb, var(--p) 42%, var(--panel)); color:#E6ECF2; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tab, :root:not([data-theme="light"]) .pill{ background:color-mix(in srgb, var(--p) 42%, var(--panel)); color:#E6ECF2; } }
+.tab[aria-pressed="true"]{ border-color:var(--ink); }
+.tab b{ font-size:0.86rem; font-weight:600; } .tab span{ font-size:0.72rem; opacity:0.88; font-family:var(--font-data); }
+.stage{ min-width:0; display:flex; flex-direction:column; gap:10px; }
+.canvas-wrap{ position:relative; width:min(100%, 82vh); aspect-ratio:1 / 1; margin-inline:auto; background:var(--canvas); border:1px solid var(--line); border-radius:10px; overflow:hidden; touch-action:none; }
+canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; cursor:crosshair; }
+.zoom{ position:absolute; right:8px; top:8px; display:flex; gap:4px; }
+.zoom button{ padding:3px 9px; background:var(--panel); }
+.count{ position:absolute; left:10px; bottom:8px; font-family:var(--font-data); font-size:0.72rem; color:var(--mute); pointer-events:none; }
+.legend{ display:flex; flex-wrap:wrap; gap:4px 16px; align-items:center; padding:2px 6px; font-size:0.78rem; color:var(--mute); min-height:22px; }
+.legend .lg{ display:inline-flex; align-items:center; gap:6px; color:var(--ink); }
+.legend .lg i{ width:11px; height:11px; border-radius:50%; flex:none; }
+.legend .lg b{ font-family:var(--font-data); font-weight:400; color:var(--mute); font-size:0.72rem; }
+.legend .lg-h{ font-size:0.7rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+.bar{ display:flex; flex-direction:column; gap:2px; width:min(320px, 100%); }
+.bar canvas{ position:static; width:100%; height:10px; border-radius:3px; cursor:default; }
+.ticks{ display:flex; justify-content:space-between; font-size:0.72rem; color:var(--mute); }
+.card h2{ margin:0 0 8px; font-size:0.72rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--mute); }
+.tiles{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px; margin:0 0 10px; }
+.tile{ background:var(--mid); border-radius:8px; padding:8px 10px; }
+.tile b{ display:block; font-size:1.05rem; font-weight:600; font-family:var(--font-data); }
+.tile span{ font-size:0.74rem; color:var(--mute); }
+.card h3{ margin:0 0 6px; font-size:0.98rem; font-weight:600; overflow-wrap:anywhere; }
+.pill{ display:inline-flex; align-items:center; gap:5px; font-size:0.7rem; font-weight:600; border-radius:999px; padding:1px 9px; margin:0 4px 4px 0; background:var(--f); color:#17212B; }
+.pill i{ width:8px; height:8px; border-radius:50%; }
+.kv{ display:grid; grid-template-columns:auto 1fr; gap:3px 10px; margin:8px 0 0; font-size:0.8rem; }
+.kv dt{ color:var(--mute); } .kv dd{ margin:0; min-width:0; overflow-wrap:anywhere; }
+.card ul{ margin:0; padding-left:18px; font-size:0.82rem; color:var(--mute); } .card li{ margin:2px 0; }
+.card p{ font-size:0.82rem; margin:6px 0; color:var(--mute); }
+.split{ display:flex; height:9px; border-radius:5px; overflow:hidden; background:var(--neutral); margin:6px 0 2px; }
+.split i{ display:block; height:100%; }
+.acts{ display:flex; gap:6px; margin-top:10px; flex-wrap:wrap; }
+.matches{ display:flex; flex-direction:column; gap:3px; margin-top:4px; }
+.matches button{ text-align:left; font-size:0.78rem; padding:4px 8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.theme{ margin-left:auto; padding:5px 11px; border-radius:99px; font-size:0.95rem; line-height:1; }
+.home{ font-size:0.82rem; color:var(--mute); text-decoration:none; white-space:nowrap; }
+.home:hover{ color:var(--accent); }
+a{ color:var(--accent); }
+</style>
+<div class="app">
+  <header class="top">
+    <a class="home" id="homeLink" href="../../" hidden>&larr; OpenPhase</a>
+    <h1>Multi-protein systems</h1>
+    <p class="sub" id="sub"></p>
+    <a class="home" id="expLink" href="../" hidden>Records space</a>
+    <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
+  </header>
+  <script>
+  (function () {
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink"), exp = document.getElementById("expLink");
+    var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
+    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    function show(t) { if (btn) { btn.textContent = t === "dark" ? "☀" : "☾"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
+    var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
+    root.setAttribute("data-theme", cur); show(cur);
+    if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
+    if (/github\.io$|^localhost$|^127\./.test(location.hostname)) { if (home) home.hidden = false; if (exp) exp.hidden = false; }
+  })();
+  </script>
+  <div class="layout" id="layout">
+    <aside class="rail" id="rail">
+      <div class="grp"><label>System type</label><div class="tabs" id="tabs"></div></div>
+      <div class="grp"><label for="by">Colour by</label><select id="by"><option value="anchor">Most frequent named component</option><option value="type">System type</option><option value="pos">Positive share of labelled records</option><option value="rec">Records per system</option></select></div>
+      <div class="grp"><label for="fq">Find a component</label><input type="search" id="fq" placeholder="FUS, P35637, polyU…" autocomplete="off" spellcheck="false"><div class="matches" id="matches"></div></div>
+      <button id="reset" type="button">Reset view</button>
+      <p class="hint">Scroll to zoom, drag to pan, click a dot to pin it.</p>
+    </aside>
+    <section class="stage">
+      <div class="canvas-wrap" id="wrap"><canvas id="cv" role="img" aria-label="Map of multi-protein systems"></canvas>
+        <div class="zoom"><button id="zin" type="button" aria-label="Zoom in">+</button><button id="zout" type="button" aria-label="Zoom out">−</button><button id="zfit" type="button">Fit</button></div>
+        <div class="count" id="count"></div></div>
+      <div class="legend" id="legend"></div>
+      <p class="hint" id="mapnote"></p>
+    </section>
+    <aside class="card" id="card"></aside>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  const D = /*__DATA__*/null;
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const fmtn = (n) => n.toLocaleString("en-US");
+  const buf = (s) => { const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u.buffer; };
+  const isDark = () => { const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const mix = (a, b, t) => { const x = hex(a), y = hex(b); return "rgb(" + x.map((v, i) => Math.round(v + (y[i] - v) * t)).join(",") + ")"; };
+  const rgba = (h, a) => { const x = hex(h); return "rgba(" + x[0] + "," + x[1] + "," + x[2] + "," + a + ")"; };
+  const FINE = D.fine;                                         // the system colour table: fill = tags, point = dots
+  const G = D.groups.map((g) => Object.assign({}, g, { X: new Uint16Array(buf(g.x)), Y: new Uint16Array(buf(g.y)), REC: new Uint16Array(buf(g.rec)), POS: new Uint16Array(buf(g.p)), NEG: new Uint16Array(buf(g.q)),
+    ANC: new Uint8Array(buf(g.anc)), FT: new Uint8Array(buf(g.ft)), sx: new Float32Array(g.n), sy: new Float32Array(g.n), match: new Uint8Array(g.n), maxRec: 1, ordA: null, ordR: null }));
+  G.forEach((g) => {
+    for (let i = 0; i < g.n; i++) if (g.REC[i] > g.maxRec) g.maxRec = g.REC[i];
+    const cnt = {}; g.anchors.forEach((a) => { cnt[a.rank] = a.n; });
+    const idx = Array.from({ length: g.n }, (_, i) => i);
+    g.ordA = idx.slice().sort((a, b) => (g.ANC[b] === 255 ? 1e9 : cnt[g.ANC[b]]) - (g.ANC[a] === 255 ? 1e9 : cnt[g.ANC[a]]));      // grey first, then big anchors, small anchors on top
+    g.ordR = idx.slice().sort((a, b) => g.REC[a] - g.REC[b]);
+  });
+  const KEYS = G.map((g) => g.key);
+  const S = { g: 0, by: "anchor", k: 1, tx: 0, ty: 0, q: "", hover: -1, pin: -1 };
+  const cv = $("cv"), ctx = cv.getContext("2d"), wrap = $("wrap");
+  let W = 0, H = 0, dpr = 1, raf = 0;
+  const cur = () => G[S.g];
+  const SRC = D.srcLab, UNI = /^(?:[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2})(?:-\d+)?$/;
+
+  // ---------------------------------------------------------------- colours (vivid anchors that avoid the four family hues)
+  const ANCH = ["#D6338C", "#F2B705", "#14A098", "#9C5B2E", "#F28C28", "#4D6075"];
+  const anchCol = (r) => (isDark() && r === 5 ? "#9FB3C8" : isDark() && r === 3 ? "#C98B5A" : ANCH[r]);
+  const REC = ["#FBE3A6", "#F5A83F", "#D2601A", "#7A2E0B"];
+  const posStops = () => (isDark() ? ["#8FA6BF", "#4A5663", "#F28C28"] : ["#4D6075", "#E3E7EB", "#F28C28"]);
+  function ramp(stops, t) { t = Math.min(1, Math.max(0, t)); const p = t * (stops.length - 1), i = Math.min(stops.length - 2, Math.floor(p)); return mix(stops[i], stops[i + 1], p - i); }
+  const posShare = (g, i) => { const l = g.POS[i] + g.NEG[i]; return l ? g.POS[i] / l : -1; };
+  const recT = (g, i) => Math.log10(Math.max(1, g.REC[i])) / Math.max(Math.log10(g.maxRec), 0.3);
+  function colorOf(g, i, pal) {
+    if (S.by === "anchor") return g.ANC[i] === 255 ? pal.grey : anchCol(g.ANC[i]);
+    if (S.by === "type") return FINE[g.FT[i]].point;
+    if (S.by === "pos") { const t = posShare(g, i); return t < 0 ? pal.none : ramp(pal.pos, t); }
+    return ramp(REC, recT(g, i));
+  }
+
+  // ---------------------------------------------------------------- page text, tabs, legend
+  $("sub").textContent = fmtn(D.total.systems) + " systems with two or more proteins, with or without nucleic acids, and complexes. One map per system type; one dot is one unique system (its components without concentrations). Conditions are not on this page: the single-protein records, with conditions, are in the Records space.";
+  const tabs = $("tabs");
+  G.forEach((g, i) => {
+    const b = el("button", "tab"); b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.style.setProperty("--f", g.tab.length > 1 ? "linear-gradient(90deg, " + g.tab[0] + " 50%, " + g.tab[1] + " 50%)" : g.tab[0]); b.style.setProperty("--p", g.tabp[0]);
+    b.append(el("b", null, g.name), el("span", null, fmtn(g.n) + " systems · " + fmtn(g.records) + " records"));
+    b.addEventListener("click", () => setGroup(i));
+    tabs.appendChild(b);
+  });
+  function buildLegend() {
+    const box = $("legend"), g = cur(); box.textContent = "";
+    const item = (color, text, n) => { const it = el("span", "lg"), d = el("i"); d.style.background = color; it.append(d, el("span", null, text), el("b", null, fmtn(n))); box.appendChild(it); };
+    const bar = (stops, mid, ticks, nocolor, nonum) => {
+      const w = el("div", "bar"), c = document.createElement("canvas"); c.width = 320; c.height = 10; const x = c.getContext("2d");
+      for (let k = 0; k < 320; k++) { x.fillStyle = mid(k / 319); x.fillRect(k, 0, 1, 10); }
+      const t = el("div", "ticks"); ticks.forEach((s) => t.appendChild(el("span", null, s))); w.append(c, t); box.appendChild(w);
+      if (nonum) item(nocolor, "no labelled records", nonum);
+    };
+    if (S.by === "type") {
+      box.appendChild(el("span", "lg-h", "System type"));
+      const cnt = {}; for (let i = 0; i < g.n; i++) cnt[g.FT[i]] = (cnt[g.FT[i]] || 0) + 1;
+      Object.keys(cnt).map(Number).sort((a, b) => a - b).forEach((k) => item(FINE[k].point, FINE[k].name, cnt[k]));
+    } else if (S.by === "anchor") {
+      box.appendChild(el("span", "lg-h", "Most frequent named component"));
+      let named = 0; g.anchors.forEach((a) => { item(anchCol(a.rank), a.name, a.n); named += a.n; });
+      item(css("--neutral2"), "other or unnamed", g.n - named);
+    } else if (S.by === "pos") {
+      let nl = 0; for (let i = 0; i < g.n; i++) if (g.POS[i] + g.NEG[i] === 0) nl++;
+      bar(null, (t) => ramp(posStops(), t), ["0%", "positive share of labelled records", "100%"], css("--neutral"), nl);
+    } else {
+      const mx = Math.round(Math.log10(g.maxRec)), ticks = ["1"]; if (mx >= 1) ticks.push("10"); if (mx >= 2) ticks.push("100"); if (mx >= 3) ticks.push("1,000");
+      bar(null, (t) => ramp(REC, t), ["1", "records per system (log scale)", fmtn(g.maxRec)], null, 0);
+    }
+  }
+
+  // ---------------------------------------------------------------- geometry
+  function resize() {
+    const r = wrap.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, Math.round(r.width * dpr)); H = Math.max(1, Math.round(r.height * dpr)); cv.width = W; cv.height = H; render();
+  }
+  function project(g) {
+    const pad = 22 * dpr, w = W - 2 * pad, h = H - 2 * pad, k = S.k, tx = S.tx, ty = S.ty, f = 1 / 65535;
+    for (let i = 0; i < g.n; i++) { g.sx[i] = (pad + g.X[i] * f * w) * k + tx; g.sy[i] = (pad + g.Y[i] * f * h) * k + ty; }
+  }
+  const baseR = () => Math.min(6.5, 3.4 + 0.6 * Math.log2(S.k)) * dpr;
+  function zoomAt(px, py, f) {
+    const k2 = Math.min(40, Math.max(1, S.k * f)), r = k2 / S.k; S.tx = px - (px - S.tx) * r; S.ty = py - (py - S.ty) * r; S.k = k2;
+    if (S.k === 1) { S.tx = 0; S.ty = 0; }
+    render();
+  }
+  function viewTo(i, k) {
+    const g = cur(), pad = 22 * dpr, f = 1 / 65535; S.k = Math.max(S.k, k);
+    S.tx = W / 2 - (pad + g.X[i] * f * (W - 2 * pad)) * S.k; S.ty = H / 2 - (pad + g.Y[i] * f * (H - 2 * pad)) * S.k;
+  }
+
+  // ---------------------------------------------------------------- drawing
+  function render() { if (!raf) raf = requestAnimationFrame(draw); }
+  function draw() {
+    raf = 0; if (!W) return;
+    const g = cur(), bg = css("--canvas"), ink = css("--ink"), base = baseR(), q = S.q.length >= 2;
+    const pal = { grey: css("--neutral2"), none: css("--neutral"), pos: posStops() };
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H); project(g);
+    if (S.by === "anchor") {                                  // soft colour under each named anchor, as in Fig. S1
+      const R = 24 * dpr * Math.sqrt(S.k);
+      for (const i of g.ordA) {
+        if (g.ANC[i] === 255 || (q && !g.match[i])) continue;
+        const x = g.sx[i], y = g.sy[i]; if (x < -R || y < -R || x > W + R || y > H + R) continue;
+        const c = anchCol(g.ANC[i]), gr = ctx.createRadialGradient(x, y, 0, x, y, R); gr.addColorStop(0, rgba(c, 0.20)); gr.addColorStop(1, rgba(c, 0));
+        ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, R, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.lineWidth = 0.7 * dpr; ctx.strokeStyle = bg;
+    for (const i of (S.by === "rec" ? g.ordR : g.ordA)) {
+      const x = g.sx[i], y = g.sy[i]; if (x < -8 || y < -8 || x > W + 8 || y > H + 8) continue;
+      ctx.globalAlpha = q && !g.match[i] ? 0.16 : 0.95; ctx.fillStyle = colorOf(g, i, pal);
+      ctx.beginPath(); ctx.arc(x, y, base, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    if (q) { ctx.lineWidth = 1.4 * dpr; ctx.strokeStyle = ink; for (let i = 0; i < g.n; i++) if (g.match[i]) { ctx.beginPath(); ctx.arc(g.sx[i], g.sy[i], base * 1.7, 0, Math.PI * 2); ctx.stroke(); } }
+    for (const j of [S.pin, S.hover]) if (j >= 0) { ctx.beginPath(); ctx.arc(g.sx[j], g.sy[j], base * 2.4, 0, Math.PI * 2); ctx.lineWidth = 1.8 * dpr; ctx.strokeStyle = ink; ctx.stroke(); }
+    let nm = 0; for (let i = 0; i < g.n; i++) nm += g.match[i];
+    $("count").textContent = fmtn(g.n) + " systems · " + fmtn(g.records) + " records" + (q ? " · " + fmtn(nm) + " match" : "");
+  }
+
+  // ---------------------------------------------------------------- card
+  const compLabel = (s) => (s === "unnamed sequences" ? "unnamed sequences (no name in the source)" : s === "-" ? "unnamed" : s);
+  function buildCard() {
+    const card = $("card"), g = cur(); card.textContent = "";
+    const i = S.pin >= 0 ? S.pin : S.hover;
+    if (i < 0) {
+      card.appendChild(el("h2", null, g.name));
+      card.appendChild(el("p", null, g.desc));
+      const lab = g.pos + g.neg, t = el("div", "tiles");
+      for (const [b, l] of [[fmtn(g.n), "systems on the map"], [fmtn(g.records), "records"], [lab ? Math.round(100 * g.pos / lab) + "%" : "–", "positive among " + fmtn(lab) + " labelled records"], [fmtn(g.records - lab), "records with no binary label"]]) { const d = el("div", "tile"); d.append(el("b", null, b), el("span", null, l)); t.appendChild(d); }
+      card.appendChild(t);
+      const noSeqRec = g.all_records - g.records - g.hid_rec, notes = [];
+      if (g.no_seq) notes.push(g.no_seq + (g.no_seq === 1 ? " system has" : " systems have") + " no protein sequence and " + (g.no_seq === 1 ? "is" : "are") + " not drawn (" + fmtn(noSeqRec) + (noSeqRec === 1 ? " record" : " records") + ").");
+      if (g.hid_n) notes.push(g.hid_n + (g.hid_n === 1 ? " system whose" : " systems whose") + " records all come from laboratory notebooks " + (g.hid_n === 1 ? "is" : "are") + " not shown (" + fmtn(g.hid_rec) + " records); those notebooks are not part of the published tables.");
+      if (notes.length) { card.appendChild(el("h2", null, "Not drawn")); notes.forEach((n) => card.appendChild(el("p", null, n))); }
+      card.appendChild(el("h2", null, "How to read"));
+      const ul = el("ul");
+      for (const x of ["One dot is one unique system: the set of its components, without concentrations. Position is a t-SNE of the ESMC-600M embeddings of the components; each map has its own t-SNE, so axes and distances are not comparable across maps.",
+        "Colour by the most frequent named component: the six most frequent named components of the group get a colour, every other system is grey. Or colour by system type (the colour table), by the share of labelled records that phase-separate, or by the number of records.",
+        "A record is one experimental condition of the system. Systems from phase-diagram sources have many records; some sources give a quantitative readout and no binary label.",
+        "Hover a dot to read it, click to pin it, search a component to find every system that contains it."]) ul.appendChild(el("li", null, x));
+      card.appendChild(ul);
+      return;
+    }
+    card.appendChild(el("h2", null, S.pin >= 0 ? "Pinned system" : "System under cursor"));
+    card.appendChild(el("h3", null, compLabel(g.comp[i])));
+    const ft = FINE[g.FT[i]], tags = el("div"), pill = el("span", "pill", ft.name); pill.style.setProperty("--f", ft.fill); pill.style.setProperty("--p", ft.point); tags.appendChild(pill);
+    if (g.ANC[i] !== 255) { const a = g.anchors.find((x) => x.rank === g.ANC[i]), p2 = el("span", "pill"), d = el("i"); d.style.background = anchCol(g.ANC[i]); p2.style.setProperty("--f", "var(--chip)"); p2.style.setProperty("--p", "var(--chip)"); p2.append(d, document.createTextNode(a ? a.name : "")); tags.appendChild(p2); }
+    card.appendChild(tags);
+    const dl = el("dl", "kv"), kv = (k, v) => { if (v != null && v !== "") { dl.appendChild(el("dt", null, k)); const d = el("dd"); if (v instanceof Node) d.appendChild(v); else d.textContent = v; dl.appendChild(d); } };
+    kv("System", g.id[i]);
+    const parts = g.comp[i].split(" + "), cw = document.createElement("span");
+    parts.forEach((p, k) => { if (k) cw.append(" + "); if (UNI.test(p)) { const a = el("a", null, p); a.href = "https://www.uniprot.org/uniprotkb/" + p; a.target = "_blank"; a.rel = "noopener"; cw.appendChild(a); } else cw.append(compLabel(p)); });
+    kv("Components", cw); kv("Nucleic acid", g.nuc[i]); kv("Type in the source", g.raw[i]);
+    kv("Sources", g.src[i] ? g.src[i].split(";").map((s) => SRC[s] || s).join(", ") : "");
+    const lab = g.POS[i] + g.NEG[i], oth = g.REC[i] - lab;
+    kv("Records", fmtn(g.REC[i])); kv("Positive", fmtn(g.POS[i])); kv("Negative", fmtn(g.NEG[i])); if (oth > 0) kv("No binary label", fmtn(oth));
+    card.appendChild(dl);
+    if (lab) {
+      const sp = el("div", "split"), a = el("i"), b = el("i"); a.style.flex = String(g.POS[i]); a.style.background = "#F28C28"; b.style.flex = String(g.NEG[i]); b.style.background = "#4D6075"; sp.append(a, b); card.appendChild(sp);
+      card.appendChild(el("p", null, g.POS[i] + " of " + lab + " labelled records phase-separate (" + Math.round(100 * g.POS[i] / lab) + "%). Records of one system usually differ in conditions and often come from one paper."));
+    } else card.appendChild(el("p", null, "No binary label for this system, so no positive share."));
+    const acts = el("div", "acts");
+    if (S.pin >= 0) { const b = el("button", null, "Unpin"); b.type = "button"; b.addEventListener("click", () => { S.pin = -1; buildCard(); render(); }); acts.appendChild(b); }
+    card.appendChild(acts);
+  }
+
+  // ---------------------------------------------------------------- group, search, hash
+  function applyQuery() {
+    const g = cur(), q = S.q.trim().toLowerCase(), box = $("matches"); box.textContent = ""; g.match.fill(0);
+    if (q.length < 2) return;
+    const hits = [];
+    for (let i = 0; i < g.n; i++) if (g.comp[i].toLowerCase().includes(q) || g.id[i].toLowerCase() === q || g.nuc[i].toLowerCase().includes(q)) { g.match[i] = 1; hits.push(i); }
+    hits.sort((a, b) => g.REC[b] - g.REC[a]);
+    for (const i of hits.slice(0, 8)) { const b = el("button", null, compLabel(g.comp[i]) + (g.nuc[i] ? " · " + g.nuc[i] : "") + " · " + fmtn(g.REC[i]) + (g.REC[i] === 1 ? " record" : " records")); b.type = "button"; b.addEventListener("click", () => { S.pin = i; S.hover = i; viewTo(i, 4); buildCard(); render(); }); box.appendChild(b); }
+    if (!hits.length) box.appendChild(el("p", "hint", "No system in this map contains it."));
+    else if (hits.length > 8) box.appendChild(el("p", "hint", fmtn(hits.length - 8) + " more match on the map."));
+  }
+  function setGroup(i, keep) {
+    S.g = Math.min(Math.max(i, 0), G.length - 1); S.pin = -1; S.hover = -1; if (!keep) { S.k = 1; S.tx = 0; S.ty = 0; }
+    [...tabs.children].forEach((b, k) => b.setAttribute("aria-pressed", k === S.g ? "true" : "false"));
+    const g = cur();
+    $("mapnote").textContent = "This map is its own t-SNE of ESMC-600M component embeddings; axes and distances are not comparable across maps. " + (g.no_seq ? g.no_seq + (g.no_seq === 1 ? " system" : " systems") + " without a protein sequence " + (g.no_seq === 1 ? "is" : "are") + " not drawn." : "");
+    applyQuery(); buildLegend(); buildCard(); render();
+  }
+  function applyHash() {
+    const P = new URLSearchParams(location.hash.replace(/^#/, "")), gi = KEYS.indexOf(P.get("g") || "");
+    S.by = ["anchor", "type", "pos", "rec"].includes(P.get("by")) ? P.get("by") : "anchor"; $("by").value = S.by;
+    S.q = P.get("q") || ""; $("fq").value = S.q;
+    setGroup(gi >= 0 ? gi : 0);
+    const id = P.get("sys"); if (id) { const k = cur().id.indexOf(id); if (k >= 0) { S.pin = k; S.hover = k; viewTo(k, 4); buildCard(); render(); } }
+  }
+
+  // ---------------------------------------------------------------- interaction
+  function nearest(px, py) {
+    const g = cur(); let best = -1, bd = (11 * dpr) * (11 * dpr);
+    for (let i = 0; i < g.n; i++) { const dx = g.sx[i] - px, dy = g.sy[i] - py, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = i; } }
+    return best;
+  }
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * dpr, (e.clientY - r.top) * dpr]; };
+  let drag = null;
+  cv.addEventListener("pointerdown", (e) => { cv.setPointerCapture(e.pointerId); drag = { x: e.clientX, y: e.clientY, tx: S.tx, ty: S.ty, moved: false }; });
+  cv.addEventListener("pointermove", (e) => {
+    if (drag && e.buttons) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; if (drag.moved && S.k > 1) { S.tx = drag.tx + dx * dpr; S.ty = drag.ty + dy * dpr; render(); } return; }
+    const p = pos(e), j = nearest(p[0], p[1]); if (j !== S.hover) { S.hover = j; if (S.pin < 0) buildCard(); render(); }
+  });
+  cv.addEventListener("pointerup", (e) => { const was = drag; drag = null; if (was && !was.moved) { const p = pos(e), j = nearest(p[0], p[1]); S.pin = j; S.hover = j; buildCard(); render(); } });
+  cv.addEventListener("pointerleave", () => { if (S.hover >= 0) { S.hover = -1; if (S.pin < 0) buildCard(); render(); } });
+  cv.addEventListener("wheel", (e) => { e.preventDefault(); const p = pos(e); zoomAt(p[0], p[1], Math.exp(-e.deltaY * 0.0016)); }, { passive: false });
+  $("zin").addEventListener("click", () => zoomAt(W / 2, H / 2, 1.6)); $("zout").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.6)); $("zfit").addEventListener("click", () => { S.k = 1; S.tx = 0; S.ty = 0; render(); });
+  $("reset").addEventListener("click", () => { S.k = 1; S.tx = 0; S.ty = 0; S.pin = -1; S.hover = -1; S.q = ""; $("fq").value = ""; S.by = "anchor"; $("by").value = "anchor"; applyQuery(); buildLegend(); buildCard(); render(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && S.pin >= 0) { S.pin = -1; buildCard(); render(); } });
+  $("by").addEventListener("change", () => { S.by = $("by").value; buildLegend(); render(); });
+  $("fq").addEventListener("input", () => { S.q = $("fq").value; applyQuery(); render(); });
+  window.addEventListener("hashchange", applyHash);
+  new ResizeObserver(resize).observe(wrap);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { buildLegend(); render(); });
+  new MutationObserver(() => { buildLegend(); render(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  applyHash(); resize();
+})();
+</script>

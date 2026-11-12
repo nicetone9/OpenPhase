@@ -10662,779 +10662,779 @@ phasepdb3pilot:40174834:O14,-22.968622,52.221687,protein(1) + DNA,E. coli MatP,p
 phasepdb3pilot:40174834:O15,-22.980606,52.198006,protein(1) + DNA,E. coli MatP,phase separation,PhaSepDB3_pilot_LLM,missing,,0.0,0.69897,4
 phasepdb3pilot:40174834:O20,-25.862938,53.402607,protein(1),E. coli FtsZ,no phase separation,PhaSepDB3_pilot_LLM,room temp. only,22.0,0.0,0.69897,0
 phasepdb3pilot:40174834:O21,-24.732893,52.44487,protein(1),E. coli MatP,no phase separation,PhaSepDB3_pilot_LLM,room temp. only,22.0,0.0,0.477121,0
-bremer_temp:0,10.926711,-75.13438,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:1,12.516517,-75.60592,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:2,13.462013,-75.80802,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:3,13.462013,-75.808014,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:4,14.325815,-76.161804,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:5,16.610226,-76.52706,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:6,18.403744,-76.12571,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:7,23.142258,-77.302826,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.9282,2.1789769472931693,,2
-bremer_temp:8,13.462013,-75.808014,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:9,11.047419,-74.99412,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:10,11.224205,-74.99948,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
-bremer_temp:11,11.561797,-75.06659,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:12,12.504536,-75.46208,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:13,13.491231,-75.645035,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:14,14.4195,-76.0497,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:15,15.658181,-76.25533,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:16,16.221024,-76.34842,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.0,2.1789769472931693,,2
-bremer_temp:17,16.635159,-76.36123,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:18,17.581322,-76.18002,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
-bremer_temp:19,18.389948,-76.01494,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:20,19.021667,-75.910774,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
-bremer_temp:21,19.7959,-75.817245,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:22,11.224203,-74.99947,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
-bremer_temp:23,13.4912405,-75.64503,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:24,14.419434,-76.04963,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:25,16.220972,-76.34967,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.0,2.1789769472931693,,2
-bremer_temp:26,17.581331,-76.17991,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
-bremer_temp:27,18.389992,-76.01494,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:28,24.420414,-76.99752,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.4,2.1789769472931693,,2
-bremer_temp:29,25.574612,-76.80046,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,54.8643,2.1789769472931693,,2
-bremer_temp:30,25.666111,-76.78088,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.0617,2.1789769472931693,,2
-bremer_temp:31,25.725101,-76.76522,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.9,2.1789769472931693,,2
-bremer_temp:32,25.767105,-76.75727,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.5314,2.1789769472931693,,2
-bremer_temp:33,25.780888,-76.75538,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.7377,2.1789769472931693,,2
-bremer_temp:34,25.814846,-76.749054,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,58.2641,2.1789769472931693,,2
-bremer_temp:35,25.872116,-76.736115,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,59.2,2.1789769472931693,,2
-bremer_temp:36,26.134768,-76.68941,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,64.0105,2.1789769472931693,,2
-bremer_temp:37,26.196323,-76.69391,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.5435,2.1789769472931693,,2
-bremer_temp:38,26.448889,-76.8235,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,73.8853,2.1789769472931693,,2
-bremer_temp:39,26.454493,-76.82785,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,74.1317,2.1789769472931693,,2
-bremer_temp:40,12.211706,-79.70437,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:41,12.326783,-79.76753,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:42,12.48418,-79.889175,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:43,12.112139,-78.74872,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:44,13.002904,-79.04509,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:45,13.284976,-79.05381,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:46,18.812708,-77.17296,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:47,19.536905,-76.939865,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
-bremer_temp:48,10.628301,-75.016075,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:49,14.317176,-76.04778,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:50,16.60597,-76.53665,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:51,8.183384,-74.94062,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:52,7.969097,-74.962456,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:53,7.969064,-74.9624,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:54,7.853285,-74.985214,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:55,7.8533096,-74.98523,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:56,7.853309,-74.98524,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:57,7.8532853,-74.985214,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:58,8.183384,-74.940605,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:59,7.9690986,-74.96245,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:60,7.7743173,-75.00035,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,9.57729,2.1789769472931693,,2
-bremer_temp:61,7.9024916,-74.97437,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.95818,2.1789769472931693,,2
-bremer_temp:62,7.92344,-74.96907,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.6156,2.1789769472931693,,2
-bremer_temp:63,7.688035,-75.023964,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,11.0633,2.1789769472931693,,2
-bremer_temp:64,7.7320943,-75.01313,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.3713,2.1789769472931693,,2
-bremer_temp:65,7.7391953,-75.01146,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.2536,2.1789769472931693,,2
-bremer_temp:66,11.072633,-75.35559,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:67,12.410567,-75.82781,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:68,12.410454,-75.828026,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:69,14.43045,-76.491264,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:70,14.430555,-76.49101,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:71,15.276117,-76.63048,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:72,18.400387,-76.118675,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:73,11.072656,-75.35564,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:74,12.410589,-75.82786,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:75,14.430244,-76.491516,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:76,14.430646,-76.491196,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:77,19.945993,-75.927185,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.4289,2.1789769472931693,,2
-bremer_temp:78,20.522615,-75.966675,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.85,2.1789769472931693,,2
-bremer_temp:79,21.52203,-76.58825,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.26,2.1789769472931693,,2
-bremer_temp:80,23.115145,-77.31618,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.5069,2.1789769472931693,,2
-bremer_temp:81,23.223156,-77.32972,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.3636,2.1789769472931693,,2
-bremer_temp:82,23.289217,-77.33422,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.9207,2.1789769472931693,,2
-bremer_temp:83,11.161603,-76.232445,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:84,11.553241,-76.39343,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:85,12.207774,-76.451256,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:86,14.391453,-77.04649,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,11.5536,2.1789769472931693,,2
-bremer_temp:87,14.591444,-77.061874,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.5444,2.1789769472931693,,2
-bremer_temp:88,14.733297,-77.09518,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,13.1682,2.1789769472931693,,2
-bremer_temp:89,14.826337,-77.10887,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,13.5645,2.1789769472931693,,2
-bremer_temp:90,15.355919,-77.18889,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.9257,2.1789769472931693,,2
-bremer_temp:91,11.224446,-76.99526,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:92,18.582226,-76.24805,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:93,19.665865,-76.12278,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:94,20.73441,-76.27928,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
-bremer_temp:95,18.58224,-76.248055,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:96,21.692337,-76.72511,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
-bremer_temp:97,13.699539,-70.64934,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:98,13.961559,-70.624916,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:99,14.223794,-70.674324,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:100,14.488733,-70.753784,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:101,14.737821,-70.82098,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:102,14.9842205,-70.808105,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:103,15.249424,-70.85958,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:104,15.464271,-70.86606,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
-bremer_temp:105,15.761702,-70.94227,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:106,22.157825,-74.033905,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
-bremer_temp:107,23.076862,-74.21294,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.0,2.1789769472931693,,2
-bremer_temp:108,23.880013,-74.483864,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.0,2.1789769472931693,,2
-bremer_temp:109,13.699514,-70.64933,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:110,14.489029,-70.75373,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:111,14.984321,-70.8081,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:112,21.661833,-73.995026,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.3811,2.1789769472931693,,2
-bremer_temp:113,22.976654,-74.18079,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.358,2.1789769472931693,,2
-bremer_temp:114,24.32997,-74.66507,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.4663,2.1789769472931693,,2
-bremer_temp:115,25.24396,-75.09011,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,48.039,2.1789769472931693,,2
-bremer_temp:116,25.742744,-75.37835,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,53.5606,2.1789769472931693,,2
-bremer_temp:117,25.793577,-75.42767,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,54.4455,2.1789769472931693,,2
-bremer_temp:118,25.847145,-75.48117,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,55.4844,2.1789769472931693,,2
-bremer_temp:119,25.924456,-75.55267,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.1097,2.1789769472931693,,2
-bremer_temp:120,26.095297,-75.60086,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,60.9121,2.1789769472931693,,2
-bremer_temp:121,26.15438,-75.6187,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,62.2126,2.1789769472931693,,2
-bremer_temp:122,26.279001,-75.64791,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.3046,2.1789769472931693,,2
-bremer_temp:123,11.173108,-74.78252,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:124,11.71374,-74.77197,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:125,12.598555,-75.09595,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:126,13.588184,-75.21733,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:127,14.729487,-75.6374,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:128,16.00039,-75.96697,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:129,16.717772,-76.1318,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:130,18.047136,-76.0947,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:131,19.99503,-76.04429,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
-bremer_temp:132,11.173109,-74.78251,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:133,13.587965,-75.21748,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:134,16.717867,-76.13119,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:135,16.71776,-76.131775,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:136,18.047136,-76.0947,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:137,17.066782,-76.11844,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,17.0743,2.1789769472931693,,2
-bremer_temp:138,21.750612,-76.78117,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.1426,2.1789769472931693,,2
-bremer_temp:139,23.144312,-77.28342,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.2751,2.1789769472931693,,2
-bremer_temp:140,23.421059,-77.31413,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.78,2.1789769472931693,,2
-bremer_temp:141,23.534908,-77.307076,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.8042,2.1789769472931693,,2
-bremer_temp:142,23.729454,-77.28502,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.5498,2.1789769472931693,,2
-bremer_temp:143,23.748528,-77.28348,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.7138,2.1789769472931693,,2
-bremer_temp:144,23.905619,-77.271805,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.0033,2.1789769472931693,,2
-bremer_temp:145,24.459131,-77.193855,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,46.5559,2.1789769472931693,,2
-bremer_temp:146,24.650068,-77.183586,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,48.0605,2.1789769472931693,,2
-bremer_temp:147,24.91657,-77.152756,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,50.2035,2.1789769472931693,,2
-bremer_temp:148,24.936268,-77.14916,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,50.3686,2.1789769472931693,,2
-bremer_temp:149,25.146967,-77.10448,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,52.3023,2.1789769472931693,,2
-bremer_temp:150,12.353975,-72.109024,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:151,12.494362,-72.23775,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:152,12.755961,-72.355415,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:153,13.063175,-72.483055,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:154,13.360436,-72.60518,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:155,13.545464,-72.713585,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:156,12.289546,-72.1016,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,3.0,2.1789769472931693,,2
-bremer_temp:157,12.354036,-72.10903,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:158,12.408103,-72.18106,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
-bremer_temp:159,12.609719,-72.29151,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,7.0,2.1789769472931693,,2
-bremer_temp:160,13.063175,-72.483055,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:161,20.500088,-74.55164,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,23.4,2.1789769472931693,,2
-bremer_temp:162,20.577013,-74.552826,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.3,2.1789769472931693,,2
-bremer_temp:163,20.719849,-74.52807,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.9,2.1789769472931693,,2
-bremer_temp:164,20.744642,-74.53177,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.2,2.1789769472931693,,2
-bremer_temp:165,20.76648,-74.538506,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.5,2.1789769472931693,,2
-bremer_temp:166,13.161521,-71.06156,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:167,14.627933,-71.42761,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:168,19.145088,-74.28334,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:169,12.985948,-71.22217,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:170,14.178443,-71.56763,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:171,15.531001,-71.68603,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:172,19.215057,-74.39823,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:173,12.943873,-71.289085,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:174,13.607691,-71.49263,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:175,14.412917,-71.65379,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:176,20.697104,-74.294205,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.6295,2.1789769472931693,,2
-bremer_temp:177,20.790842,-74.29907,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.3347,2.1789769472931693,,2
-bremer_temp:178,20.794874,-74.29837,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.3702,2.1789769472931693,,2
-bremer_temp:179,20.870514,-74.30965,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.0107,2.1789769472931693,,2
-bremer_temp:180,20.902618,-74.31038,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.2994,2.1789769472931693,,2
-bremer_temp:181,21.033772,-74.31181,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.3772,2.1789769472931693,,2
-bremer_temp:182,21.060663,-74.31241,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.6685,2.1789769472931693,,2
-bremer_temp:183,14.25644,-83.693245,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:184,14.380416,-83.69299,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:185,14.744377,-83.57505,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:186,16.403286,-84.335236,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:187,16.972015,-84.63113,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:188,14.255917,-83.69226,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:189,18.913033,-86.065834,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,29.5251,2.1789769472931693,,2
-bremer_temp:190,19.387466,-86.26263,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.3708,2.1789769472931693,,2
-bremer_temp:191,19.39524,-86.26483,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.46,2.1789769472931693,,2
-bremer_temp:192,19.402693,-86.26935,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.552,2.1789769472931693,,2
-bremer_temp:193,19.506351,-86.33191,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.88,2.1789769472931693,,2
-bremer_temp:194,19.507654,-86.33222,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.9,2.1789769472931693,,2
-bremer_temp:195,19.422117,-86.28071,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.8,2.1789769472931693,,2
-bremer_temp:196,14.1606,-83.35417,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:197,14.406529,-83.21365,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:198,14.688023,-82.97403,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:199,10.963253,-74.67245,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:200,12.5749035,-75.09092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:201,14.466784,-75.584366,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:202,10.665493,-75.88056,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:203,14.419319,-77.97137,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:204,16.403215,-77.52191,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:205,13.98904,-83.24956,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:206,14.801212,-82.60469,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:207,16.989317,-83.90503,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:208,14.637343,-84.459564,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:209,15.082431,-84.71616,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:210,15.704657,-85.031685,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:211,16.352509,-85.278915,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:212,16.62338,-85.40011,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
-bremer_temp:213,16.893408,-85.49547,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:214,16.89341,-85.495476,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:215,17.17411,-85.697495,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
-bremer_temp:216,17.676323,-86.0017,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
-bremer_temp:217,18.178366,-86.260445,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
-bremer_temp:218,18.178366,-86.260445,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
-bremer_temp:219,18.477571,-86.37897,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
-bremer_temp:220,18.477571,-86.37896,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
-bremer_temp:221,18.758938,-86.49623,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
-bremer_temp:222,19.05253,-86.575714,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.0,2.1789769472931693,,2
-bremer_temp:223,19.29409,-86.69011,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.0,2.1789769472931693,,2
-bremer_temp:224,19.51173,-86.851456,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.0,2.1789769472931693,,2
-bremer_temp:225,19.73538,-86.98572,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.0,2.1789769472931693,,2
-bremer_temp:226,14.830919,-84.56921,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:227,17.676323,-86.0017,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
-bremer_temp:228,19.346594,-86.72985,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.5,2.1789769472931693,,2
-bremer_temp:229,21.352207,-86.91596,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,55.95,2.1789769472931693,,2
-bremer_temp:230,21.389942,-86.90418,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.65,2.1789769472931693,,2
-bremer_temp:231,21.680092,-86.81211,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,68.88,2.1789769472931693,,2
-bremer_temp:232,14.642156,-84.46641,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:233,14.93403,-84.635124,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:234,15.11469,-84.729164,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:235,15.353232,-84.862076,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:236,15.353232,-84.862076,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:237,16.807756,-85.478195,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:238,14.642166,-84.46641,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:239,18.275537,-86.47632,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.978,2.1789769472931693,,2
-bremer_temp:240,18.755352,-86.71771,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.9835,2.1789769472931693,,2
-bremer_temp:241,19.828178,-87.13675,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.7273,2.1789769472931693,,2
-bremer_temp:242,19.914457,-87.19079,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,39.9,2.1789769472931693,,2
-bremer_temp:243,20.097174,-87.28793,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.5992,2.1789769472931693,,2
-bremer_temp:244,20.13795,-87.3023,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,43.2674,2.1789769472931693,,2
-bremer_temp:245,20.22247,-87.323204,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,44.72,2.1789769472931693,,2
-bremer_temp:246,20.089777,-87.28154,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.47,2.1789769472931693,,2
-bremer_temp:247,20.097174,-87.28793,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.5992,2.1789769472931693,,2
-bremer_temp:248,20.347416,-87.33184,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,46.76,2.1789769472931693,,2
-bremer_temp:249,16.064722,-85.222664,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:250,16.351282,-85.30742,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:251,16.35128,-85.30742,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:252,16.865574,-85.51166,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:253,12.120193,-78.6845,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:254,12.741938,-78.84103,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:255,13.503304,-79.027855,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:256,14.171466,-79.156395,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:257,12.297904,-78.93932,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:258,12.807245,-79.059494,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:259,13.367988,-79.19166,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:260,13.850068,-79.3153,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:261,17.838345,-68.34427,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:262,17.892172,-68.322845,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:263,17.991966,-68.26408,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:264,10.920543,-75.64305,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:265,10.920537,-75.643036,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:266,12.131904,-76.106575,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:267,12.131906,-76.10658,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:268,13.846518,-76.79476,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:269,18.384382,-76.28995,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:270,7.400533,-65.166916,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:271,7.400533,-65.166916,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:272,7.400533,-65.166916,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:273,7.1117063,-65.15746,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:274,7.111706,-65.15745,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:275,6.9053497,-65.14884,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:276,6.045842,-64.96537,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:277,5.643655,-64.80632,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:278,5.438007,-64.74406,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:279,7.522179,-63.98471,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:280,7.522179,-63.98471,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:281,7.384142,-63.936195,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:282,7.3841414,-63.936184,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
-bremer_temp:283,7.242397,-63.898865,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:284,7.0760818,-63.801826,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:285,6.894035,-63.695267,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:286,6.459561,-63.632847,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:287,6.0789347,-63.663948,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:288,5.8110895,-63.751728,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:289,16.950695,-68.44149,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:290,17.08637,-68.3545,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:291,17.232344,-68.276276,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:292,17.384418,-68.20542,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:293,17.47091,-68.1185,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:294,26.633356,-75.44413,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.2,2.1789769472931693,,2
-bremer_temp:295,26.73991,-75.448875,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,72.0,2.1789769472931693,,2
-bremer_temp:296,8.786215,-62.74665,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:297,8.786215,-62.74665,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:298,8.786215,-62.74665,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:299,8.713926,-62.520267,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:300,8.588292,-62.22147,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:301,8.402788,-61.928947,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:302,8.237745,-61.686394,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:303,8.1443815,-61.37222,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.5,2.1789769472931693,,2
-bremer_temp:304,8.152293,-61.234562,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
-bremer_temp:305,8.514176,-62.771397,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:306,8.514176,-62.771397,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:307,8.514176,-62.771397,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:308,8.406323,-62.58403,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:309,8.283949,-62.329823,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:310,8.28395,-62.329823,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:311,8.165548,-62.08427,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:312,8.05662,-61.887173,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:313,8.026646,-61.797836,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
-bremer_temp:314,8.014332,-61.755707,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,23.0,2.1789769472931693,,2
-bremer_temp:315,17.72738,-68.8379,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:316,17.791307,-68.60318,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:317,17.877237,-68.452995,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:318,17.963251,-68.37987,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:319,18.05465,-68.3183,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:320,7.2432556,-65.08457,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:321,6.9213414,-65.02437,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:322,6.4546294,-64.90978,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:323,5.969954,-64.78774,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:324,5.6560335,-64.70048,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:325,5.4803877,-64.68541,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:326,5.417115,-64.70532,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.0,2.1789769472931693,,2
-bremer_temp:327,7.1840415,-63.944035,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:328,6.9363227,-63.858315,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:329,6.7866507,-63.79299,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer_temp:330,6.6380687,-63.74115,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:331,6.6376967,-63.740833,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:332,6.4776187,-63.70413,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
-bremer_temp:333,6.3248534,-63.696373,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:334,6.057307,-63.716652,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:335,18.264315,-70.07589,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:336,18.461506,-70.059586,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:337,18.797329,-70.065994,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:338,19.136156,-70.13766,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:339,19.136156,-70.137695,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:340,19.419827,-70.30939,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:341,19.664137,-70.53328,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:342,18.264961,-70.07585,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:343,18.2643,-70.07587,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:344,19.674545,-70.54325,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.17,2.1789769472931693,,2
-bremer_temp:345,23.185776,-76.09284,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.24,2.1789769472931693,,2
-bremer_temp:346,23.222729,-76.13841,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.1,2.1789769472931693,,2
-bremer_temp:347,23.390152,-76.20261,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,39.84,2.1789769472931693,,2
-bremer_temp:348,23.457243,-76.20712,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,41.18,2.1789769472931693,,2
-bremer_temp:349,23.752586,-76.206314,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.5,2.1789769472931693,,2
-bremer_temp:350,26.479155,-76.38286,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,64.2,2.1789769472931693,,2
-bremer_temp:351,16.380892,-73.171486,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:352,16.57457,-73.225075,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:353,16.86247,-73.29409,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:354,17.209095,-73.3712,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:355,17.616772,-73.46626,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:356,18.099913,-73.47574,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
-bremer_temp:357,18.380968,-73.465416,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
-bremer_temp:358,16.380892,-73.171486,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:359,17.209444,-73.37119,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
-bremer_temp:360,24.477444,-75.590775,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.6,2.1789769472931693,,2
-bremer_temp:361,9.219251,-79.95787,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:362,9.217533,-79.994705,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:363,9.215666,-80.03849,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
-bremer_temp:364,9.197097,-80.14483,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
-bremer_temp:365,9.188152,-80.20363,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
-bremer_temp:366,9.2192545,-79.95789,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
-bremer_temp:367,9.217533,-79.994705,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
-bremer_temp:368,9.21533,-80.01591,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
-bremer2022:pH:1,18.733856,-92.498085,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:2,18.73385,-92.49777,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:3,18.733856,-92.498085,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:4,19.979427,-91.52565,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:5,19.979427,-91.52565,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:6,19.979399,-91.5255,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:7,18.769058,-92.49239,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:8,18.769058,-92.49232,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:9,18.768908,-92.492325,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:10,20.109413,-91.556984,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:11,20.109545,-91.55705,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:12,20.109413,-91.556984,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:13,20.245794,-91.7012,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:14,20.245775,-91.70066,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:15,20.245775,-91.70066,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:16,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:17,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:18,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:19,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:20,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:21,20.80098,-95.12619,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:22,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:23,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:24,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:25,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:26,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:28,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:29,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:30,20.96477,-95.18092,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:31,22.039967,-94.880264,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:32,22.040506,-94.88037,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:33,22.040506,-94.88037,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:34,21.059109,-95.23636,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:35,21.05911,-95.23636,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:36,21.059109,-95.23636,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:37,21.133966,-95.29625,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:38,21.133966,-95.29625,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:39,21.133966,-95.29625,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:40,22.158527,-94.88451,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:41,22.158527,-94.88451,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-bremer2022:pH:42,22.158527,-94.88451,protein(1) · C_sat,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
-ausserwoger2025:2d+3b:FUS:1.0:2,82.11414,-55.09993,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:3,82.12426,-54.8592,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:4,82.095436,-54.317608,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:5,81.9402,-53.299736,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:6,81.65528,-51.572002,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:7,81.13777,-48.28266,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:1.0:8,81.08637,-48.065018,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:2,82.12136,-55.09643,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:3,82.11517,-54.496223,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:4,81.940216,-53.29974,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:5,81.65567,-51.572243,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:6,81.40881,-50.031414,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:7,81.28604,-49.18296,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:8,81.13777,-48.28266,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:2d+3b:FUS:2.0:9,81.08504,-48.06624,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:2,88.044174,-52.95931,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:3,88.04349,-52.956387,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:4,88.04395,-52.953533,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:5,88.04462,-52.951366,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:6,88.0452,-52.949287,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:7,88.04556,-52.94656,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:1.0:8,88.046165,-52.94557,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:2,88.044174,-52.95931,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:3,88.04349,-52.956387,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:4,88.04395,-52.953533,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:5,88.04462,-52.951366,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:6,88.0452,-52.949287,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:7,88.04556,-52.94656,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3f:TDP43:2.0:8,88.046165,-52.94557,protein(1) · C_sat,TDP-43,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3g:PGL3:1.0:2,86.97367,-49.632633,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:3,86.97324,-49.631718,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:4,86.97336,-49.630955,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:5,86.97359,-49.630516,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:6,86.97347,-49.62954,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:7,86.97334,-49.62881,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:1.0:8,86.97272,-49.626907,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:2,86.97367,-49.632633,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:3,86.97324,-49.631718,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:4,86.97336,-49.630955,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:5,86.97359,-49.630516,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:6,86.97347,-49.62954,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:7,86.97334,-49.62881,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:3g:PGL3:2.0:8,86.97272,-49.626907,protein(1) · C_sat,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:3,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:4,54.91314,-54.026516,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:5,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:6,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:7,55.797825,-55.155163,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:8,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:9,54.91314,-54.026516,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:10,57.590733,-56.574463,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:11,57.590733,-56.574463,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:12,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:13,54.294575,-56.11642,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:3,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:4,54.91314,-54.026516,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:5,56.38477,-55.830086,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:6,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:7,56.519825,-56.25626,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:8,56.034176,-56.97411,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:9,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:10,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:11,55.79772,-55.154884,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:12,55.346252,-53.686974,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:13,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:14,56.034176,-56.97411,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:15,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:3,56.448574,-56.567013,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:4,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:5,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:6,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:7,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:8,56.519825,-56.25626,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:9,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:10,55.346252,-53.686974,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:11,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:12,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:3.0:13,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:3,55.907837,-53.368637,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:4,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:5,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:6,55.907837,-53.368637,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:7,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:8,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:9,57.590733,-56.574463,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:10,56.38477,-55.830086,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:11,56.86549,-56.79052,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:12,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4b:FUS:5.0:13,56.448574,-56.567013,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:5b:FUS:1.0:3,48.80804,-73.827515,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:4,48.087887,-73.916306,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:5,47.237152,-74.03042,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:6,46.089306,-74.26014,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:7,44.3732,-74.71805,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:8,42.15432,-75.584755,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:9,39.41968,-77.24892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:3,48.808033,-73.827515,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:4,48.087887,-73.916306,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:5,47.23715,-74.03042,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:6,46.089306,-74.26014,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:7,44.3732,-74.71805,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:8,42.15432,-75.584755,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:9,39.41968,-77.24892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:3,48.808033,-73.827515,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:4,48.087887,-73.916306,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:5,44.3732,-74.71805,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:6,42.15432,-75.584755,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:7,39.41968,-77.24892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:8,37.27763,-79.15313,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:1.0:9,35.73168,-80.769295,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:3,48.808033,-73.827515,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:4,48.087887,-73.916306,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:5,44.3732,-74.71805,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:6,42.15432,-75.584755,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:7,39.41968,-77.24892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:8,38.320957,-78.16262,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5b:FUS:2.0:9,36.92271,-79.51905,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:3c:boundary:KCl:1,81.26262,-49.02919,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:2,81.26838,-49.070568,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:3,81.271965,-49.1144,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:4,81.279015,-49.161953,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:5,81.288086,-49.213203,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:6,81.29511,-49.267544,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:7,81.30326,-49.32841,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:8,81.305855,-49.392315,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:9,81.320366,-49.45807,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:10,81.331856,-49.53169,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:11,81.34187,-49.60541,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:12,81.356926,-49.694054,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:13,81.367195,-49.782845,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:14,81.383934,-49.88049,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:15,81.40263,-49.985924,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:16,81.419205,-50.09663,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:17,81.435,-50.214607,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:18,81.45612,-50.338318,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:19,81.477745,-50.468857,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:20,81.49729,-50.60467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:21,81.521774,-50.743614,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:22,81.54328,-50.891376,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:23,81.5646,-51.037388,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:24,81.58942,-51.189358,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:25,81.61529,-51.346138,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:26,81.64086,-51.4974,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:27,81.67113,-51.66241,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:28,81.69658,-51.825806,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:29,81.72645,-51.98501,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:30,81.75197,-52.14941,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:31,81.77745,-52.31404,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:32,81.80616,-52.47631,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:33,81.83072,-52.643265,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:34,81.85868,-52.800674,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:35,81.88272,-52.95057,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:36,81.90477,-53.093803,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:37,81.9293,-53.232677,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:38,81.952965,-53.37183,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:39,81.974434,-53.503353,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:40,81.99617,-53.634003,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:41,82.0156,-53.75865,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:42,82.034706,-53.877335,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:43,82.05124,-53.989628,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:44,82.0664,-54.09308,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:45,82.08095,-54.19806,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:46,82.091934,-54.28985,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:47,82.10327,-54.379585,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:48,82.11242,-54.46153,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:49,82.11318,-54.5364,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:3c:boundary:KCl:50,82.11853,-54.606644,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,3
-ausserwoger2025:4c:boundary:LiCl:2,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:3,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:4,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:5,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:6,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:7,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:8,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:9,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:10,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:11,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:12,56.86549,-56.79052,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:13,56.38477,-55.830086,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:14,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:15,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:16,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:17,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:18,56.034176,-56.97411,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:19,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:20,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:21,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:22,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:23,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:24,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:25,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:26,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:27,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:28,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:29,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:30,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:31,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:32,56.86549,-56.79052,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:33,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:34,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:35,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:36,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:37,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:38,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:39,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:40,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:41,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:42,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:43,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:44,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:45,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:46,56.38465,-55.831436,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:47,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:48,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:49,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:50,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:LiCl:51,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:3,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:4,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:5,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:6,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:7,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:8,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:9,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:10,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:11,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:12,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:13,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:14,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:15,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:16,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:17,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:18,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:19,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:20,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:21,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:22,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:23,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:24,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:25,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:26,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:27,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:28,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:29,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:30,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:31,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:32,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:33,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:34,58.101234,-53.592087,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:35,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:36,56.00492,-54.129997,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:37,55.346252,-53.686974,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:38,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:39,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:40,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:41,56.426346,-54.976467,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:42,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:43,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:44,56.86549,-56.79052,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:45,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:46,55.003883,-54.948387,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:47,57.364273,-55.661434,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:48,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:49,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:50,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:4c:boundary:CsCl:51,55.454216,-56.08531,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,4
-ausserwoger2025:5c:boundary:PEG10k:2,47.457993,-73.99412,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:3,47.391716,-74.00574,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:4,47.319817,-74.01473,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:5,47.24252,-74.02953,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:6,47.156788,-74.043365,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:7,47.063335,-74.053894,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:8,46.961277,-74.07833,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:9,46.843826,-74.0987,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:10,46.72206,-74.11662,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:11,46.58557,-74.1481,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:12,46.43352,-74.18348,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:13,46.276608,-74.21549,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:14,46.108982,-74.255165,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:15,45.94015,-74.29544,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:16,45.739635,-74.343636,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:17,45.515247,-74.402145,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:18,45.259823,-74.4676,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:19,44.993195,-74.539505,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:20,44.735806,-74.609406,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:21,44.485382,-74.685425,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:22,44.22606,-74.75983,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:23,43.95692,-74.843376,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:24,43.650887,-74.95663,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:25,43.30146,-75.07724,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:26,42.938755,-75.225494,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:27,42.582485,-75.38812,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:28,42.2241,-75.55576,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:29,41.833687,-75.747955,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:30,41.4312,-75.97223,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:31,40.95835,-76.24589,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:32,40.45651,-76.55454,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:33,39.999416,-76.83917,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:34,39.622025,-77.08996,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:35,39.271584,-77.36182,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:36,38.93241,-77.62646,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:37,38.579147,-77.92881,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:38,38.212437,-78.26141,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:39,37.85942,-78.59271,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:40,37.529232,-78.916214,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:41,37.217937,-79.2194,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:42,36.9306,-79.51103,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:43,36.656094,-79.80076,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:44,36.38666,-80.07593,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:45,36.135433,-80.34303,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:46,35.91508,-80.57847,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:47,35.715885,-80.78253,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:48,35.544846,-80.97522,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:49,35.39118,-81.130775,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:50,35.266586,-81.27643,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:51,35.16108,-81.38961,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:2,43.716404,-74.93138,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:3,43.55247,-74.99099,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:4,43.3787,-75.05408,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:5,43.19823,-75.1211,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:6,43.012447,-75.19892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:7,42.817516,-75.28256,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:8,42.626713,-75.36586,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:9,42.429688,-75.44799,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:10,42.22889,-75.55204,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:11,42.00654,-75.659355,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:12,41.784954,-75.77646,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:13,41.55313,-75.903015,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:14,41.29618,-76.050896,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:15,41.008915,-76.22002,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:16,40.709324,-76.400566,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:17,40.40076,-76.58245,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:18,40.114998,-76.76821,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:19,39.86465,-76.92167,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:20,39.640137,-77.086,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:21,39.41083,-77.252716,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:22,39.197376,-77.42,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:23,38.97596,-77.58182,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:24,38.762222,-77.77529,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:25,38.52503,-77.96892,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:26,38.29217,-78.18837,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:27,38.05927,-78.40826,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:28,37.832947,-78.61661,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:29,37.616566,-78.82399,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:30,37.408928,-79.02494,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:31,37.207645,-79.230354,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:32,37.02019,-79.42069,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:33,36.82801,-79.61465,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:34,36.651905,-79.804474,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:35,36.4732,-79.98796,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:36,36.30004,-80.17205,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:37,36.13153,-80.34302,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:38,35.981155,-80.50402,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:39,35.844433,-80.652405,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:40,35.7174,-80.788956,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:41,35.59665,-80.91926,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:42,35.490543,-81.0366,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:43,35.38994,-81.13849,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:44,35.294857,-81.224106,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:45,35.224792,-81.322876,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:46,35.15674,-81.393684,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:47,35.083057,-81.43961,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:48,35.05157,-81.50718,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:49,35.006954,-81.54645,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:50,34.95345,-81.57227,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
-ausserwoger2025:5c:boundary:PEG10k:51,34.92701,-81.609505,protein(1) · C_sat,FUS,csat only,Ausserwoger2025,missing,,,,2
+bremer_temp:0,10.926711,-75.13438,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:1,12.516517,-75.60592,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:2,13.462013,-75.80802,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:3,13.462013,-75.808014,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:4,14.325815,-76.161804,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:5,16.610226,-76.52706,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:6,18.403744,-76.12571,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:7,23.142258,-77.302826,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.9282,2.1789769472931693,,2
+bremer_temp:8,13.462013,-75.808014,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:9,11.047419,-74.99412,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:10,11.224205,-74.99948,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
+bremer_temp:11,11.561797,-75.06659,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:12,12.504536,-75.46208,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:13,13.491231,-75.645035,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:14,14.4195,-76.0497,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:15,15.658181,-76.25533,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:16,16.221024,-76.34842,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.0,2.1789769472931693,,2
+bremer_temp:17,16.635159,-76.36123,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:18,17.581322,-76.18002,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
+bremer_temp:19,18.389948,-76.01494,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:20,19.021667,-75.910774,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
+bremer_temp:21,19.7959,-75.817245,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:22,11.224203,-74.99947,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
+bremer_temp:23,13.4912405,-75.64503,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:24,14.419434,-76.04963,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:25,16.220972,-76.34967,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.0,2.1789769472931693,,2
+bremer_temp:26,17.581331,-76.17991,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
+bremer_temp:27,18.389992,-76.01494,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:28,24.420414,-76.99752,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.4,2.1789769472931693,,2
+bremer_temp:29,25.574612,-76.80046,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,54.8643,2.1789769472931693,,2
+bremer_temp:30,25.666111,-76.78088,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.0617,2.1789769472931693,,2
+bremer_temp:31,25.725101,-76.76522,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.9,2.1789769472931693,,2
+bremer_temp:32,25.767105,-76.75727,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.5314,2.1789769472931693,,2
+bremer_temp:33,25.780888,-76.75538,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.7377,2.1789769472931693,,2
+bremer_temp:34,25.814846,-76.749054,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,58.2641,2.1789769472931693,,2
+bremer_temp:35,25.872116,-76.736115,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,59.2,2.1789769472931693,,2
+bremer_temp:36,26.134768,-76.68941,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,64.0105,2.1789769472931693,,2
+bremer_temp:37,26.196323,-76.69391,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.5435,2.1789769472931693,,2
+bremer_temp:38,26.448889,-76.8235,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,73.8853,2.1789769472931693,,2
+bremer_temp:39,26.454493,-76.82785,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,74.1317,2.1789769472931693,,2
+bremer_temp:40,12.211706,-79.70437,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:41,12.326783,-79.76753,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:42,12.48418,-79.889175,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:43,12.112139,-78.74872,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:44,13.002904,-79.04509,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:45,13.284976,-79.05381,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:46,18.812708,-77.17296,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:47,19.536905,-76.939865,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
+bremer_temp:48,10.628301,-75.016075,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:49,14.317176,-76.04778,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:50,16.60597,-76.53665,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:51,8.183384,-74.94062,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:52,7.969097,-74.962456,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:53,7.969064,-74.9624,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:54,7.853285,-74.985214,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:55,7.8533096,-74.98523,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:56,7.853309,-74.98524,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:57,7.8532853,-74.985214,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:58,8.183384,-74.940605,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:59,7.9690986,-74.96245,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:60,7.7743173,-75.00035,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,9.57729,2.1789769472931693,,2
+bremer_temp:61,7.9024916,-74.97437,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.95818,2.1789769472931693,,2
+bremer_temp:62,7.92344,-74.96907,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.6156,2.1789769472931693,,2
+bremer_temp:63,7.688035,-75.023964,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,11.0633,2.1789769472931693,,2
+bremer_temp:64,7.7320943,-75.01313,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.3713,2.1789769472931693,,2
+bremer_temp:65,7.7391953,-75.01146,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.2536,2.1789769472931693,,2
+bremer_temp:66,11.072633,-75.35559,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:67,12.410567,-75.82781,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:68,12.410454,-75.828026,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:69,14.43045,-76.491264,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:70,14.430555,-76.49101,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:71,15.276117,-76.63048,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:72,18.400387,-76.118675,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:73,11.072656,-75.35564,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:74,12.410589,-75.82786,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:75,14.430244,-76.491516,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:76,14.430646,-76.491196,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:77,19.945993,-75.927185,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.4289,2.1789769472931693,,2
+bremer_temp:78,20.522615,-75.966675,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.85,2.1789769472931693,,2
+bremer_temp:79,21.52203,-76.58825,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.26,2.1789769472931693,,2
+bremer_temp:80,23.115145,-77.31618,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.5069,2.1789769472931693,,2
+bremer_temp:81,23.223156,-77.32972,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.3636,2.1789769472931693,,2
+bremer_temp:82,23.289217,-77.33422,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.9207,2.1789769472931693,,2
+bremer_temp:83,11.161603,-76.232445,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:84,11.553241,-76.39343,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:85,12.207774,-76.451256,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:86,14.391453,-77.04649,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,11.5536,2.1789769472931693,,2
+bremer_temp:87,14.591444,-77.061874,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.5444,2.1789769472931693,,2
+bremer_temp:88,14.733297,-77.09518,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,13.1682,2.1789769472931693,,2
+bremer_temp:89,14.826337,-77.10887,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,13.5645,2.1789769472931693,,2
+bremer_temp:90,15.355919,-77.18889,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,15.9257,2.1789769472931693,,2
+bremer_temp:91,11.224446,-76.99526,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:92,18.582226,-76.24805,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:93,19.665865,-76.12278,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:94,20.73441,-76.27928,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
+bremer_temp:95,18.58224,-76.248055,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:96,21.692337,-76.72511,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
+bremer_temp:97,13.699539,-70.64934,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:98,13.961559,-70.624916,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:99,14.223794,-70.674324,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:100,14.488733,-70.753784,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:101,14.737821,-70.82098,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:102,14.9842205,-70.808105,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:103,15.249424,-70.85958,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:104,15.464271,-70.86606,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
+bremer_temp:105,15.761702,-70.94227,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:106,22.157825,-74.033905,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
+bremer_temp:107,23.076862,-74.21294,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.0,2.1789769472931693,,2
+bremer_temp:108,23.880013,-74.483864,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.0,2.1789769472931693,,2
+bremer_temp:109,13.699514,-70.64933,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:110,14.489029,-70.75373,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:111,14.984321,-70.8081,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:112,21.661833,-73.995026,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.3811,2.1789769472931693,,2
+bremer_temp:113,22.976654,-74.18079,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.358,2.1789769472931693,,2
+bremer_temp:114,24.32997,-74.66507,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.4663,2.1789769472931693,,2
+bremer_temp:115,25.24396,-75.09011,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,48.039,2.1789769472931693,,2
+bremer_temp:116,25.742744,-75.37835,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,53.5606,2.1789769472931693,,2
+bremer_temp:117,25.793577,-75.42767,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,54.4455,2.1789769472931693,,2
+bremer_temp:118,25.847145,-75.48117,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,55.4844,2.1789769472931693,,2
+bremer_temp:119,25.924456,-75.55267,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,57.1097,2.1789769472931693,,2
+bremer_temp:120,26.095297,-75.60086,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,60.9121,2.1789769472931693,,2
+bremer_temp:121,26.15438,-75.6187,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,62.2126,2.1789769472931693,,2
+bremer_temp:122,26.279001,-75.64791,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.3046,2.1789769472931693,,2
+bremer_temp:123,11.173108,-74.78252,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:124,11.71374,-74.77197,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:125,12.598555,-75.09595,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:126,13.588184,-75.21733,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:127,14.729487,-75.6374,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:128,16.00039,-75.96697,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:129,16.717772,-76.1318,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:130,18.047136,-76.0947,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:131,19.99503,-76.04429,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
+bremer_temp:132,11.173109,-74.78251,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:133,13.587965,-75.21748,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:134,16.717867,-76.13119,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:135,16.71776,-76.131775,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:136,18.047136,-76.0947,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:137,17.066782,-76.11844,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,17.0743,2.1789769472931693,,2
+bremer_temp:138,21.750612,-76.78117,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.1426,2.1789769472931693,,2
+bremer_temp:139,23.144312,-77.28342,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.2751,2.1789769472931693,,2
+bremer_temp:140,23.421059,-77.31413,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,37.78,2.1789769472931693,,2
+bremer_temp:141,23.534908,-77.307076,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.8042,2.1789769472931693,,2
+bremer_temp:142,23.729454,-77.28502,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.5498,2.1789769472931693,,2
+bremer_temp:143,23.748528,-77.28348,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.7138,2.1789769472931693,,2
+bremer_temp:144,23.905619,-77.271805,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.0033,2.1789769472931693,,2
+bremer_temp:145,24.459131,-77.193855,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,46.5559,2.1789769472931693,,2
+bremer_temp:146,24.650068,-77.183586,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,48.0605,2.1789769472931693,,2
+bremer_temp:147,24.91657,-77.152756,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,50.2035,2.1789769472931693,,2
+bremer_temp:148,24.936268,-77.14916,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,50.3686,2.1789769472931693,,2
+bremer_temp:149,25.146967,-77.10448,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,52.3023,2.1789769472931693,,2
+bremer_temp:150,12.353975,-72.109024,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:151,12.494362,-72.23775,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:152,12.755961,-72.355415,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:153,13.063175,-72.483055,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:154,13.360436,-72.60518,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:155,13.545464,-72.713585,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:156,12.289546,-72.1016,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,3.0,2.1789769472931693,,2
+bremer_temp:157,12.354036,-72.10903,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:158,12.408103,-72.18106,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,5.0,2.1789769472931693,,2
+bremer_temp:159,12.609719,-72.29151,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,7.0,2.1789769472931693,,2
+bremer_temp:160,13.063175,-72.483055,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:161,20.500088,-74.55164,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,23.4,2.1789769472931693,,2
+bremer_temp:162,20.577013,-74.552826,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.3,2.1789769472931693,,2
+bremer_temp:163,20.719849,-74.52807,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.9,2.1789769472931693,,2
+bremer_temp:164,20.744642,-74.53177,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.2,2.1789769472931693,,2
+bremer_temp:165,20.76648,-74.538506,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.5,2.1789769472931693,,2
+bremer_temp:166,13.161521,-71.06156,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:167,14.627933,-71.42761,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:168,19.145088,-74.28334,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:169,12.985948,-71.22217,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:170,14.178443,-71.56763,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:171,15.531001,-71.68603,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:172,19.215057,-74.39823,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:173,12.943873,-71.289085,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:174,13.607691,-71.49263,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:175,14.412917,-71.65379,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:176,20.697104,-74.294205,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.6295,2.1789769472931693,,2
+bremer_temp:177,20.790842,-74.29907,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.3347,2.1789769472931693,,2
+bremer_temp:178,20.794874,-74.29837,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.3702,2.1789769472931693,,2
+bremer_temp:179,20.870514,-74.30965,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.0107,2.1789769472931693,,2
+bremer_temp:180,20.902618,-74.31038,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.2994,2.1789769472931693,,2
+bremer_temp:181,21.033772,-74.31181,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.3772,2.1789769472931693,,2
+bremer_temp:182,21.060663,-74.31241,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.6685,2.1789769472931693,,2
+bremer_temp:183,14.25644,-83.693245,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:184,14.380416,-83.69299,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:185,14.744377,-83.57505,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:186,16.403286,-84.335236,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:187,16.972015,-84.63113,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:188,14.255917,-83.69226,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:189,18.913033,-86.065834,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,29.5251,2.1789769472931693,,2
+bremer_temp:190,19.387466,-86.26263,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.3708,2.1789769472931693,,2
+bremer_temp:191,19.39524,-86.26483,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.46,2.1789769472931693,,2
+bremer_temp:192,19.402693,-86.26935,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.552,2.1789769472931693,,2
+bremer_temp:193,19.506351,-86.33191,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.88,2.1789769472931693,,2
+bremer_temp:194,19.507654,-86.33222,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.9,2.1789769472931693,,2
+bremer_temp:195,19.422117,-86.28071,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.8,2.1789769472931693,,2
+bremer_temp:196,14.1606,-83.35417,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:197,14.406529,-83.21365,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:198,14.688023,-82.97403,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:199,10.963253,-74.67245,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:200,12.5749035,-75.09092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:201,14.466784,-75.584366,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:202,10.665493,-75.88056,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:203,14.419319,-77.97137,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:204,16.403215,-77.52191,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:205,13.98904,-83.24956,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:206,14.801212,-82.60469,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:207,16.989317,-83.90503,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:208,14.637343,-84.459564,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:209,15.082431,-84.71616,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:210,15.704657,-85.031685,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:211,16.352509,-85.278915,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:212,16.62338,-85.40011,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,18.0,2.1789769472931693,,2
+bremer_temp:213,16.893408,-85.49547,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:214,16.89341,-85.495476,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:215,17.17411,-85.697495,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
+bremer_temp:216,17.676323,-86.0017,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
+bremer_temp:217,18.178366,-86.260445,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
+bremer_temp:218,18.178366,-86.260445,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,28.0,2.1789769472931693,,2
+bremer_temp:219,18.477571,-86.37897,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
+bremer_temp:220,18.477571,-86.37896,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
+bremer_temp:221,18.758938,-86.49623,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
+bremer_temp:222,19.05253,-86.575714,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,34.0,2.1789769472931693,,2
+bremer_temp:223,19.29409,-86.69011,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.0,2.1789769472931693,,2
+bremer_temp:224,19.51173,-86.851456,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.0,2.1789769472931693,,2
+bremer_temp:225,19.73538,-86.98572,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,40.0,2.1789769472931693,,2
+bremer_temp:226,14.830919,-84.56921,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:227,17.676323,-86.0017,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
+bremer_temp:228,19.346594,-86.72985,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.5,2.1789769472931693,,2
+bremer_temp:229,21.352207,-86.91596,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,55.95,2.1789769472931693,,2
+bremer_temp:230,21.389942,-86.90418,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,56.65,2.1789769472931693,,2
+bremer_temp:231,21.680092,-86.81211,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,68.88,2.1789769472931693,,2
+bremer_temp:232,14.642156,-84.46641,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:233,14.93403,-84.635124,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:234,15.11469,-84.729164,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:235,15.353232,-84.862076,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:236,15.353232,-84.862076,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:237,16.807756,-85.478195,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:238,14.642166,-84.46641,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:239,18.275537,-86.47632,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.978,2.1789769472931693,,2
+bremer_temp:240,18.755352,-86.71771,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.9835,2.1789769472931693,,2
+bremer_temp:241,19.828178,-87.13675,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,38.7273,2.1789769472931693,,2
+bremer_temp:242,19.914457,-87.19079,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,39.9,2.1789769472931693,,2
+bremer_temp:243,20.097174,-87.28793,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.5992,2.1789769472931693,,2
+bremer_temp:244,20.13795,-87.3023,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,43.2674,2.1789769472931693,,2
+bremer_temp:245,20.22247,-87.323204,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,44.72,2.1789769472931693,,2
+bremer_temp:246,20.089777,-87.28154,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.47,2.1789769472931693,,2
+bremer_temp:247,20.097174,-87.28793,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,42.5992,2.1789769472931693,,2
+bremer_temp:248,20.347416,-87.33184,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,46.76,2.1789769472931693,,2
+bremer_temp:249,16.064722,-85.222664,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:250,16.351282,-85.30742,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:251,16.35128,-85.30742,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:252,16.865574,-85.51166,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:253,12.120193,-78.6845,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:254,12.741938,-78.84103,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:255,13.503304,-79.027855,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:256,14.171466,-79.156395,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:257,12.297904,-78.93932,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:258,12.807245,-79.059494,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:259,13.367988,-79.19166,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:260,13.850068,-79.3153,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:261,17.838345,-68.34427,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:262,17.892172,-68.322845,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:263,17.991966,-68.26408,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:264,10.920543,-75.64305,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:265,10.920537,-75.643036,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:266,12.131904,-76.106575,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:267,12.131906,-76.10658,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:268,13.846518,-76.79476,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:269,18.384382,-76.28995,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:270,7.400533,-65.166916,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:271,7.400533,-65.166916,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:272,7.400533,-65.166916,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:273,7.1117063,-65.15746,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:274,7.111706,-65.15745,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:275,6.9053497,-65.14884,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:276,6.045842,-64.96537,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:277,5.643655,-64.80632,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:278,5.438007,-64.74406,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:279,7.522179,-63.98471,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:280,7.522179,-63.98471,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:281,7.384142,-63.936195,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:282,7.3841414,-63.936184,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,6.0,2.1789769472931693,,2
+bremer_temp:283,7.242397,-63.898865,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:284,7.0760818,-63.801826,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:285,6.894035,-63.695267,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:286,6.459561,-63.632847,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:287,6.0789347,-63.663948,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:288,5.8110895,-63.751728,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:289,16.950695,-68.44149,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:290,17.08637,-68.3545,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:291,17.232344,-68.276276,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:292,17.384418,-68.20542,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:293,17.47091,-68.1185,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:294,26.633356,-75.44413,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,65.2,2.1789769472931693,,2
+bremer_temp:295,26.73991,-75.448875,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,72.0,2.1789769472931693,,2
+bremer_temp:296,8.786215,-62.74665,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:297,8.786215,-62.74665,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:298,8.786215,-62.74665,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:299,8.713926,-62.520267,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:300,8.588292,-62.22147,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:301,8.402788,-61.928947,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:302,8.237745,-61.686394,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:303,8.1443815,-61.37222,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,27.5,2.1789769472931693,,2
+bremer_temp:304,8.152293,-61.234562,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,32.0,2.1789769472931693,,2
+bremer_temp:305,8.514176,-62.771397,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:306,8.514176,-62.771397,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:307,8.514176,-62.771397,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:308,8.406323,-62.58403,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:309,8.283949,-62.329823,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:310,8.28395,-62.329823,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:311,8.165548,-62.08427,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:312,8.05662,-61.887173,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:313,8.026646,-61.797836,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,22.0,2.1789769472931693,,2
+bremer_temp:314,8.014332,-61.755707,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,23.0,2.1789769472931693,,2
+bremer_temp:315,17.72738,-68.8379,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:316,17.791307,-68.60318,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:317,17.877237,-68.452995,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:318,17.963251,-68.37987,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:319,18.05465,-68.3183,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:320,7.2432556,-65.08457,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:321,6.9213414,-65.02437,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:322,6.4546294,-64.90978,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:323,5.969954,-64.78774,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:324,5.6560335,-64.70048,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:325,5.4803877,-64.68541,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:326,5.417115,-64.70532,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,26.0,2.1789769472931693,,2
+bremer_temp:327,7.1840415,-63.944035,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:328,6.9363227,-63.858315,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:329,6.7866507,-63.79299,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer_temp:330,6.6380687,-63.74115,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:331,6.6376967,-63.740833,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:332,6.4776187,-63.70413,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,14.0,2.1789769472931693,,2
+bremer_temp:333,6.3248534,-63.696373,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:334,6.057307,-63.716652,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:335,18.264315,-70.07589,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:336,18.461506,-70.059586,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:337,18.797329,-70.065994,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:338,19.136156,-70.13766,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:339,19.136156,-70.137695,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:340,19.419827,-70.30939,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:341,19.664137,-70.53328,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:342,18.264961,-70.07585,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:343,18.2643,-70.07587,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:344,19.674545,-70.54325,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.17,2.1789769472931693,,2
+bremer_temp:345,23.185776,-76.09284,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,35.24,2.1789769472931693,,2
+bremer_temp:346,23.222729,-76.13841,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,36.1,2.1789769472931693,,2
+bremer_temp:347,23.390152,-76.20261,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,39.84,2.1789769472931693,,2
+bremer_temp:348,23.457243,-76.20712,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,41.18,2.1789769472931693,,2
+bremer_temp:349,23.752586,-76.206314,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.5,2.1789769472931693,,2
+bremer_temp:350,26.479155,-76.38286,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,64.2,2.1789769472931693,,2
+bremer_temp:351,16.380892,-73.171486,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:352,16.57457,-73.225075,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:353,16.86247,-73.29409,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:354,17.209095,-73.3712,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:355,17.616772,-73.46626,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:356,18.099913,-73.47574,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,25.0,2.1789769472931693,,2
+bremer_temp:357,18.380968,-73.465416,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,30.0,2.1789769472931693,,2
+bremer_temp:358,16.380892,-73.171486,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:359,17.209444,-73.37119,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,16.0,2.1789769472931693,,2
+bremer_temp:360,24.477444,-75.590775,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,45.6,2.1789769472931693,,2
+bremer_temp:361,9.219251,-79.95787,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:362,9.217533,-79.994705,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:363,9.215666,-80.03849,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,12.0,2.1789769472931693,,2
+bremer_temp:364,9.197097,-80.14483,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,20.0,2.1789769472931693,,2
+bremer_temp:365,9.188152,-80.20363,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,24.0,2.1789769472931693,,2
+bremer_temp:366,9.2192545,-79.95789,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,4.0,2.1789769472931693,,2
+bremer_temp:367,9.217533,-79.994705,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,8.0,2.1789769472931693,,2
+bremer_temp:368,9.21533,-80.01591,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,measured,10.0,2.1789769472931693,,2
+bremer2022:pH:1,18.733856,-92.498085,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:2,18.73385,-92.49777,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:3,18.733856,-92.498085,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:4,19.979427,-91.52565,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:5,19.979427,-91.52565,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:6,19.979399,-91.5255,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:7,18.769058,-92.49239,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:8,18.769058,-92.49232,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:9,18.768908,-92.492325,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:10,20.109413,-91.556984,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:11,20.109545,-91.55705,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:12,20.109413,-91.556984,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:13,20.245794,-91.7012,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:14,20.245775,-91.70066,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:15,20.245775,-91.70066,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:16,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:17,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:18,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:19,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:20,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:21,20.80098,-95.12619,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:22,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:23,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:24,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:25,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:26,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:28,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:29,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:30,20.96477,-95.18092,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:31,22.039967,-94.880264,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:32,22.040506,-94.88037,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:33,22.040506,-94.88037,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:34,21.059109,-95.23636,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:35,21.05911,-95.23636,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:36,21.059109,-95.23636,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:37,21.133966,-95.29625,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:38,21.133966,-95.29625,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:39,21.133966,-95.29625,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:40,22.158527,-94.88451,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:41,22.158527,-94.88451,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+bremer2022:pH:42,22.158527,-94.88451,C_sat pool,hnRNPA1 (A1-LCD),csat only,Bremer2022,missing,,2.1789769472931693,,3
+ausserwoger2025:2d+3b:FUS:1.0:2,82.11414,-55.09993,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:3,82.12426,-54.8592,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:4,82.095436,-54.317608,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:5,81.9402,-53.299736,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:6,81.65528,-51.572002,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:7,81.13777,-48.28266,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:1.0:8,81.08637,-48.065018,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:2,82.12136,-55.09643,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:3,82.11517,-54.496223,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:4,81.940216,-53.29974,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:5,81.65567,-51.572243,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:6,81.40881,-50.031414,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:7,81.28604,-49.18296,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:8,81.13777,-48.28266,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:2d+3b:FUS:2.0:9,81.08504,-48.06624,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:2,88.044174,-52.95931,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:3,88.04349,-52.956387,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:4,88.04395,-52.953533,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:5,88.04462,-52.951366,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:6,88.0452,-52.949287,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:7,88.04556,-52.94656,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:1.0:8,88.046165,-52.94557,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:2,88.044174,-52.95931,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:3,88.04349,-52.956387,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:4,88.04395,-52.953533,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:5,88.04462,-52.951366,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:6,88.0452,-52.949287,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:7,88.04556,-52.94656,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3f:TDP43:2.0:8,88.046165,-52.94557,C_sat pool,TDP-43,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3g:PGL3:1.0:2,86.97367,-49.632633,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:3,86.97324,-49.631718,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:4,86.97336,-49.630955,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:5,86.97359,-49.630516,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:6,86.97347,-49.62954,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:7,86.97334,-49.62881,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:1.0:8,86.97272,-49.626907,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:2,86.97367,-49.632633,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:3,86.97324,-49.631718,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:4,86.97336,-49.630955,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:5,86.97359,-49.630516,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:6,86.97347,-49.62954,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:7,86.97334,-49.62881,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:3g:PGL3:2.0:8,86.97272,-49.626907,C_sat pool,PGL-3-mEGFP (C. elegans),csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:3,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:4,54.91314,-54.026516,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:5,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:6,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:7,55.797825,-55.155163,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:8,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:9,54.91314,-54.026516,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:10,57.590733,-56.574463,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:11,57.590733,-56.574463,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:12,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:13,54.294575,-56.11642,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:3,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:4,54.91314,-54.026516,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:5,56.38477,-55.830086,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:6,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:7,56.519825,-56.25626,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:8,56.034176,-56.97411,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:9,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:10,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:11,55.79772,-55.154884,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:12,55.346252,-53.686974,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:13,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:14,56.034176,-56.97411,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:15,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:3,56.448574,-56.567013,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:4,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:5,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:6,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:7,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:8,56.519825,-56.25626,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:9,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:10,55.346252,-53.686974,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:11,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:12,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:3.0:13,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:3,55.907837,-53.368637,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:4,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:5,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:6,55.907837,-53.368637,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:7,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:8,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:9,57.590733,-56.574463,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:10,56.38477,-55.830086,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:11,56.86549,-56.79052,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:12,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4b:FUS:5.0:13,56.448574,-56.567013,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:5b:FUS:1.0:3,48.80804,-73.827515,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:4,48.087887,-73.916306,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:5,47.237152,-74.03042,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:6,46.089306,-74.26014,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:7,44.3732,-74.71805,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:8,42.15432,-75.584755,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:9,39.41968,-77.24892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:3,48.808033,-73.827515,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:4,48.087887,-73.916306,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:5,47.23715,-74.03042,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:6,46.089306,-74.26014,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:7,44.3732,-74.71805,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:8,42.15432,-75.584755,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:9,39.41968,-77.24892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:3,48.808033,-73.827515,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:4,48.087887,-73.916306,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:5,44.3732,-74.71805,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:6,42.15432,-75.584755,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:7,39.41968,-77.24892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:8,37.27763,-79.15313,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:1.0:9,35.73168,-80.769295,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:3,48.808033,-73.827515,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:4,48.087887,-73.916306,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:5,44.3732,-74.71805,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:6,42.15432,-75.584755,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:7,39.41968,-77.24892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:8,38.320957,-78.16262,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5b:FUS:2.0:9,36.92271,-79.51905,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:3c:boundary:KCl:1,81.26262,-49.02919,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:2,81.26838,-49.070568,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:3,81.271965,-49.1144,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:4,81.279015,-49.161953,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:5,81.288086,-49.213203,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:6,81.29511,-49.267544,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:7,81.30326,-49.32841,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:8,81.305855,-49.392315,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:9,81.320366,-49.45807,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:10,81.331856,-49.53169,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:11,81.34187,-49.60541,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:12,81.356926,-49.694054,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:13,81.367195,-49.782845,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:14,81.383934,-49.88049,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:15,81.40263,-49.985924,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:16,81.419205,-50.09663,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:17,81.435,-50.214607,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:18,81.45612,-50.338318,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:19,81.477745,-50.468857,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:20,81.49729,-50.60467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:21,81.521774,-50.743614,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:22,81.54328,-50.891376,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:23,81.5646,-51.037388,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:24,81.58942,-51.189358,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:25,81.61529,-51.346138,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:26,81.64086,-51.4974,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:27,81.67113,-51.66241,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:28,81.69658,-51.825806,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:29,81.72645,-51.98501,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:30,81.75197,-52.14941,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:31,81.77745,-52.31404,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:32,81.80616,-52.47631,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:33,81.83072,-52.643265,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:34,81.85868,-52.800674,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:35,81.88272,-52.95057,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:36,81.90477,-53.093803,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:37,81.9293,-53.232677,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:38,81.952965,-53.37183,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:39,81.974434,-53.503353,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:40,81.99617,-53.634003,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:41,82.0156,-53.75865,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:42,82.034706,-53.877335,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:43,82.05124,-53.989628,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:44,82.0664,-54.09308,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:45,82.08095,-54.19806,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:46,82.091934,-54.28985,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:47,82.10327,-54.379585,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:48,82.11242,-54.46153,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:49,82.11318,-54.5364,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:3c:boundary:KCl:50,82.11853,-54.606644,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,3
+ausserwoger2025:4c:boundary:LiCl:2,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:3,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:4,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:5,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:6,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:7,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:8,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:9,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:10,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:11,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:12,56.86549,-56.79052,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:13,56.38477,-55.830086,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:14,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:15,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:16,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:17,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:18,56.034176,-56.97411,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:19,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:20,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:21,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:22,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:23,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:24,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:25,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:26,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:27,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:28,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:29,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:30,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:31,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:32,56.86549,-56.79052,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:33,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:34,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:35,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:36,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:37,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:38,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:39,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:40,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:41,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:42,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:43,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:44,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:45,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:46,56.38465,-55.831436,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:47,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:48,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:49,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:50,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:LiCl:51,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:3,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:4,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:5,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:6,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:7,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:8,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:9,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:10,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:11,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:12,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:13,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:14,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:15,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:16,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:17,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:18,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:19,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:20,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:21,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:22,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:23,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:24,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:25,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:26,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:27,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:28,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:29,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:30,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:31,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:32,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:33,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:34,58.101234,-53.592087,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:35,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:36,56.00492,-54.129997,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:37,55.346252,-53.686974,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:38,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:39,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:40,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:41,56.426346,-54.976467,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:42,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:43,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:44,56.86549,-56.79052,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:45,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:46,55.003883,-54.948387,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:47,57.364273,-55.661434,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:48,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:49,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:50,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:4c:boundary:CsCl:51,55.454216,-56.08531,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,4
+ausserwoger2025:5c:boundary:PEG10k:2,47.457993,-73.99412,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:3,47.391716,-74.00574,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:4,47.319817,-74.01473,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:5,47.24252,-74.02953,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:6,47.156788,-74.043365,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:7,47.063335,-74.053894,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:8,46.961277,-74.07833,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:9,46.843826,-74.0987,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:10,46.72206,-74.11662,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:11,46.58557,-74.1481,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:12,46.43352,-74.18348,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:13,46.276608,-74.21549,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:14,46.108982,-74.255165,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:15,45.94015,-74.29544,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:16,45.739635,-74.343636,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:17,45.515247,-74.402145,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:18,45.259823,-74.4676,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:19,44.993195,-74.539505,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:20,44.735806,-74.609406,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:21,44.485382,-74.685425,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:22,44.22606,-74.75983,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:23,43.95692,-74.843376,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:24,43.650887,-74.95663,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:25,43.30146,-75.07724,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:26,42.938755,-75.225494,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:27,42.582485,-75.38812,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:28,42.2241,-75.55576,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:29,41.833687,-75.747955,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:30,41.4312,-75.97223,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:31,40.95835,-76.24589,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:32,40.45651,-76.55454,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:33,39.999416,-76.83917,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:34,39.622025,-77.08996,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:35,39.271584,-77.36182,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:36,38.93241,-77.62646,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:37,38.579147,-77.92881,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:38,38.212437,-78.26141,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:39,37.85942,-78.59271,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:40,37.529232,-78.916214,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:41,37.217937,-79.2194,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:42,36.9306,-79.51103,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:43,36.656094,-79.80076,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:44,36.38666,-80.07593,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:45,36.135433,-80.34303,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:46,35.91508,-80.57847,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:47,35.715885,-80.78253,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:48,35.544846,-80.97522,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:49,35.39118,-81.130775,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:50,35.266586,-81.27643,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:51,35.16108,-81.38961,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:2,43.716404,-74.93138,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:3,43.55247,-74.99099,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:4,43.3787,-75.05408,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:5,43.19823,-75.1211,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:6,43.012447,-75.19892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:7,42.817516,-75.28256,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:8,42.626713,-75.36586,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:9,42.429688,-75.44799,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:10,42.22889,-75.55204,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:11,42.00654,-75.659355,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:12,41.784954,-75.77646,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:13,41.55313,-75.903015,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:14,41.29618,-76.050896,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:15,41.008915,-76.22002,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:16,40.709324,-76.400566,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:17,40.40076,-76.58245,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:18,40.114998,-76.76821,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:19,39.86465,-76.92167,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:20,39.640137,-77.086,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:21,39.41083,-77.252716,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:22,39.197376,-77.42,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:23,38.97596,-77.58182,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:24,38.762222,-77.77529,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:25,38.52503,-77.96892,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:26,38.29217,-78.18837,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:27,38.05927,-78.40826,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:28,37.832947,-78.61661,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:29,37.616566,-78.82399,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:30,37.408928,-79.02494,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:31,37.207645,-79.230354,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:32,37.02019,-79.42069,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:33,36.82801,-79.61465,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:34,36.651905,-79.804474,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:35,36.4732,-79.98796,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:36,36.30004,-80.17205,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:37,36.13153,-80.34302,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:38,35.981155,-80.50402,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:39,35.844433,-80.652405,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:40,35.7174,-80.788956,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:41,35.59665,-80.91926,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:42,35.490543,-81.0366,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:43,35.38994,-81.13849,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:44,35.294857,-81.224106,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:45,35.224792,-81.322876,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:46,35.15674,-81.393684,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:47,35.083057,-81.43961,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:48,35.05157,-81.50718,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:49,35.006954,-81.54645,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:50,34.95345,-81.57227,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2
+ausserwoger2025:5c:boundary:PEG10k:51,34.92701,-81.609505,C_sat pool,FUS,csat only,Ausserwoger2025,missing,,,,2

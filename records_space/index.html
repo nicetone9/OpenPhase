@@ -168,18 +168,19 @@ sub{ font-size:0.72em; line-height:0; }
       <button id="modeExplore" class="mode on" type="button" aria-pressed="true">Explore</button>
       <button id="modeTry" class="mode" type="button" aria-pressed="false">Try your own experiment</button>
     </div>
+    <a class="home" id="sysLink" href="systems/" hidden>Multi-protein systems &rarr;</a>
     <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
   </header>
   <script>
   (function () {
-    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink");
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink"), sysl = document.getElementById("sysLink");
     var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
     var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
     function show(t) { if (btn) { btn.textContent = t === "dark" ? "\u2600" : "\u263E"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
     var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
     root.setAttribute("data-theme", cur); show(cur);
     if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
-    if (home && /github\.io$|^localhost$|^127\./.test(location.hostname)) home.hidden = false;
+    if (/github\.io$|^localhost$|^127\./.test(location.hostname)) { if (home) home.hidden = false; if (sysl) sysl.hidden = false; }
   })();
   </script>
   <div class="layout" id="layout">
@@ -1031,6 +1032,9 @@ function initTryPanel(ctx) {
   };
   // 系统类型推断：蛋白数 = 序列框里的 FASTA 条目数；核酸 = 核酸框（"快速填写"那句话里写到 RNA / DNA 也会填进去）。
   // 命名和配色同 Fig. 1 / S1：protein(n) [+ RNA | + DNA]；三个蛋白以上带核酸记作 + NA，用紫色家族
+  // Point colours of the system colour table (the rows that a pasted experiment can take)
+  const TYPE_COL = { "protein(1)": "#1799D2", "protein(2)": "#4474B7", "protein(3)": "#19858E", "protein(≥4)": "#4C637E", "protein(1) + RNA": "#E45265", "protein(2) + RNA": "#BA553B", "protein(3) + RNA": "#A84076", "protein(≥4) + RNA": "#91432F",
+    "protein(1) + DNA": "#68A92C", "protein(2) + DNA": "#39824E", "protein(3) + DNA": "#217660", "protein(≥4) + DNA": "#657626" };
   function inferSystem() {
     if (T.entry && T.entry.u >= 0 && UV && UV.sys) {
       const c = UV.sys[T.entry.u], fl = UV.flag[T.entry.u];
@@ -1041,10 +1045,10 @@ function initTryPanel(ctx) {
       return { name: SYSTEM_LV[sc], col: SYS_COL[sc], why: "Taken from this dataset record." };
     }
     const n = T.entry ? 1 : Math.max(1, fastaEntries(T.seq).length), na = T.f.na;
-    let name = n >= 4 ? "protein(≥4)" : "protein(" + n + ")", ci = 0;
-    if (na !== "none") { name += n >= 3 ? " + NA" : " + " + na; ci = n >= 3 ? 3 : (na === "RNA" ? 1 : 2); }
+    let name = n >= 4 ? "protein(≥4)" : "protein(" + n + ")";
+    if (na !== "none") name += " + " + na;
     const why = [n > 1 ? n + " sequences pasted" : T.seq.trim() || T.entry ? "one protein" : "no sequence yet, counted as one protein", na === "none" ? "no nucleic acid" : "with " + na];
-    return { name, col: SYS_COL[ci], why: why.join(", ") + "." + (n > 1 ? " This map holds single-protein records, so the star is placed from the first protein only." : "") };
+    return { name, col: TYPE_COL[name] || "#E4007C", why: why.join(", ") + "." + (n > 1 ? " This map holds single-protein records, so the star is placed from the first protein only." : "") };
   }
   function sequenceStep() {
     const box = X.seqInfo; box.textContent = "";
@@ -1395,10 +1399,10 @@ const DATA = {"n":11439,"emb":{"tsne_full":[[0.2856,0.8321,0.3768,0.5925,0.5938,
   const CAT14 = ["#20B7ED", "#EF7182", "#98C93C", "#A47BDD", "#E7AC24", "#159C98", "#D87234", "#427FDB", "#BE629E", "#35A45B", "#E45A62", "#8F7A55", "#4FD1C5", "#6B2A6B"];
   const NEUTRAL_LV = new Set(["other proteins", "none", "full length / wild type", "none reported", "no csat", "binary", "quantitative only (csat pool)", "none recorded"]);
   const MISSING_LV = new Set(["not given", "missing"]);
-  // 系统类型：命名和配色同论文 Fig. 1 / Fig. S1 的四个家族（蓝 = 单蛋白，红 = + RNA，绿 = + DNA，紫 = 饱和浓度）。
+  // 系统类型：命名和配色用用户的系统色表（Fill / Point 两列；这里用 Point 画点）：蓝 = protein(1)，红 = + RNA，绿 = + DNA，紫 = C_sat。
   // 由读数类别和核酸类别推出；饱和浓度（C_sat）单独成一类，"C_sat" 在界面里显示成带下标的 C_sat
   const SYSTEM_LV = ["protein(1)", "protein(1) + RNA", "protein(1) + DNA", "protein(1) · C_sat"];
-  const SYS_COL = ["#1B9AD6", "#E4525C", "#6BBE3A", "#7A4AA6"];   // 家族色 P / R / D / C（Fig. 1 实心色那一档）
+  const SYS_COL = ["#1799D2", "#E45265", "#68A92C", "#8B56BB"];   // 色表里 protein(1) / protein(1) + RNA / protein(1) + DNA / C_sat pool 的 Point
   (function () {
     const rc = D.cat.readout_class, na = D.cat.na_class, codes = new Array(N);
     for (let i = 0; i < N; i++) { const r = rc.levels[rc.codes[i]], n = na.levels[na.codes[i]]; codes[i] = r !== "binary" ? 3 : n === "RNA" ? 1 : n === "DNA" ? 2 : 0; }

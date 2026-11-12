@@ -78,6 +78,7 @@ footer a{ color:var(--mute); }
     <p class="sub">Condition-aware exploration of biomolecular phase separation</p>
     <nav class="links" aria-label="Links">
       <a href="records_space/">Explorer (P)</a>
+      <a href="records_space/systems/">Multi-protein systems (S)</a>
       <a href="records_space/negatives/">Negatives and unlabelled (N + U)</a>
       <a href="https://github.com/nicetone9/OpenPhase">GitHub</a>
     </nav>
@@ -87,8 +88,8 @@ footer a{ color:var(--mute); }
   <figure class="hero"><img src="assets/openphase-main.webp" alt="OpenPhase: from a system and its conditions to prediction, phase diagram and generation" width="1672" height="941"></figure>
 
   <section aria-labelledby="h-systems">
-    <h2 id="h-systems">Two systems</h2>
-    <p class="lead">One map holds the experiments and the proteins the tools list as positives; the other holds the negatives and unlabelled proteins. They are kept apart on purpose.</p>
+    <h2 id="h-systems">Three maps</h2>
+    <p class="lead">One map holds the single-protein experiments and the proteins the tools list as positives; one holds the systems with two or more proteins; one holds the negatives and unlabelled proteins. They are kept apart on purpose.</p>
     <div class="cards">
       <article class="card">
         <span class="tag">P</span>
@@ -96,6 +97,13 @@ footer a{ color:var(--mute); }
         <p>Every single-protein experiment in the dataset in one map, with the proteins that the tools list as positives but that have no record drawn as hollow rings. Colour by protein, conditions, readout or source; try your own sequence and conditions.</p>
         <div class="stats"><span>11,439 records</span><span>419 papers and datasets</span><span>6,338 tool proteins without conditions</span></div>
         <div class="acts"><a class="btn primary" href="records_space/">Open the explorer</a><a class="btn" href="records_space/#lens=umap_universe">Protein universe view</a></div>
+      </article>
+      <article class="card">
+        <span class="tag">S</span>
+        <h3>Multi-protein systems</h3>
+        <p>Systems with two or more proteins, with or without RNA or DNA, and complexes. One map per system type, one dot per unique system, placed by the ESMC embeddings of its components. Colour by the most frequent component, by the share of labelled records that phase-separate, or by the number of records.</p>
+        <div class="stats"><span>{{S_SYSTEMS}} systems</span><span>{{S_RECORDS}} records</span><span>7 maps</span></div>
+        <div class="acts"><a class="btn primary" href="records_space/systems/">Open the maps</a></div>
       </article>
       <article class="card">
         <span class="tag">N + U</span>
@@ -120,11 +128,12 @@ footer a{ color:var(--mute); }
 
   <section aria-labelledby="h-multi">
     <h2 id="h-multi">Multi-protein systems</h2>
-    <p class="lead">Systems with two or more proteins, with or without nucleic acids, and complexes. They are not in the explorer yet.</p>
+    <p class="lead">Systems with two or more proteins, with or without nucleic acids, and complexes. Click a panel to open the map of that system type: one dot per unique system.</p>
     <div class="paper">
       <img src="assets/fig-multi-protein-systems.webp" alt="Maps of the multi-protein systems: protein(2), protein(3), protein(4 or more), with RNA, with DNA, with nucleic acid, and complexes" width="2000" height="1475">
       {{HS_A}}
     </div>
+    <div class="chips" aria-label="Shortcuts to the multi-protein maps">{{CHIPS_A}}</div>
     <p class="cap">Each panel is its own t-SNE of ESMC-600M component embeddings; axes are not comparable across panels.</p>
   </section>
 

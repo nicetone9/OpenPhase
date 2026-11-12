@@ -6,6 +6,7 @@ Every other categorical palette avoids those four hues, so a colour never means 
 Run:  scripts/run_fig6_local.sh   (builds a throw-away environment, renders, then runs the nature-figure audits)
 """
 import math
+import re
 from collections import deque
 
 import numpy as np
@@ -38,20 +39,38 @@ LAB = [("phase separation", "#F28C28"), ("no phase separation", "#4D6075"), ("cs
 SRC = [("LLPSDB_v2", "LLPSDB v2 files", "#F28C28"), ("LLPSDB_v2_site", "LLPSDB v2 site", "#F28C28"), ("LLPSDB_v2_phase_diagram", "LLPSDB v2 diagrams", "#F28C28"),
        ("LLPSense", "LLPSense", "#D6338C"), ("RNAPSEC", "RNAPSEC", "#14A098"), ("PhaSepDB3_pilot_LLM", "PhaSepDB 3", "#F2B705"),
        ("Bremer2022", "Bremer 2022", "#9C5B2E"), ("Ausserwoger2025", "Ausserwöger 2025", "#4D6075")]
-ENR = LinearSegmentedColormap.from_list("enr", ["#2E3B4E", "#8E9BAA", "#F5F5F5", "#F2C45A", "#E08A00"])
+ENR = LinearSegmentedColormap.from_list("enr", ["#E6E9ED", "#BCC3CC", "#7A8693", "#3D4857", "#171F2A"])   # light = fewer than expected, dark = more than expected (colours are kept for identities)
 # sequential maps start at a visible tint (a white start would vanish on the white page)
-TEMP = LinearSegmentedColormap.from_list("temp", ["#FBE3A6", "#F5A83F", "#D2601A", "#7A2E0B"])
-NACL = LinearSegmentedColormap.from_list("nacl", [mpl.colormaps["viridis"](v) for v in np.linspace(0.0, 1.0, 64)])
-CONC = LinearSegmentedColormap.from_list("conc", [mpl.colormaps["magma_r"](v) for v in np.linspace(0.10, 1.0, 64)])
-MISS = LinearSegmentedColormap.from_list("miss", ["#DDE1E6", "#9AA3AD", "#4B5561", "#151B23"])
+# continuous variables: one hue per ramp (orange, green, purple, grey), from a light tint that stays visible on white to a deep shade; same lightness progression so that they sit together
+TEMP = LinearSegmentedColormap.from_list("temp", ["#FDD0A2", "#FDAE6B", "#F16913", "#D94801", "#8C2D04"])
+NACL = LinearSegmentedColormap.from_list("nacl", ["#CCECE6", "#99D8C9", "#41AE76", "#238B45", "#005824"])
+CONC = LinearSegmentedColormap.from_list("conc", ["#DADAEB", "#BCBDDC", "#807DBA", "#6A51A3", "#4A1486"])
+MISS = LinearSegmentedColormap.from_list("miss", ["#E3E3E3", "#BDBDBD", "#969696", "#636363", "#252525"])
 
 FINAL_WIDTH_MM = 183.0          # Nature double-column width
 FIG_W = FINAL_WIDTH_MM
 PLOT_W, PLOT_H = 41.0, 38.0
 COLX = [6 + i * 44 for i in range(4)]
-HEAT_TOP, ROW_H = 11.5, 6.0
-HEAT_X0, HEAT_X1 = 41.0, 141.0
-B_TOP, ROW_STEP, GAP = 58.0, 49.0, 4.4
+# --- panel a: one row per system type (all 16 of the colour table); columns = label bar, source dots, protein dots
+# the system colour table: (Fill, Point) -- Fill for tags and bands, Point for dots
+PAL = {"protein(1)": ("#3FC3FF", "#1799D2"), "protein(2)": ("#80ACED", "#4474B7"), "protein(3)": ("#68D5D6", "#19858E"), "protein(\u22654)": ("#9BB6D1", "#4C637E"),
+       "RNA only": ("#E9A3A9", "#A43851"), "protein(1) + RNA": ("#FFC2C4", "#E45265"), "protein(2) + RNA": ("#F4A48C", "#BA553B"), "protein(3) + RNA": ("#F4A6CD", "#A84076"), "protein(\u22654) + RNA": ("#EBC0AC", "#91432F"),
+       "DNA only": ("#A6CBA0", "#27613E"), "protein(1) + DNA": ("#D4F3B6", "#68A92C"), "protein(2) + DNA": ("#A7D9AD", "#39824E"), "protein(3) + DNA": ("#95D4BE", "#217660"), "protein(\u22654) + DNA": ("#D4DDA0", "#657626"),
+       "Other": ("#E8E8E8", "#666666"), "C_sat pool": ("#DCCBF2", "#8B56BB")}
+ORDER = list(PAL)
+GAP_AFTER = {3, 8, 13, 14}                               # a little extra space between protein-only | RNA | DNA | Other | C_sat pool
+SINGLE = {0: "protein(1)", 1: "protein(1) + RNA", 2: "protein(1) + DNA", 3: "C_sat pool"}
+SOURCES = [("LLPSDB v2", ("LLPSDB_v2", "LLPSDB_v2_site", "LLPSDB_v2_phase_diagram")), ("LLPSense", ("LLPSense",)), ("RNAPSEC", ("RNAPSEC",)), ("PhaSepDB 3", ("PhaSepDB3_pilot_LLM",)),
+           ("Bremer 2022", ("Bremer2022",)), ("Ausserw\u00f6ger 2025", ("Ausserwoger2025",)), ("Leurs 2025", ("Leurs2025",)), ("Pei 2026", ("Pei2026",))]
+SRC_MARK = ["#F28C28", "#D6338C", "#14A098", "#F2B705", "#9C5B2E", "#4D6075", "#B9C0C8", "#B9C0C8"]            # the colours used in the Source map below; grey = not drawn there
+PROTS = [("FUS", {"fus"}, {"P35637"}), ("TDP-43", {"tdp-43", "tardbp"}, {"Q13148"}), ("tau", {"tau", "mapt", "tau (mapt)"}, {"P10636"}), ("hnRNPA1", {"hnrnpa1", "hnrnpa1 (a1-lcd)"}, {"P09651"}),
+         ("SARS-CoV-2 N", {"sars-cov-2 n"}, {"P0DTC9"}), ("MeCP2", {"mecp2"}, {"P51608"}), ("NPM1", {"npm1"}, {"P06748"}), ("HNRNPK", {"hnrnpk"}, {"P61978"}), ("G3BP1", {"g3bp1"}, {"Q13283"})]
+PROT_MARK = ["#D6338C", "#4D6075", "#F2B705", "#14A098", "#9C5B2E", "#B9C0C8", "#B9C0C8", "#B9C0C8", "#B9C0C8"]  # the colours used in the Protein map below
+PITCH, ROW_H, ROW_GAP, ROWS_TOP = 4.9, 4.6, 1.6, 11.5
+PILL_X, PILL_W, NUM_X1, NUM_X2, BAR_X0, BAR_W, SRC_X0 = 3.0, 34.0, 47.0, 58.5, 63.0, 25.0, 93.0
+PROT_X0 = SRC_X0 + 8 * PITCH + 3.0
+HEAT_BOTTOM = ROWS_TOP + len(ORDER) * ROW_H + len(GAP_AFTER) * ROW_GAP
+B_TOP, ROW_STEP, GAP = HEAT_BOTTOM + 25.0, 49.0, 4.4
 FIG_H = B_TOP + ROW_STEP + GAP + PLOT_H + 14.5
 
 
@@ -209,12 +228,19 @@ def cat_panel(ax, xy, codes, names, dot_cols, blob_cols, label_cols, blob_min=25
 
 
 def cont_panel(ax, xy, values, cmap, vmin, vmax, special):
-    """values: float array (nan = special); special: list of (mask, colour)."""
+    """values: float array (nan = special); special: list of (mask, face, edge); face None = hollow marker."""
     prepare_ax(ax, xy)
-    for m, c in special:
-        ax.scatter(xy[m, 0], xy[m, 1], s=1.7 ** 2, c=c, edgecolors=WHITE, linewidths=0.12, rasterized=True, zorder=2)
+    for m, face, edge in special:
+        if face is None:
+            ax.scatter(xy[m, 0], xy[m, 1], s=1.7 ** 2, facecolors="none", edgecolors=edge, linewidths=0.35, rasterized=True, zorder=2)
+        else:
+            ax.scatter(xy[m, 0], xy[m, 1], s=1.7 ** 2, c=face, edgecolors=edge, linewidths=0.12, rasterized=True, zorder=2)
     ok = ~np.isnan(values); o = np.argsort(values[ok])
     ax.scatter(xy[ok][o, 0], xy[ok][o, 1], s=1.9 ** 2, c=np.clip(values[ok][o], vmin, vmax), cmap=cmap, vmin=vmin, vmax=vmax, edgecolors=WHITE, linewidths=0.12, rasterized=True, zorder=3)
+
+
+def row_y(i):
+    return ROWS_TOP + i * ROW_H + ROW_GAP * sum(1 for g in GAP_AFTER if g < i)
 
 
 def main():
@@ -229,26 +255,62 @@ def main():
     sysc = np.where(df.pool == "csat", 3, df.na_class.map({"none": 0, "RNA": 1, "DNA": 2}).fillna(0)).astype(int)
     assert [int((sysc == i).sum()) for i in range(4)] == [s[2] for s in SYS], "system-type counts differ from the repository tables"
     label3 = np.where(df.pool == "csat", "csat only", df.ps)
-    obs = lambda c: (df[c] == "obs").to_numpy()
     pn = df.pname.replace({"Q07352 + P35637 (two UniProt IDs)": "ZFP36L1 + FUS"})
 
-    # ------------------------------------------------------------ panel a columns: (block, label, boolean mask)
-    SHORT = {"LLPSDB v2 files": "files", "LLPSDB v2 site": "site", "LLPSDB v2 diagrams": "diagrams"}
-    cols = [("Source", SHORT.get(lab, lab), (df.source == k).to_numpy()) for k, lab, _ in SRC]
-    cols += [("Label", "phase sep.", (label3 == "phase separation")), ("Label", "no phase sep.", (label3 == "no phase separation")), ("Label", "quantitative", (label3 == "csat only"))]
-    cols += [("Temperature", lab, (df.temp_state == k).to_numpy()) for k, lab in (("measured", "T measured"), ("room temp. only", "RT only"), ("missing", "T missing"))]
-    cols += [("Conditions", lab, m) for lab, m in (("pH given", obs("st_pH")), ("conc. given", obs("st_conc")), ("NaCl added", obs("st_NaCl")), ("buffer named", obs("st_buffer")),
-                                                  ("additive", obs("st_additive")), ("crowder", df.crowder.isin(["PEG", "glycerol", "Ficoll / dextran"]).to_numpy()))]
-    for k, lab in (("FUS", "FUS"), ("tau (MAPT)", "tau"), ("hnRNPA1 (A1-LCD)", "hnRNPA1"), ("SARS-CoV-2 N", "SARS-CoV-2 N"), ("P00698 (lysozyme C)", "lysozyme C"),
-                   ("TDP-43", "TDP-43"), ("A0A0G2UMW8", "A0A0G2UMW8"), ("DDX4", "DDX4"), ("MeCP2", "MeCP2"), ("UBQLN2", "UBQLN2")):
-        cols.append(("Protein", lab, (pn == k).to_numpy()))
-    nC = len(cols); R = np.zeros((4, nC)); O = np.zeros(nC); rows = []
-    for j, (blk, lab, m) in enumerate(cols):
-        m = np.asarray(m, dtype=bool); O[j] = m.mean()
-        for i in range(4):
-            sel = sysc == i; R[i, j] = m[sel].mean()
-            rows.append((SYS[i][0], blk, lab, int(sel.sum()), int(m[sel].sum()), R[i, j], O[j], np.log2(max(R[i, j], 1e-12) / max(O[j], 1e-12)) if R[i, j] > 0 else np.nan))   # zero share stays blank
-    pd.DataFrame(rows, columns=["system", "block", "category", "n_system", "n_in_category", "share", "share_all_records", "log2_enrichment"]).to_csv(f"{args.out}/FigR6_v2.source_data_a.csv", index=False)
+    # ------------------------------------------------------------ panel a: statistics for all system types
+    def tok_hits(tokens):
+        low = [t.strip().lower() for t in tokens]; acc_ = [re.sub(r"-\d+$", "", t.strip()).upper() for t in tokens]
+        return np.array([any(l in names for l in low) or any(a in accs for a in acc_) for _, names, accs in PROTS])
+
+    def fine_type(raw):
+        """v4 raw system type -> a row of the colour table."""
+        r = raw.strip().lower()
+        if "complex" in r or r == "protein(0)":
+            return "Other"
+        if r == "protein(0) + rna":
+            return "RNA only"
+        if r in ("dna(4)", "protein(0) + dna"):
+            return "DNA only"
+        m = re.match(r"protein\((\d+)\)(?: \+ (rna|dna))?$", r)
+        n, na = int(m.group(1)), m.group(2)
+        return ("protein(%d)" % n if n <= 3 else "protein(\u22654)") + (" + " + na.upper() if na else "")
+    stats = {}
+    pair = {}                                                       # single-protein records: hits for every (name, accession) pair once
+    for a, b in set(zip(df.pname.fillna(""), df.uniprot.fillna(""))):
+        pair[(a, b)] = tok_hits([a, b])
+    hit = np.array([pair[(a, b)] for a, b in zip(df.pname.fillna(""), df.uniprot.fillna(""))])
+    for i, name in SINGLE.items():
+        sel = sysc == i
+        stats[name] = dict(systems=int(df.system_id[sel].nunique()), records=int(sel.sum()), pos=int((label3[sel] == "phase separation").sum()), neg=int((label3[sel] == "no phase separation").sum()),
+                           src=np.array([df.source[sel].isin(names).mean() for _, names in SOURCES]), prot=hit[sel].mean(axis=0))
+    pts = pd.read_csv(cs.DATA / "fsys_points.csv"); meta = pd.read_csv(cs.DATA / "systems_multi.tsv", sep="\t", keep_default_na=False).set_index("sys_id")
+    extra = pd.read_csv(cs.DATA / "systems_extra.tsv", sep="\t", keep_default_na=False)
+    acc = {n: dict(systems=0, records=0, pos=0, neg=0, src=np.zeros(len(SOURCES)), prot=np.zeros(len(PROTS))) for n in ORDER if n not in SINGLE.values()}
+
+    def add(name, n, pos, neg, ss, comps):
+        a = acc[name]; a["systems"] += 1; a["records"] += n; a["pos"] += pos; a["neg"] += neg
+        groups = [k for k, (_, names) in enumerate(SOURCES) if any(s in names for s in ss)]
+        for k in groups:                                             # a system with several source groups splits its records evenly (laboratory notebooks have no column)
+            a["src"][k] += n / len(groups)
+        if comps:
+            a["prot"] += n * tok_hits(comps)
+    for _, r in pts.iterrows():
+        add(fine_type(meta.loc[r.sys_id, "raw_type"]), int(r.n_records), int(r.n_pos), int(r.n_neg), [s_ for s_ in meta.loc[r.sys_id, "sources"].split(";") if s_], r.components.split(" + "))
+    for _, r in extra.iterrows():                                    # systems without a protein sequence (RNA only, DNA only, no component): not on the Fig. S1 maps
+        add(fine_type(r.raw_type), int(r.n_records), int(r.n_pos), int(r.n_neg), [s_ for s_ in r.sources.split(";") if s_], [])
+    for n, a in acc.items():
+        stats[n] = dict(systems=a["systems"], records=a["records"], pos=a["pos"], neg=a["neg"], src=a["src"] / a["records"], prot=a["prot"] / a["records"])
+    rec = np.array([stats[n]["records"] for n in ORDER], dtype=float)
+    over_src = sum(rec[k] * stats[n]["src"] for k, n in enumerate(ORDER)) / rec.sum()
+    over_prot = sum(rec[k] * stats[n]["prot"] for k, n in enumerate(ORDER)) / rec.sum()
+    lg = lambda s_, o: float(np.log2(max(s_, 1e-12) / max(o, 1e-12)))
+    recs = []
+    for n in ORDER:
+        st = stats[n]; none = st["records"] - st["pos"] - st["neg"]
+        for blk, labs, vals, over in (("Source", [s_[0] for s_ in SOURCES], st["src"], over_src), ("Protein", [p_[0] for p_ in PROTS], st["prot"], over_prot)):
+            for lab, v, o in zip(labs, vals, over):
+                recs.append((n, st["systems"], st["records"], st["pos"], st["neg"], none, blk, lab, v, o, lg(v, o) if v > 0 else np.nan))   # zero share stays blank
+    pd.DataFrame(recs, columns=["system", "systems", "records", "positive", "negative", "no_binary_label", "block", "category", "share", "share_all_records", "log2_enrichment"]).to_csv(f"{args.out}/FigR6.source_data_a.csv", index=False)
 
     # ------------------------------------------------------------ canvas
     fig = plt.figure(figsize=(FIG_W * MM, FIG_H * MM), facecolor=WHITE)
@@ -263,60 +325,55 @@ def main():
     def txt(x, y, s, size=5.5, color=INK, weight="normal", ha="left", va="center", **kw):
         return ov.text(x, y, s, fontsize=size, color=color, fontweight=weight, ha=ha, va=va, clip_on=False, **kw)
 
-    # ---------------- a: heat/dot matrix
-    cw = (HEAT_X1 - HEAT_X0) / nC; norm = Normalize(-1.5, 1.5)
-    ov.add_patch(Rectangle((HEAT_X0, HEAT_TOP), HEAT_X1 - HEAT_X0, 4 * ROW_H, fc="#F7F8FA", ec=LINE, lw=0.4, zorder=0))
-    for i in (1, 3):
-        ov.add_patch(Rectangle((HEAT_X0, HEAT_TOP + i * ROW_H), HEAT_X1 - HEAT_X0, ROW_H, fc=WHITE, ec="none", zorder=0.2))
-    blocks, st = [], 0
-    for j in range(1, nC + 1):
-        if j == nC or cols[j][0] != cols[st][0]:
-            blocks.append((cols[st][0], st, j - 1)); st = j
-    for b, (name, j0, j1) in enumerate(blocks):
-        if b:
-            ov.plot([HEAT_X0 + j0 * cw] * 2, [HEAT_TOP, HEAT_TOP + 4 * ROW_H], color=LINE, lw=0.5, zorder=1)
-        txt(HEAT_X0 + (j0 + j1 + 1) / 2 * cw, HEAT_TOP - 6.2, name, 5.8, INK, "bold", ha="center")
-        if name == "Source":
-            bx0, bx1 = HEAT_X0 + (j0 + 0.12) * cw, HEAT_X0 + (j0 + 2.88) * cw
-            ov.plot([bx0, bx1], [HEAT_TOP - 0.9] * 2, color=MUTE, lw=0.5, solid_capstyle="butt", zorder=3)
-            txt((bx0 + bx1) / 2, HEAT_TOP - 2.7, "LLPSDB v2", 5.2, INK, ha="center")
-    DMAX = 3.5
-    for j in range(nC):
-        for i in range(4):
-            r = R[i, j]
-            if r <= 0:
-                continue
-            fc = float(np.clip(np.log2(max(r, 1e-12) / max(O[j], 1e-12)), -1.5, 1.5)); d = DMAX * r ** 0.375 + 0.35
-            ov.scatter([HEAT_X0 + (j + 0.5) * cw], [HEAT_TOP + (i + 0.5) * ROW_H], s=(d * 72 / 25.4) ** 2, c=[ENR(norm(fc))], edgecolors="#6B7782", linewidths=0.25, zorder=3)
-    mark = {SHORT.get(lab, lab): c for _, lab, c in SRC}; mark.update({"phase sep.": LAB[0][1], "no phase sep.": LAB[1][1], "quantitative": LAB[2][1]})
-    mark.update({p_[1]: p_[2] for p_ in PROT}); mark.update({k: "#9AA3AD" for k in PROT_GREY}); mark["MeCP2"] = "#9AA3AD"
-    for j, (blk, lab, _) in enumerate(cols):
-        cx = HEAT_X0 + (j + 0.5) * cw
-        if lab in mark and blk in ("Source", "Label", "Protein"):
-            ov.scatter([cx], [HEAT_TOP + 4 * ROW_H + 2.0], s=(1.7 * 72 / 25.4) ** 2, c=mark[lab], edgecolors="none", zorder=3)
-        txt(cx, HEAT_TOP + 4 * ROW_H + 3.4, lab, 5.2, INK, ha="right", va="center", rotation=90, rotation_mode="anchor")
-    for i, (name, f, n) in enumerate(SYS):
-        y0 = HEAT_TOP + i * ROW_H + 0.6
-        pill(2.0, y0, HEAT_X0 - 5.0, ROW_H - 1.2, FAM[f]["halo"])
-        ov_ax = ov
-        # name left, count right (both inside the pill)
-        arts = draw_parts(ov, 3.6, HEAT_TOP + (i + 0.5) * ROW_H + 0.1, name, 5.6, INK, transform=ov.transData, weight="bold", va="center")
-        txt(HEAT_X0 - 4.0, HEAT_TOP + (i + 0.5) * ROW_H, f"{n:,}", 5.4, INK, ha="right")
-
-    # key: dot size + enrichment colour bar (right of the matrix)
-    kx = HEAT_X1 + 5.0
-    txt(kx, HEAT_TOP - 3.4, "Share of records", 5.4, INK, "bold")
+    # ---------------- a: all system types
+    norm = Normalize(-1.5, 1.5); DMAX = 3.3; X_END = PROT_X0 + len(PROTS) * PITCH
+    for i, name in enumerate(ORDER):                                # a light band in the row's own fill colour ties the dots to the tag
+        ov.add_patch(Rectangle((PILL_X + PILL_W + 1.2, row_y(i)), X_END - (PILL_X + PILL_W + 1.2) + 1.0, ROW_H, fc=PAL[name][0], alpha=0.20, ec="none", zorder=0))
+    for x in (BAR_X0 - 2.2, SRC_X0 - 1.5, PROT_X0 - 1.5):
+        ov.plot([x, x], [row_y(0), HEAT_BOTTOM], color=LINE, lw=0.5, zorder=1)
+    txt(NUM_X1, ROWS_TOP - 3.4, "systems", 5.2, INK, ha="right"); txt(NUM_X2, ROWS_TOP - 3.4, "records", 5.2, INK, ha="right")
+    txt(BAR_X0 + BAR_W / 2, ROWS_TOP - 3.4, "Label", 5.8, INK, "bold", ha="center")
+    txt(SRC_X0 + 4 * PITCH, ROWS_TOP - 3.4, "Source", 5.8, INK, "bold", ha="center"); txt(PROT_X0 + len(PROTS) / 2 * PITCH, ROWS_TOP - 3.4, "Protein", 5.8, INK, "bold", ha="center")
+    LABC = (LAB[0][1], LAB[1][1], LAB[2][1])
+    for i, name in enumerate(ORDER):
+        st = stats[name]; ry = row_y(i); cy = ry + ROW_H / 2
+        pill(PILL_X, ry + 0.4, PILL_W, ROW_H - 0.8, PAL[name][0])
+        ov.scatter([PILL_X + 2.3], [cy], s=(2.2 * 72 / 25.4) ** 2, c=PAL[name][1], edgecolors="none", zorder=4)          # the system's point colour, as in the maps
+        draw_parts(ov, PILL_X + 4.7, cy, name, 5.4, INK, transform=ov.transData, weight="bold", va="center")
+        txt(NUM_X1, cy, f"{st['systems']:,}", 5.4, INK, ha="right"); txt(NUM_X2, cy, f"{st['records']:,}", 5.4, INK, ha="right")
+        tot = st["records"]; parts = (st["pos"], st["neg"], tot - st["pos"] - st["neg"]); x = BAR_X0
+        for v, c in zip(parts, LABC):                               # label split: phase separation / no phase separation / no binary label
+            w = BAR_W * v / tot
+            if w > 0:
+                ov.add_patch(Rectangle((x, cy - 1.2), w, 2.4, fc=c, ec="none", zorder=3)); x += w
+        for blk, x0, vals, over in (("s", SRC_X0, st["src"], over_src), ("p", PROT_X0, st["prot"], over_prot)):
+            for j, (v, o) in enumerate(zip(vals, over)):
+                if v <= 0:
+                    continue
+                d = DMAX * v ** 0.375 + 0.3
+                ov.scatter([x0 + (j + 0.5) * PITCH], [cy], s=(d * 72 / 25.4) ** 2, c=[ENR(norm(float(np.clip(lg(v, o), -1.5, 1.5))))], edgecolors="#6B7683", linewidths=0.3, zorder=3)
+    # column labels, each with the colour it has in the maps below
+    for blk, x0, labs, marks in (("s", SRC_X0, [s_[0] for s_ in SOURCES], SRC_MARK), ("p", PROT_X0, [p_[0] for p_ in PROTS], PROT_MARK)):
+        for j, (lab, c) in enumerate(zip(labs, marks)):
+            cx = x0 + (j + 0.5) * PITCH
+            ov.scatter([cx], [HEAT_BOTTOM + 2.2], s=(1.7 * 72 / 25.4) ** 2, c=c, edgecolors="none", zorder=3)
+            txt(cx, HEAT_BOTTOM + 3.9, lab, 5.2, INK, ha="right", va="center", rotation=90, rotation_mode="anchor")
+    # keys sit in the free corner under the counts and the label bars
+    ky = HEAT_BOTTOM + 5.0
+    txt(PILL_X, ky, "Share of records", 5.4, INK, "bold")
     for k, v in enumerate((0.05, 0.25, 1.0)):
-        cx = kx + 3.0 + k * 11.0; d = DMAX * v ** 0.375 + 0.35
-        ov.scatter([cx], [HEAT_TOP + 2.2], s=(d * 72 / 25.4) ** 2, c="#D5DBE1", edgecolors="#6B7782", linewidths=0.25, zorder=3)
-        txt(cx + 2.4, HEAT_TOP + 2.2, f"{int(v * 100)}%", 5.2, INK)
-    txt(kx, HEAT_TOP + 9.4, "Enrichment", 5.4, INK, "bold")
-    cax = mm_axes(kx, HEAT_TOP + 11.8, 30.0, 2.0); grad = np.linspace(-1.5, 1.5, 256)[None, :]
-    cax.imshow(grad, cmap=ENR, norm=norm, aspect="auto", extent=(-1.5, 1.5, 0, 1)); cax.set_yticks([]); cax.set_xticks([-1.5, 0, 1.5]); cax.set_xticklabels(["−1.5", "0", "1.5"])
-    cax.tick_params(axis="x", labelsize=5.2, length=1.5, width=0.4, pad=1.0)
+        cx = 25.0 + k * 11.5; d = DMAX * v ** 0.375 + 0.3
+        ov.scatter([cx], [ky], s=(d * 72 / 25.4) ** 2, c="#D5DBE1", edgecolors="#6B7683", linewidths=0.3, zorder=3)
+        txt(cx + 2.5, ky, f"{int(v * 100)}%", 5.2, INK)
+    txt(PILL_X, ky + 8.0, "Enrichment", 5.4, INK, "bold")
+    cax = mm_axes(PILL_X + 17.0, ky + 6.8, 30.0, 2.2); cax.imshow(np.linspace(-1.5, 1.5, 256)[None, :], cmap=ENR, norm=norm, aspect="auto", extent=(-1.5, 1.5, 0, 1))
+    cax.set_yticks([]); cax.set_xticks([-1.5, 0, 1.5]); cax.set_xticklabels(["\u22121.5", "0", "1.5"]); cax.tick_params(axis="x", labelsize=5.2, length=1.5, width=0.4, pad=1.0)
     for s_ in cax.spines.values():
         s_.set_linewidth(0.4)
-    txt(kx, HEAT_TOP + 19.6, "log₂ (share ÷ share overall)", 5.2, INK)
+    txt(PILL_X, ky + 14.2, "log\u2082 (share \u00f7 share overall)", 5.2, INK)
+    for q, (nm, c) in enumerate((("phase separation", LABC[0]), ("no phase separation", LABC[1]), ("no binary label", LABC[2]))):
+        yy = ky + q * 3.6
+        ov.add_patch(Rectangle((BAR_X0, yy - 1.1), 2.2, 2.2, fc=c, ec="none", zorder=3)); txt(BAR_X0 + 3.2, yy, nm, 5.2, INK)
 
     # ---------------- b: eight colourings of one map
     map_axes, pids = [], []
@@ -329,8 +386,8 @@ def main():
         below = top + GAP + PLOT_H + 1.6
         corner = top + GAP + PLOT_H - 1.2            # baseline of the last key row inside the panel (bottom-left corner)
         if k == 0:
-            names = [s[0] for s in SYS]; fc = [FAM[s[1]] for s in SYS]
-            placed, skipped = cat_panel(ax, xy, sysc, names, [f["dot"] for f in fc], [f["halo"] for f in fc], [f["label"] for f in fc], label_names=SYS_SHORT, blob_alpha=[0.0, 0.42, 0.50, 0.50])
+            names = [SINGLE[q] for q in range(4)]
+            placed, skipped = cat_panel(ax, xy, sysc, names, [PAL[n][1] for n in names], [PAL[n][0] for n in names], [darker(PAL[n][1], 0.62) for n in names], label_names=SYS_SHORT, blob_alpha=[0.0, 0.55, 0.60, 0.60])
         elif k == 1:
             codes = np.full(len(df), -1)
             for q, (key, lab, col) in enumerate(PROT):
@@ -357,13 +414,13 @@ def main():
             if k == 4:
                 tc = pd.to_numeric(df.tempC, errors="coerce").to_numpy(); meas = (df.temp_state == "measured").to_numpy() & ~np.isnan(tc)
                 val = np.where(meas, tc, np.nan); cmap, v0, v1, ticks, tl = TEMP, 0, 90, [0, 30, 60, 90], ["0", "30", "60", "≥ 90"]
-                special = [((df.temp_state == "room temp. only").to_numpy(), "#D9D2C0"), ((df.temp_state == "missing").to_numpy(), "#2B2D42")]; keys = [("#D9D2C0", "RT only"), ("#2B2D42", "missing")]
+                special = [((df.temp_state == "room temp. only").to_numpy(), "#B9C4D0", WHITE), ((df.temp_state == "missing").to_numpy(), None, "#2B2D42")]; keys = [("#B9C4D0", WHITE, "RT only"), (None, "#2B2D42", "missing")]
             elif k == 5:
                 val = pd.to_numeric(df.nacl_log, errors="coerce").to_numpy(); cmap, v0, v1, ticks, tl = NACL, 0, 3.4, [0, 1, 2, 3], ["0", "1", "2", "3"]
-                special = [(np.isnan(val), "#D5DAE0")]; keys = [("#D5DAE0", "not given")]
+                special = [(np.isnan(val), None, "#8E99A6")]; keys = [(None, "#8E99A6", "not given")]
             elif k == 6:
                 val = pd.to_numeric(df.conc_v, errors="coerce").to_numpy(); cmap, v0, v1, ticks, tl = CONC, -1, 3, [-1, 0, 1, 2, 3], ["≤ −1", "0", "1", "2", "≥ 3"]
-                special = [(np.isnan(val), "#D5DAE0")]; keys = [("#D5DAE0", "not given")]
+                special = [(np.isnan(val), None, "#8E99A6")]; keys = [(None, "#8E99A6", "not given")]
             else:
                 val = pd.to_numeric(df.n_miss, errors="coerce").to_numpy(); cmap, v0, v1, ticks, tl = MISS, 0, 6, [0, 2, 4, 6], ["0", "2", "4", "≥ 6"]
                 special = []; keys = []
@@ -372,15 +429,15 @@ def main():
             cb.set_yticks([]); cb.set_xticks(ticks); cb.set_xticklabels(tl); cb.tick_params(axis="x", labelsize=5.2, length=1.5, width=0.4, pad=1.0)
             for s_ in cb.spines.values():
                 s_.set_linewidth(0.4)
-            for q, (col, nm) in enumerate(keys):
+            for q, (face, edge, nm) in enumerate(keys):
                 kx2 = COLX[c] + 0.5 + q * 17.0; yy = below + 8.4
-                ov.add_patch(Rectangle((kx2, yy - 1.1), 2.2, 2.2, fc=col, ec="none", zorder=3)); txt(kx2 + 3.0, yy, nm, 5.2, INK)
+                ov.scatter([kx2 + 1.1], [yy], s=(2.3 * 72 / 25.4) ** 2, facecolors=face if face else "none", edgecolors=edge, linewidths=0.5, zorder=3); txt(kx2 + 3.0, yy, nm, 5.2, INK)
         if k in (0, 1, 3):
             print(f"panel {k}: labels placed {placed}; skipped {skipped}", flush=True)
 
-    pd.DataFrame({"record_id": df.record_id, "tsne_x": xy[:, 0], "tsne_y": xy[:, 1], "system_type": [SYS[i][0] for i in sysc], "protein": pn, "label": label3, "source": df.source,
-                  "temp_state": df.temp_state, "temp_C": df.tempC, "nacl_log10_1p_mM": df.nacl_log, "protein_conc_log10_uM": df.conc_v, "condition_blocks_not_given": df.n_miss}).to_csv(f"{args.out}/FigR6_v2.source_data_b.csv", index=False)
-    base = f"{args.out}/FigR6_v2"
+    pd.DataFrame({"record_id": df.record_id, "tsne_x": xy[:, 0], "tsne_y": xy[:, 1], "system_type": [SINGLE[i] for i in sysc], "protein": pn, "label": label3, "source": df.source,
+                  "temp_state": df.temp_state, "temp_C": df.tempC, "nacl_log10_1p_mM": df.nacl_log, "protein_conc_log10_uM": df.conc_v, "condition_blocks_not_given": df.n_miss}).to_csv(f"{args.out}/FigR6.source_data_b.csv", index=False)
+    base = f"{args.out}/FigR6"
     print(f"Layout: {FIG_W:g} x {FIG_H:g} mm", flush=True)
     # render-time panel-alignment gate (1.5 pt); raises when a comparable panel edge is off
     from audit_panel_alignment import require_matplotlib_panel_alignment
