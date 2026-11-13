@@ -1,9 +1,10 @@
-/* Guidance tab of the Records space: the score field on the map, guided sampling (one row per GIF example) and the decoding of map points into sequences.
- * Needs: G (guidance data from scripts/rs130_guidance_assets.py), emb ([xs, ys] of the explorer's t-SNE, 0–1 coordinates), $ (getElementById), el (element helper).
+/* Guidance tab of the Records space: methods (score field, iso-line and in-region sampling), four main results as interactive maps (hover a point for start, end, the records next to it, sequence change and predictions)
+ * and the other examples as GIF rows.
+ * Needs: G (guidance data from scripts/rs130_guidance_assets.py), emb ([xs, ys] of the explorer's t-SNE, 0–1 coordinates), rec (record description by row), ps (label code of every record), $ (getElementById), el (element helper).
  * Builds nothing outside #gdPane. GIFs and figures are files next to the page (guidance/…); a GIF is fetched only when its Play button is pressed. */
 function initGuidance(api) {
   "use strict";
-  const { G, emb, $, el } = api;
+  const { G, emb, rec, ps: PSC, $, el } = api;
   const BASE = "guidance/", NS = "http://www.w3.org/2000/svg";
   const fmtn = (n) => (n == null ? "–" : n.toLocaleString("en-US"));
   const pct = (v) => (v == null ? "–" : (v > 0 && v < 0.01 ? (v * 100).toFixed(1) : Math.round(v * 100)) + "%");
@@ -228,37 +229,363 @@ function initGuidance(api) {
     return d;
   }
 
+  // ---------------- records: one-line descriptions (from the explorer's own record data)
+  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const sgnN = (v, d) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(d == null ? 2 : d);
+  const crowdTxt = (c) => (!c || c === "none reported" || c === "not given" ? "" : c);
+  function condText(r) {
+    const a = [];
+    if (r.T != null) a.push(r.T + " °C");
+    if (r.pH != null) a.push("pH " + r.pH);
+    if (r.NaCl != null) a.push(fmtn(r.NaCl) + " mM NaCl");
+    if (r.conc != null) a.push(fmtn(r.conc) + " µM");
+    const c = crowdTxt(r.crowder); if (c) a.push(c);
+    return a.join(" · ");
+  }
+  const psWord = (k) => (k === 1 ? "phase separation" : k === 0 ? "no phase separation" : "csat record");
+  function refItem(j, d) {
+    const r = rec(j), li = el("li", "gd-ref"), dot = el("i");
+    dot.style.background = r.ps === 1 ? "var(--gd-y1)" : r.ps === 0 ? "var(--gd-y0)" : "var(--mute)";
+    li.append(dot, el("b", null, r.name + (r.uni && r.uni !== r.name ? " · " + r.uni : "")), el("span", "m", " " + r.paper + " · " + psWord(r.ps) + (condText(r) ? " · " + condText(r) : "") + (d != null ? " · " + d.toFixed(2) + " SD" : "")));
+    return li;
+  }
+  function refList(idx, dist, c) { const ul = el("ul", "gd-refs"); for (let k = 0; k < 3; k++) ul.appendChild(refItem(idx[3 * c + k], dist ? dist[3 * c + k] : null)); return ul; }
+  const csec = (h, tip) => { const d = el("div", "gd-cs"), b = el("b", "gd-csh", h); if (tip) b.title = tip; d.appendChild(b); return d; };
+  const cline = (t, cls) => el("p", cls || "gd-cl", t);
+  const R_TIP = "r = log p(u|1) − log p(u|0) of the score field (TorchEBM, σ = 0.16); p(y = 1) = σ(r + log(6,613 / 4,050)). The field describes where each label sits on this map; with papers held out it has no skill for new papers.";
+  const fieldTxt = (r, p) => "r = " + sgnN(r) + " · p(y = 1) = " + p.toFixed(2);
+
+  // ---------------- interactive result maps
+  let terCache = null, terDark = null;
+  function territory() {
+    const th = document.documentElement.getAttribute("data-theme"), dark = th ? th === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    if (terCache && terDark === dark) return terCache;
+    const Gn = 220, c1 = new Float32Array(Gn * Gn), c0 = new Float32Array(Gn * Gn), ex = emb[0], ey = emb[1];
+    for (let i = 0; i < ex.length; i++) { const k = PSC[i]; if (k > 1) continue; const gx = Math.min(Gn - 1, Math.max(0, Math.floor(ex[i] * Gn))), gy = Math.min(Gn - 1, Math.max(0, Math.floor(ey[i] * Gn))); (k === 1 ? c1 : c0)[gy * Gn + gx] += 1; }
+    const kern = [1, 4, 6, 4, 1];
+    const blur = (a) => {
+      const t = new Float32Array(Gn * Gn), o = new Float32Array(Gn * Gn);
+      for (let y = 0; y < Gn; y++) for (let x = 0; x < Gn; x++) { let s = 0; for (let d = -2; d <= 2; d++) { const xx = x + d; if (xx >= 0 && xx < Gn) s += a[y * Gn + xx] * kern[d + 2]; } t[y * Gn + x] = s / 16; }
+      for (let y = 0; y < Gn; y++) for (let x = 0; x < Gn; x++) { let s = 0; for (let d = -2; d <= 2; d++) { const yy = y + d; if (yy >= 0 && yy < Gn) s += t[yy * Gn + x] * kern[d + 2]; } o[y * Gn + x] = s / 16; }
+      return o;
+    };
+    const b1 = blur(blur(blur(c1))), b0 = blur(blur(blur(c0)));
+    let mx = 0; for (let i = 0; i < b1.length; i++) mx = Math.max(mx, b1[i] + b0[i]);
+    const cv = document.createElement("canvas"); cv.width = cv.height = Gn;
+    const g = cv.getContext("2d"), im = g.createImageData(Gn, Gn), C1 = hexRgb(col("--gd-t1")), C0 = hexRgb(col("--gd-t0"));
+    for (let i = 0; i < Gn * Gn; i++) { const a = Math.min(1, Math.max(0, ((b1[i] + b0[i]) / mx - 0.02) / 0.09)), c = b1[i] >= b0[i] ? C1 : C0; im.data[4 * i] = c[0]; im.data[4 * i + 1] = c[1]; im.data[4 * i + 2] = c[2]; im.data[4 * i + 3] = Math.round(255 * a * 0.9); }
+    g.putImageData(im, 0, 0);
+    terCache = cv; terDark = dark;
+    return cv;
+  }
+
+  function resultMap(M) {
+    const kind = M.kind, box = el("article", "gd-rm");
+    box.id = "gd-" + M.id;
+    box.appendChild(el("h4", null, M.title));
+    (M.desc || []).forEach((t) => box.appendChild(el("p", "gd-rm-desc", t)));
+    const body = el("div", "gd-rm-body"), left = el("div", "gd-rm-left"), card = el("aside", "gd-rm-card");
+    const wrap = el("div", "gd-map gd-rm-map"), cv = el("canvas"), zb = el("div", "gd-zoom");
+    cv.setAttribute("role", "img"); cv.setAttribute("aria-label", M.title + ": interactive map; hover a point for its details");
+    const zin = el("button", null, "+"), zout = el("button", null, "−"), zfit = el("button", null, "Fit");
+    const zfull = el("button", null, "Full map");
+    [zin, zout, zfit].concat(kind === "pts" ? [zfull] : []).forEach((b) => { b.type = "button"; zb.appendChild(b); });
+    zin.setAttribute("aria-label", "Zoom in"); zout.setAttribute("aria-label", "Zoom out");
+    wrap.append(cv, zb);
+    const key = el("div", "gd-rm-key");
+    left.append(wrap, key); body.append(left, card); box.appendChild(body);
+
+    const GR = (M.groups || []).map((g) => ({ g, vis: true, n: g.n, S: g.S ? Float32Array.from(g.S) : null, E: g.E ? Float32Array.from(g.E) : null, C: g.control ? Float32Array.from(g.control.E) : null }));
+    const IT = M.items || [];
+    let fitV = { x: 0, y: 0, s: 1 };
+    if (kind === "pts" && IT.length) {          // the 12 points sit in a small part of the map: start zoomed on them
+      const xs = IT.map((p) => p.x).concat(IT.filter((p) => p.start >= 0).map((p) => emb[0][p.start])), ys = IT.map((p) => p.yy).concat(IT.filter((p) => p.start >= 0).map((p) => emb[1][p.start]));
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys), s0 = Math.max(x1 - x0, y1 - y0, 0.05) * 1.7;
+      fitV = { x: (x0 + x1) / 2 - s0 / 2, y: (y0 + y1) / 2 - s0 / 2, s: s0 };
+    }
+    const view = Object.assign({}, fitV);
+    let hov = null, pin = null, ctrl = false, drag = null;
+    const same = (a, b) => a && b && a.gi === b.gi && a.c === b.c && a.role === b.role;
+    const cur = () => pin || hov;
+
+    // legend and toggles
+    const addToggle = (color, text, get, set) => {
+      const b = el("button", "gd-tg on"), i = el("i"); b.type = "button"; i.style.background = color; b.append(i, text);
+      b.addEventListener("click", () => { const v = !get(); set(v); b.classList.toggle("on", v); draw(); });
+      key.appendChild(b);
+    };
+    GR.forEach((o, gi) => addToggle(o.g.color === "y1" ? "var(--gd-y1)" : o.g.color === "y0" ? "var(--gd-y0)" : "var(--mute)", o.g.label + " (" + fmtn(o.n) + ")", () => o.vis, (v) => { o.vis = v; if (!v && cur() && cur().gi === gi) { pin = null; hov = null; showCard(); } }));
+    if (GR.some((o) => o.C)) { const b = el("button", "gd-tg"), i = el("i"); b.type = "button"; i.style.background = "var(--mute)"; b.append(i, "unguided control ends"); b.addEventListener("click", () => { ctrl = !ctrl; b.classList.toggle("on", ctrl); draw(); }); key.appendChild(b); }
+    if (kind === "pts") {
+      const s1 = el("span", "gd-kk"), ring = el("i"); ring.style.cssText = "background:transparent;border:2px solid var(--mute)"; s1.append(ring, "open: the answer is the anchor (k* = 0)"); key.appendChild(s1);
+      const s2 = el("span", "gd-kk"), fill = el("i"); fill.style.background = "var(--mute)"; s2.append(fill, "filled: the answer carries substitutions"); key.appendChild(s2);
+    }
+    const sk = el("span", "gd-kk"), sd = el("i"); sd.style.cssText = "background:var(--gd-hot);border:1px solid var(--ink)"; sk.append(sd, kind === "region" ? "region (shaded)" : kind === "pts" ? "start: closest record of the anchor" : "start"); key.appendChild(sk);
+
+    // drawing
+    function toPx(x, y, Wp) { return [((x - view.x) / view.s) * Wp, ((y - view.y) / view.s) * Wp]; }
+    function draw() {
+      const dpr = window.devicePixelRatio || 1, cssW = cv.clientWidth || 560, Wd = Math.round(cssW * dpr);
+      if (cv.width !== Wd) { cv.width = Wd; cv.height = Wd; }
+      const g = cv.getContext("2d"), Wp = cv.width;
+      g.clearRect(0, 0, Wp, Wp);
+      const T = territory(), Gn = T.width; g.imageSmoothingEnabled = true; g.drawImage(T, view.x * Gn, view.y * Gn, view.s * Gn, view.s * Gn, 0, 0, Wp, Wp);
+      const ex = emb[0], ey = emb[1], rr = (1.3 + 0.7 * Math.min(3, 1 / view.s)) * dpr;
+      g.fillStyle = col("--gd-bg");
+      for (let i = 0; i < ex.length; i++) { const px = ((ex[i] - view.x) / view.s) * Wp, py = ((ey[i] - view.y) / view.s) * Wp; if (px < -3 || py < -3 || px > Wp + 3 || py > Wp + 3) continue; g.fillRect(px - rr / 2, py - rr / 2, rr, rr); }
+      const c1 = col("--gd-y1"), c0 = col("--gd-y0"), ink = col("--ink"), hot = col("--gd-hot"), colOf = (k) => (k === "y1" ? c1 : k === "y0" ? c0 : col("--mute"));
+      if (kind === "region") {
+        const cs = (M.cell_size / view.s) * Wp + 0.6; g.fillStyle = col("--gd-region");
+        const c = M.cells; for (let i = 0; i < c.length; i += 2) { const [px, py] = toPx(c[i], c[i + 1], Wp); g.fillRect(px - cs / 2, py - cs / 2, cs, cs); }
+      }
+      if (kind === "iso") {
+        g.strokeStyle = ink; g.lineWidth = 1.5 * dpr; g.globalAlpha = 0.8;
+        M.line.forEach((pl) => { g.beginPath(); for (let i = 0; i < pl.length; i += 2) { const [px, py] = toPx(pl[i], pl[i + 1], Wp); if (i) g.lineTo(px, py); else g.moveTo(px, py); } g.stroke(); });
+        g.globalAlpha = 1;
+      }
+      // connectors
+      GR.forEach((o) => {
+        if (!o.vis || !o.S || !o.E) return;
+        g.strokeStyle = colOf(o.g.color); g.globalAlpha = o.n > 800 ? 0.07 : 0.14; g.lineWidth = 1 * dpr; g.beginPath();
+        for (let c = 0; c < o.n; c++) { const s = o.g.sid[c], [ax, ay] = toPx(o.S[2 * s], o.S[2 * s + 1], Wp), [bx, by] = toPx(o.E[2 * c], o.E[2 * c + 1], Wp); g.moveTo(ax, ay); g.lineTo(bx, by); }
+        g.stroke(); g.globalAlpha = 1;
+      });
+      // unguided control ends
+      if (ctrl) GR.forEach((o) => { if (!o.vis || !o.C) return; g.fillStyle = col("--mute"); g.globalAlpha = 0.45; for (let c = 0; c < o.n; c++) { const [px, py] = toPx(o.C[2 * c], o.C[2 * c + 1], Wp); g.fillRect(px - 1.2 * dpr, py - 1.2 * dpr, 2.4 * dpr, 2.4 * dpr); } g.globalAlpha = 1; });
+      // starts
+      g.lineWidth = 1 * dpr;
+      GR.forEach((o) => { if (!o.vis || !o.S) return; g.fillStyle = hot; g.strokeStyle = ink; for (let s = 0; s < o.S.length / 2; s++) { const [px, py] = toPx(o.S[2 * s], o.S[2 * s + 1], Wp); g.beginPath(); g.arc(px, py, 2.4 * dpr, 0, 6.2832); g.fill(); g.stroke(); } });
+      // ends / samples
+      GR.forEach((o) => { if (!o.vis || !o.E) return; g.fillStyle = colOf(o.g.color); g.strokeStyle = "rgba(255,255,255,0.85)"; g.lineWidth = 0.7 * dpr; for (let c = 0; c < o.n; c++) { const [px, py] = toPx(o.E[2 * c], o.E[2 * c + 1], Wp); g.beginPath(); g.arc(px, py, (kind === "region" ? 2.5 : o.n > 800 ? 2.1 : 2.8) * dpr, 0, 6.2832); g.fill(); g.stroke(); } });
+      // decoded points
+      if (kind === "pts") {
+        g.font = Math.round(10 * dpr) + "px system-ui, sans-serif";
+        IT.forEach((p, i) => {
+          const [px, py] = toPx(p.x, p.yy, Wp), col_ = p.y ? c1 : c0, a = p.start >= 0 ? toPx(ex[p.start], ey[p.start], Wp) : null;
+          if (a) { g.strokeStyle = col_; g.globalAlpha = 0.5; g.lineWidth = 1 * dpr; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(px, py); g.stroke(); g.globalAlpha = 1; g.fillStyle = hot; g.strokeStyle = ink; g.beginPath(); g.arc(a[0], a[1], 2.6 * dpr, 0, 6.2832); g.fill(); g.stroke(); }
+          g.beginPath(); g.arc(px, py, 6 * dpr, 0, 6.2832);
+          if (p.k > 0) { g.fillStyle = col_; g.fill(); g.lineWidth = 1.4 * dpr; g.strokeStyle = "#fff"; g.stroke(); } else { g.lineWidth = 2.2 * dpr; g.strokeStyle = col_; g.stroke(); }
+          g.fillStyle = col("--mute"); g.fillText("y" + p.y + " P" + p.i, px + 8 * dpr, py - 6 * dpr);
+        });
+      }
+      // hover / pin
+      const sel = cur();
+      if (sel) {
+        g.lineWidth = 2.2 * dpr; g.strokeStyle = ink;
+        if (sel.role === "pt") { const p = IT[sel.c], [px, py] = toPx(p.x, p.yy, Wp); g.beginPath(); g.arc(px, py, 10 * dpr, 0, 6.2832); g.stroke(); }
+        else {
+          const o = GR[sel.gi];
+          if (sel.role === "end") {
+            const [bx, by] = toPx(o.E[2 * sel.c], o.E[2 * sel.c + 1], Wp);
+            if (o.S) { const s = o.g.sid[sel.c], [ax, ay] = toPx(o.S[2 * s], o.S[2 * s + 1], Wp); g.beginPath(); g.moveTo(ax, ay); g.lineTo(bx, by); g.stroke(); g.fillStyle = hot; g.beginPath(); g.arc(ax, ay, 4.2 * dpr, 0, 6.2832); g.fill(); g.stroke(); }
+            g.beginPath(); g.arc(bx, by, 6.5 * dpr, 0, 6.2832); g.stroke();
+          } else {
+            const [ax, ay] = toPx(o.S[2 * sel.c], o.S[2 * sel.c + 1], Wp);
+            g.beginPath(); g.arc(ax, ay, 7 * dpr, 0, 6.2832); g.stroke();
+            for (let c = 0; c < o.n; c++) if (o.g.sid[c] === sel.c) { const [bx, by] = toPx(o.E[2 * c], o.E[2 * c + 1], Wp); g.beginPath(); g.moveTo(ax, ay); g.lineTo(bx, by); g.stroke(); }
+          }
+        }
+      }
+    }
+    maps.push(draw);
+
+    // hit testing
+    function hit(e) {
+      const b = cv.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top, Wc = b.width, X = (x) => ((x - view.x) / view.s) * Wc, Y = (y) => ((y - view.y) / view.s) * Wc;
+      let best = null, bd = 12 * 12;
+      GR.forEach((o, gi) => { if (!o.vis || !o.E) return; for (let c = 0; c < o.n; c++) { const d = (X(o.E[2 * c]) - mx) ** 2 + (Y(o.E[2 * c + 1]) - my) ** 2; if (d < bd) { bd = d; best = { gi, c, role: kind === "region" ? "end" : "end" }; } } });
+      if (!best) GR.forEach((o, gi) => { if (!o.vis || !o.S) return; for (let s = 0; s < o.S.length / 2; s++) { const d = (X(o.S[2 * s]) - mx) ** 2 + (Y(o.S[2 * s + 1]) - my) ** 2; if (d < bd) { bd = d; best = { gi, c: s, role: "start" }; } } });
+      if (kind === "pts") IT.forEach((p, c) => { const d = (X(p.x) - mx) ** 2 + (Y(p.yy) - my) ** 2; if (d < bd) { bd = d; best = { gi: 0, c, role: "pt" }; } });
+      return best;
+    }
+
+    // cards
+    function showCard() {
+      card.textContent = "";
+      const s = cur();
+      if (!s) { card.appendChild(cardDefault()); return; }
+      card.appendChild(s.role === "pt" ? cardPt(IT[s.c]) : kind === "region" ? cardSample(GR[s.gi].g, s.c) : s.role === "start" ? cardStart(GR[s.gi], s.c) : cardChain(GR[s.gi].g, s.c));
+      if (pin) { const b = el("button", "gd-unpin", "Unpin"); b.type = "button"; b.addEventListener("click", () => { pin = null; hov = null; showCard(); draw(); }); card.appendChild(b); }
+    }
+    function cardDefault() {
+      const d = el("div", "gd-cd"); d.appendChild(el("h5", null, "Hover a point"));
+      d.appendChild(cline("Click to pin a point, drag to pan, scroll to zoom.", "gd-cl m"));
+      (M.reading || []).forEach((t) => d.appendChild(cline(t)));
+      return d;
+    }
+    const ttl = (t, sub, color) => { const h = el("h5"), i = el("i"); i.style.background = color === "y1" ? "var(--gd-y1)" : color === "y0" ? "var(--gd-y0)" : "var(--mute)"; h.append(i, t); const d = el("div", "gd-cd"); d.appendChild(h); if (sub) d.appendChild(cline(sub, "gd-cl m")); return d; };
+    function predBlock(g, s, c) {
+      const d = csec("Prediction · score field", R_TIP);
+      const rs = s != null ? g.rs[s] : null, ps = s != null ? g.ps[s] : null;
+      if (rs != null) d.appendChild(cline("p(y = 1): " + ps.toFixed(2) + " → " + g.pe[c].toFixed(2) + "  (r " + sgnN(rs) + " → " + sgnN(g.re[c]) + ", Δr " + sgnN(g.re[c] - rs) + ")"));
+      else d.appendChild(cline("p(y = 1) = " + g.pe[c].toFixed(2) + "  (r " + sgnN(g.re[c]) + ")"));
+      return d;
+    }
+    function protBlock(g, s, c) {
+      const d = csec("Sequence", "The chain ends are map positions; the sequence is not decoded here (the decoded examples below do that)");
+      const a = rec(g.srec ? g.srec[s] : g.ns[3 * s]), b = rec(g.ne[3 * c]);
+      const same = a.uni && b.uni && a.uni === b.uni;
+      d.appendChild(cline("Protein at the start: " + a.name + (a.uni && a.uni !== a.name ? " (" + a.uni + ")" : "") + " → next to the end: " + b.name + (b.uni && b.uni !== b.name ? " (" + b.uni + ")" : "") + (same ? " — the same protein" : " — a different protein")));
+      d.appendChild(cline("Not decoded: a chain end is a map position, not a sequence.", "gd-cl m"));
+      return d;
+    }
+    function cardChain(g, c) {
+      const s = g.sid[c], d = ttl("Chain " + (c + 1) + " · " + g.label, kind === "iso" ? M.facts.proposals + " HMC proposals on the line" : fmtn(M.facts.steps) + " Langevin steps, w = " + M.facts.w, g.color);
+      const a = csec("Start");
+      if (kind === "iso") a.appendChild(cline("On the line, piece " + (g.seg0[s] + 1) + " of " + M.facts.pieces + ", arc " + g.arc0[s].toFixed(1) + " SD"));
+      else a.appendChild(cline("A record of the start label (" + M.facts.K + " chains start from each record, 0.03 SD jitter)"));
+      a.appendChild(cline(fieldTxt(g.rs[s], g.ps[s]), "gd-cl m"));
+      if (kind === "iso") { a.appendChild(el("p", "gd-cl m", "Nearest records (reference). They need not meet the line's condition: the line is a smoothed contour.")); a.appendChild(refList(g.ns, g.nsd, s)); } else { const u = el("ul", "gd-refs"); u.appendChild(refItem(g.srec[s], null)); a.appendChild(u); }
+      const b = csec("End");
+      if (kind === "iso") b.appendChild(cline("Piece " + (g.seg1[c] + 1) + ", arc " + g.arc1[c].toFixed(1) + " SD (" + (g.seg1[c] === g.seg0[s] ? "moved " + sgnN(g.arc1[c] - g.arc0[s], 1) + " SD along the piece" : "a different piece than the start") + ")"));
+      b.appendChild(cline(fieldTxt(g.re[c], g.pe[c]) + " · Δr " + sgnN(g.re[c] - g.rs[s]), "gd-cl m"));
+      b.appendChild(el("p", "gd-cl m", "Records next to the end (reference):")); b.appendChild(refList(g.ne, g.ned, c));
+      d.append(a, b, predBlock(g, s, c), protBlock(g, s, c));
+      return d;
+    }
+    function cardStart(o, s) {
+      const g = o.g, d = ttl("Start " + (s + 1) + " · " + g.label, null, g.color), a = csec("Start");
+      if (kind === "iso") a.appendChild(cline("On the line, piece " + (g.seg0[s] + 1) + ", arc " + g.arc0[s].toFixed(1) + " SD"));
+      else a.appendChild(cline("A record of the start label"));
+      a.appendChild(cline(fieldTxt(g.rs[s], g.ps[s]), "gd-cl m"));
+      if (kind === "iso") a.appendChild(refList(g.ns, g.nsd, s)); else { const u = el("ul", "gd-refs"); u.appendChild(refItem(g.srec[s], null)); a.appendChild(u); }
+      const dr = []; for (let c = 0; c < o.n; c++) if (g.sid[c] === s) dr.push(g.re[c] - g.rs[s]);
+      dr.sort((x, y) => x - y);
+      d.appendChild(a); d.appendChild(cline(dr.length + " chains start here; median Δr " + sgnN(dr[Math.floor(dr.length / 2)]) + " (" + sgnN(dr[0]) + " to " + sgnN(dr[dr.length - 1]) + ")"));
+      return d;
+    }
+    function cardSample(g, c) {
+      const d = ttl("Sample " + (c + 1) + " · " + g.label, "Independent exact sample: no start or end", g.color), a = csec("Position");
+      a.appendChild(cline("Piece " + g.piece[c] + " of " + M.facts.pieces + " of the region"));
+      const p = csec("Prediction · score field", R_TIP); p.appendChild(cline("p(y = 1) = " + g.pe[c].toFixed(2) + "  (r " + sgnN(g.re[c]) + ")"));
+      const r = csec("Records next to the sample (reference)"); r.appendChild(refList(g.ne, g.ned, c));
+      const q = csec("Sequence"); q.appendChild(cline("Not decoded: a sample is a map position. Decoding is shown below for points on a line.", "gd-cl m"));
+      d.append(a, p, r, q);
+      return d;
+    }
+    function finchesBlock(f, k) {
+      const d = csec("Prediction · FINCHES", "FINCHES homotypic interaction parameter ε (Mpipi and CALVADOS); more negative = more attractive = more prone to phase separation. Designed for disordered regions and checked on A1-LCD variants (Spearman +0.79 with C_sat for Mpipi); for tau, SARS-CoV-2 N and TDP-43 read it as a rough indicator.");
+      if (!f) { d.appendChild(cline("Not computed.", "gd-cl m")); return d; }
+      const row = (lab, o) => { if (!o) return; const t = lab + ": " + o.src.toFixed(2) + (k ? " → " + o.dec.toFixed(2) + " (Δ " + sgnN(o.dec - o.src) + (o.rnd != null ? "; random substitutions at the same sites: Δ " + sgnN(o.rnd - o.src) : "") + ")" : " (the anchor itself)"); d.appendChild(cline(t)); };
+      row("Mpipi, full length", f.full && f.full.mpipi); row("CALVADOS, full length", f.full && f.full.calvados);
+      if (f.idr) { row("Mpipi, disordered residues (" + f.n_idr + ")", f.idr.mpipi); row("CALVADOS, disordered residues", f.idr.calvados); }
+      d.appendChild(cline("ε: more negative = more attractive. The anchor is the sequence the answer was edited from.", "gd-cl m"));
+      return d;
+    }
+    function cardPt(p) {
+      const d = ttl("y = " + p.y + " · point P" + p.i, "answer: " + (p.k ? p.k + " substitution" + (p.k === 1 ? "" : "s") + " of the anchor" : "the anchor itself"), p.y ? "y1" : "y0");
+      const a = csec("Start · anchor sequence");
+      const an = p.start >= 0 ? rec(p.start) : null;
+      a.appendChild(cline("Library sequence #" + p.anchor + (an ? " (" + an.name + ")" : "") + ", " + p.len + " aa"));
+      if (p.start >= 0) { a.appendChild(el("p", "gd-cl m", "Its closest record to this point:")); const u = el("ul", "gd-refs"); u.appendChild(refItem(p.start, p.start_d)); a.appendChild(u); }
+      const b = csec("End · map point and answer");
+      b.appendChild(cline(p.k ? "Substitutions (reference residue, position on the anchor, new residue): " + p.edits.slice().sort((x, y) => x[1] - y[1]).map((e) => e[0] + e[1] + e[2]).join(", ") : "No substitution: the best answer is the anchor itself (k* = 0)."));
+      b.appendChild(cline("Distance of the ESMC embedding to the target (D): " + p.dsrc.toFixed(4) + (p.k ? " → " + p.dk.toFixed(4) : ""), "gd-cl m"));
+      const r = csec("Records next to the map point (reference)"); r.appendChild(refList(p.ne, p.ned, 0));
+      const pr = csec("Prediction · score field", R_TIP); pr.appendChild(cline("p(y = 1) = " + p.p.toFixed(2) + "  (r " + sgnN(p.r) + ") at the map point"));
+      d.append(a, b, r, pr, finchesBlock(p.fin, p.k));
+      return d;
+    }
+    function setHover(h) { if (pin) return; if (same(h, hov)) return; hov = h; showCard(); draw(); }
+
+    // events
+    cv.addEventListener("pointermove", (e) => {
+      if (drag) { const w = cv.getBoundingClientRect().width, dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true; if (drag.moved) { view.x = drag.vx - (dx / w) * view.s; view.y = drag.vy - (dy / w) * view.s; clampView(); draw(); } return; }
+      if (e.pointerType !== "touch") setHover(hit(e));
+    });
+    cv.addEventListener("pointerleave", () => { if (!drag) setHover(null); });
+    cv.addEventListener("pointerdown", (e) => { cv.setPointerCapture(e.pointerId); drag = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, moved: false }; });
+    cv.addEventListener("pointerup", (e) => { const was = drag; drag = null; if (was && !was.moved) { const h = hit(e); if (pin && same(h, pin)) { pin = null; hov = h; } else if (h) { pin = h; hov = h; } else { pin = null; hov = null; } showCard(); draw(); } });
+    const clampView = () => { view.x = Math.min(Math.max(view.x, -0.15), 1.15 - view.s); view.y = Math.min(Math.max(view.y, -0.15), 1.15 - view.s); };
+    const zoomAt = (fx, fy, k) => { const s2 = Math.min(1.3, Math.max(0.05, view.s / k)); view.x += (fx - view.x) * (1 - s2 / view.s); view.y += (fy - view.y) * (1 - s2 / view.s); view.s = s2; clampView(); draw(); };
+    cv.addEventListener("wheel", (e) => { e.preventDefault(); const b = cv.getBoundingClientRect(); zoomAt(view.x + ((e.clientX - b.left) / b.width) * view.s, view.y + ((e.clientY - b.top) / b.height) * view.s, Math.exp(-e.deltaY * 0.0016)); }, { passive: false });
+    zin.addEventListener("click", () => zoomAt(view.x + view.s / 2, view.y + view.s / 2, 1.6));
+    zout.addEventListener("click", () => zoomAt(view.x + view.s / 2, view.y + view.s / 2, 1 / 1.6));
+    zfit.addEventListener("click", () => { Object.assign(view, fitV); draw(); });
+    zfull.addEventListener("click", () => { view.x = 0; view.y = 0; view.s = 1; draw(); });
+    box.showCard = showCard;
+    showCard();
+    return box;
+  }
+
+  // ---------------- methods
+  function steps(items) {
+    const ol = el("ol", "gd-steps");
+    items.forEach(([h, t]) => { const li = el("li"); li.append(el("b", null, h + " "), t); ol.appendChild(li); });
+    return ol;
+  }
+  function regionTable(t) {
+    const tb = el("table", "gd-tbl gd-plain"), th = el("thead"), hr = el("tr");
+    ["Sampler"].concat(t.regions).concat(["largest leak"]).forEach((x, i) => hr.appendChild(el("th", i ? "n" : null, x)));
+    th.appendChild(hr); tb.appendChild(th);
+    const b = el("tbody");
+    t.rows.forEach((r) => { const tr = el("tr"); tr.appendChild(el("td", null, r.method)); r.tv.forEach((v) => tr.appendChild(el("td", "n", v[0].toFixed(2) + " / " + v[1].toFixed(2)))); tr.appendChild(el("td", "n", pct(r.leak))); b.appendChild(tr); });
+    tb.appendChild(b);
+    const w = el("div", "gd-scroll"); w.appendChild(tb);
+    return w;
+  }
+  function methodGroup(id, m) {
+    const d = el("div", "gd-group"); d.id = id; d.appendChild(el("h3", null, m.title));
+    if (m.intro) d.appendChild(el("p", null, m.intro));
+    d.appendChild(steps(m.steps));
+    if (m.table) { d.appendChild(el("p", "gd-cap", m.table.caption)); d.appendChild(regionTable(m.table)); }
+    if (m.fig) { const f = el("div", "gd-figs one"); f.appendChild(figure(m.fig)); d.appendChild(f); }
+    if (m.recommend) d.appendChild(limits(m.recommend_title || "Recommendation", m.recommend));
+    return d;
+  }
+
   // ---------------- blocks
   function section(id, title) { const s = el("section", "gd-block"); s.id = id; if (title) s.appendChild(el("h3", null, title)); return s; }
+  function findRow(key) {
+    for (const g of B.sampling.groups) for (const r of g.rows) if (g.id + "-" + r.id === key) return r;
+    for (const r of B.points.rows) if ("pts-" + r.id === key) return r;
+    return null;
+  }
+  function details(id, summary, cls) { const d = el("details", cls || "gd-det"); if (id) d.id = id; d.appendChild(el("summary", null, summary)); return d; }
   function build() {
     $("gdTitle").textContent = T.title; $("gdIntro").textContent = T.intro;
-    const f = B.field, sec1 = section("gd-sec-field", f.title);
-    const ps = el("div", "gd-paras"); f.paras.forEach((p) => ps.appendChild(el("p", null, p))); sec1.appendChild(ps);
-    sec1.appendChild(limits("What it is, and what it is not", f.facts));
-    const fg = el("div", "gd-figs"); f.figs.forEach((x) => fg.appendChild(figure(x))); sec1.appendChild(fg);
+    const Rs = G.results, MM = B.methods, main = new Set(Rs.maps.map((m) => m.row).filter(Boolean));
+
+    // 1. methods
+    const sec1 = section("gd-sec-methods", "Methods");
+    const f = B.field, fg = el("div", "gd-group"); fg.id = "gd-sec-field"; fg.appendChild(el("h3", null, f.title));
+    const ps = el("div", "gd-paras"); f.paras.forEach((p) => ps.appendChild(el("p", null, p))); fg.appendChild(ps);
+    fg.appendChild(limits("What it is, and what it is not", f.facts));
+    const ff = el("div", "gd-figs"); f.figs.forEach((x) => ff.appendChild(figure(x))); fg.appendChild(ff);
+    sec1.appendChild(fg); sec1.appendChild(methodGroup("gd-sec-m-iso", MM.iso)); sec1.appendChild(methodGroup("gd-sec-m-region", MM.region));
     body.appendChild(sec1);
 
-    const sm = B.sampling, sec2 = section("gd-sec-sampling", sm.title);
-    sm.groups.forEach((g) => {
-      const d = el("div", "gd-group"); d.id = "gd-sec-" + g.id; d.appendChild(el("h3", null, g.title + " · " + g.rows.length + " example" + (g.rows.length === 1 ? "" : "s"))); d.appendChild(el("p", null, g.intro));
-      if (g.fig) { const fg2 = el("div", "gd-figs one"); fg2.appendChild(figure(g.fig)); d.appendChild(fg2); }
-      d.appendChild(limits(g.id === "yc" ? "What the examples show, and what they do not" : "Which sampler to use, and what to keep in mind", g.limits));
-      g.rows.forEach((r) => d.appendChild(g.id === "yc" ? ycRow(r) : isoRow(r)));
-      if (g.failed && g.failed.length) d.appendChild(failedList(g));
-      sec2.appendChild(d);
+    // 2. main results: four interactive maps
+    const sec2 = section("gd-sec-results", "Main results"); sec2.appendChild(el("p", null, Rs.intro));
+    Rs.maps.forEach((M) => {
+      const box = resultMap(M); sec2.appendChild(box);
+      const r = M.row ? findRow(M.row) : null;
+      if (r && (M.kind === "iso" || M.kind === "yc")) { const d = details("gd-" + M.row, "Watch the chains move (GIF · " + kb(r.gif_kb) + ")"); const m = media(r); d.appendChild(m); d.media = m; box.appendChild(d); }
+      if (r && M.kind === "pts") { const d = details(null, "All 12 points as a table, with the positions of the substitutions and the pairwise differences"); d.appendChild(ptsRow(r)); box.appendChild(d); }
     });
     body.appendChild(sec2);
 
-    const pt = B.points, sec3 = section("gd-sec-pts", pt.title);
-    sec3.appendChild(el("p", null, pt.intro)); sec3.appendChild(limits("What to keep in mind", pt.limits));
-    pt.rows.forEach((r) => sec3.appendChild(ptsRow(r)));
-    body.appendChild(sec3);
+    // 3. the other examples, collapsed
+    const sm = B.sampling, more = details("gd-sec-more", "More examples (GIF rows): " + Rs.more_text, "gd-det gd-more-all");
+    sm.groups.forEach((g) => {
+      const rows = g.rows.filter((r) => !main.has(g.id + "-" + r.id));
+      const d = el("div", "gd-group"); d.id = "gd-sec-" + g.id; d.appendChild(el("h3", null, g.title + " · " + rows.length + " more example" + (rows.length === 1 ? "" : "s")));
+      d.appendChild(limits(g.id === "yc" ? "What the examples show, and what they do not" : "Which sampler to use, and what to keep in mind", g.limits));
+      rows.forEach((r) => d.appendChild(g.id === "yc" ? ycRow(r) : isoRow(r)));
+      if (g.failed && g.failed.length) d.appendChild(failedList(g));
+      more.appendChild(d);
+    });
+    const pt = B.points, pg = el("div", "gd-group"), prow = pt.rows.filter((r) => !main.has("pts-" + r.id)); pg.id = "gd-sec-pts"; pg.appendChild(el("h3", null, pt.title + " · " + prow.length + " more combination" + (prow.length === 1 ? "" : "s")));
+    pg.appendChild(el("p", null, pt.intro)); pg.appendChild(limits("What to keep in mind", pt.limits)); prow.forEach((r) => pg.appendChild(ptsRow(r)));
+    more.appendChild(pg);
+    body.appendChild(more);
 
-    [["Score field", "gd-sec-field"], ["(y, c) sets", "gd-sec-yc"], ["Iso-lines", "gd-sec-iso"], ["Map point → sequence", "gd-sec-pts"]].forEach(([t, id]) => {
-      const b = el("button", null, t); b.type = "button"; b.addEventListener("click", () => goto(id, true)); nav.appendChild(b);
+    [["Methods", "gd-sec-methods"], ["Main results", "gd-sec-results"], ["More examples", "gd-sec-more"]].forEach(([t, id]) => {
+      const b = el("button", null, t); b.type = "button"; b.addEventListener("click", () => { const e = document.getElementById(id); if (e && e.tagName === "DETAILS") e.open = true; goto(id, true); }); nav.appendChild(b);
     });
   }
-  function goto(id, smooth) { const e = document.getElementById(id); if (e) e.scrollIntoView(smooth ? { behavior: "smooth", block: "start" } : { block: "start" }); }
+  function openUp(e) { if (e.tagName === "DETAILS") e.open = true; for (let p = e.parentElement && e.parentElement.closest("details"); p; p = p.parentElement && p.parentElement.closest("details")) p.open = true; }
+  function goto(id, smooth) { const e = document.getElementById(id); if (!e) return; openUp(e); e.scrollIntoView(smooth ? { behavior: "smooth", block: "start" } : { block: "start" }); }
   function copyLink(kind, id) {
     const u = location.href.split("#")[0] + "#mode=guidance&ex=" + kind + "-" + id;
     if (navigator.clipboard) navigator.clipboard.writeText(u).catch(() => {});
@@ -267,7 +594,7 @@ function initGuidance(api) {
 
   let built = false;
   const ensure = () => { if (!built) { build(); built = true; } };
-  const redraw = () => maps.forEach((f) => f());
+  const redraw = () => maps.forEach((f) => { try { f(); } catch (e) { /* a map that is not laid out yet */ } });
   window.addEventListener("resize", () => { if (!root.hidden) redraw(); });
   new MutationObserver(() => { if (!root.hidden) redraw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   return {
@@ -280,6 +607,7 @@ function initGuidance(api) {
         redraw();
         if (ex) {
           const row = document.getElementById("gd-" + ex); if (!row) return;
+          openUp(row); redraw();
           row.scrollIntoView({ block: "start" }); row.classList.remove("gd-flash"); void row.offsetWidth; row.classList.add("gd-flash");
           if (P.get("play") === "1" && row.media) row.media.start();
         } else if (sec) goto("gd-sec-" + sec);

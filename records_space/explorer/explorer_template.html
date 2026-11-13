@@ -968,7 +968,8 @@ const DATA = /*__DATA__*/null;
     resize(); refresh();
   }
   let gdApi = null;
-  function ensureGd() { if (gdApi) return gdApi; gdApi = initGuidance({ G: D.guidance, emb: D.emb.tsne_full, $, el }); return gdApi; }
+  const recInfo = (j) => ({ name: I.name[j], uni: I.uni[j], rid: I.rid[j], paper: I.paper[j], lab: I.lab[j], ps: D.cat.ps.codes[j], T: I.T[j], tstate: I.tstate[j], pH: I.pH[j], NaCl: I.NaCl[j], conc: I.conc[j], crowder: D.cat.crowder.levels[D.cat.crowder.codes[j]], csat: I.csat[j] });
+  function ensureGd() { if (gdApi) return gdApi; gdApi = initGuidance({ G: D.guidance, emb: D.emb.tsne_full, rec: recInfo, ps: D.cat.ps.codes, $, el }); return gdApi; }
 
   // ---------- system bar: all 16 system types of the colour table; single-protein types filter this map, the others open their system map ----------
   const fmtn = (n) => n.toLocaleString("en-US");

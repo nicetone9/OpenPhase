@@ -18,6 +18,9 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import rs134_guidance_results as R134      # the four interactive main results
+
 ROOT = Path(__file__).resolve().parent.parent
 FIGS, OUT = ROOT / "figs", ROOT / "out"
 NEW, WEB, SRC = ROOT / "guidance_assets" / "new", ROOT / "guidance_assets" / "web", ROOT / "guidance_assets" / "src"
@@ -66,6 +69,10 @@ def gif_info(gif):
     return {"w": im.size[0], "h": im.size[1], "frames": im.n_frames}
 
 
+def fmtn(n):
+    return f"{n:,}"
+
+
 def rnd(v, n=3):
     return None if v is None else round(float(v), n)
 
@@ -74,8 +81,8 @@ def rnd(v, n=3):
 TEXT = {
     "title": "Guidance on the map",
     "intro": "A score field learned on the 2-D t-SNE of the 11,439 records pushes sampled points toward phase-separating (y = 1) or non-separating (y = 0) regions. "
-             "Below: the field itself, guided sampling from (y, c) sets and along iso-lines of one condition, and the decoding of map points into sequences. "
-             "Everything lives in map coordinates; the limits are stated with each block.",
+             "First the methods (the score field, sampling along an iso-line, sampling inside a region), then four main results as interactive maps: hover a point for its start and end, the records next to it, "
+             "the sequence change and the predictions. The other examples are collapsed at the end.",
     "field": {
         "title": "The score field",
         "paras": [
@@ -128,6 +135,36 @@ TEXT = {
         "limits": [
             "Many points return their anchor (k* = 0): the target embedding is then almost the anchor's own. The TDP-43 example is the one where most answers carry substitutions.",
             "Positions are proposed at random and kept when they move the embedding toward the target; they are not chosen for function, and the decoded variants are not scored for phase separation here.",
+        ],
+    },
+}
+
+METHODS = {
+    "iso": {
+        "title": "Sampling along an iso-line",
+        "steps": [
+            ["Line.", "Each covariate (sequence length, NaCl, temperature, pH, concentration, crowder) is smoothed over the map with a Gaussian kernel (σ = 0.16 map SD) into a field g(u); the iso-line is the contour g(u) = g₀. "
+                      "A line is kept when the covariate is uniform near it (homogeneity < 1), it is at least 1 SD long, at least 10 records of each label lie within 0.12 SD of it, r changes sign along it and at least 5 papers lie near it."],
+            ["Coordinate.", "The line is parameterised by arc length s. A line has several pieces; each piece is an interval of s."],
+            ["Target.", "On a piece, p(s) ∝ exp(−E_w(u(s)) / T) with the guided energy E_w = E_n + w (E_y − E_n) of the TorchEBM conditional energy (σ = 0.16), w = 4, T = 0.5, y = 1 or y = 0."],
+            ["Sampler.", "Hamiltonian Monte Carlo on s (TorchEBM): 10 leapfrog steps of 0.05 SD per proposal, Metropolis accept/reject, steep walls at the ends of a piece, 400 proposals; 60 start points equally spaced in arc length × 8 chains per direction. "
+                         "The chain cannot leave the line and stays on the piece where it starts."],
+            ["Checks.", "TV distance to the exact distribution on the line, acceptance rate, median move along the line, share of chains that end off the data."],
+        ],
+        "fig": {"id": "iso_sampler_comparison", "src": FIGS / "FigR74_sampler_comparison.png",
+                "cap": "Samplers compared on two iso-lines (NaCl 150 mM and 22 °C; 480 chains each, equal cost): TorchEBM Langevin and HMC with the line written as a thin tube, and the same samplers on the 1-D arc-length coordinate."},
+        "recommend_title": "Why this sampler",
+        "recommend": ["Distance to the exact distribution (TV) 0.07 on NaCl 150 mM and 0.15 on 22 °C, against 0.28 and 0.52 for the earlier projected Langevin; 0% of the chains leave the line (11% on the NaCl line before). Langevin on the same coordinate gets stuck; HMC moves 0.3–1.3 SD along the line."],
+    },
+    "region": {
+        "title": "Sampling inside a region",
+        "steps": [
+            ["Region.", "Several conditions at once: F = {u : |g_k(u) − g_k0| ≤ τ_k for every constraint k, the area is data-supported, and the local spread of the covariate is at most 0.8 of its global spread}. "
+                        "The example in the results, C3, is 22 ± 4 °C, pH 7.5 ± 0.35, NaCl 150 mM (log₁₀(1 + x) ± 0.25) and 10 µM (log₁₀ ± 0.3): 735 cells of the 160 × 160 grid in 11 separate pieces."],
+            ["Target.", "The same guided energy E_w (w = 4, T = 0.5), tabulated on the grid; the probability of a cell inside the region is ∝ exp(−E_w / T)."],
+            ["Sampler (recommended): exact grid sampling.", "Draw cells at random with these probabilities and jitter uniformly inside the cell. The samples are independent, there is nothing to tune and nothing leaves the region. HMC is kept for showing the process (the GIFs)."],
+            ["Why not MCMC.", "The pieces are disconnected: Langevin or HMC with a wall leaks out of the region (up to 16% of the chains) or cannot change piece; their distance to the exact distribution is 0.20–0.66, "
+                              "while exact sampling is as close as two independent exact samples are to each other (0.05–0.15, the sampling-noise floor)."],
         ],
     },
 }
@@ -350,6 +387,60 @@ def build_points():
     return rows, hi
 
 
+def region_table():
+    S = json.load(open(FIGS / "rs97_summary.json"))
+    regs = ["C1: 22 °C + pH 7.5", "C3: + 150 mM NaCl + 10 µM", "L1: 400 aa + 150 mM NaCl"]
+    meth = [("EXACT grid sampling", "Exact grid sampling"), ("LEM Langevin EM + wall", "Langevin + wall"), ("HMC + wall", "HMC + wall"), ("HMC + stiff wall", "HMC + stiff wall")]
+    rows = []
+    for key, name in meth:
+        tv = [[rnd(S[f"{r} | {d}"]["methods"][key]["TV"], 3) for d in ("to_y1", "to_y0")] for r in regs]
+        leak = max(S[f"{r} | {d}"]["methods"][key]["leak"] for r in regs for d in ("to_y1", "to_y0"))
+        rows.append(dict(method=name, tv=tv, leak=rnd(leak, 3)))
+    return dict(caption="Distance to the exact distribution (TV, guided to y = 1 / to y = 0; the sampling-noise floor is 0.05–0.15) on three regions: C1 = 22 °C and pH 7.5; C3 = C1 plus 150 mM NaCl and 10 µM; L1 = 400 aa and 150 mM NaCl. "
+                        "MCMC chains start at random points inside the region; “largest leak” is the largest share of chains that ended outside it.",
+                regions=["C1", "C3", "L1"], rows=rows)
+
+
+def results_block(iso, yc, pts):
+    """Intro, description and reading notes of the four main results; every number comes from the data."""
+    out = R134.build_results()
+    I = {m["id"]: m for m in out["maps"]}
+    isor = next(r for r in iso if r["id"] == "nacl")
+    ycr = next(r for r in yc if r["id"] == "physio")
+    iso_m, reg_m, yc_m, pt_m = I["iso_nacl150"], I["region_c3"], I["yc_physio"], I["pts_tau10"]
+    f_iso, f_reg, f_yc, f_pt = iso_m["facts"], reg_m["facts"], yc_m["facts"], pt_m["facts"]
+    st = {g["id"]: g["stats"] for g in iso_m["groups"]}
+    iso_m["desc"] = [f"Chains start on the NaCl = 150 mM iso-line (60 equally spaced starts × 8 chains) and are guided to y = 1 (purple) or y = 0 (cyan) by 1-D arc-length HMC ({f_iso['proposals']} proposals, w = {f_iso['w']:g}). "
+                     f"The line is {isor['line']['arc']} SD long in {f_iso['pieces']} pieces, with {fmtn(isor['line']['n_near'])} records near it from {isor['line']['papers']} papers and {isor['line']['prots']} proteins."]
+    iso_m["reading"] = [f"Guided ends sit on stretches of higher r (to y = 1: median r {f_iso['r_end_median'][0]:+.2f}) or lower r (to y = 0: median r {f_iso['r_end_median'][1]:+.2f}).".replace("-", "−"),
+                        f"The proteins next to the two kinds of ends largely coincide ({round(100 * f_iso['protein_overlap'])}% shared), so a large part of the y difference along an iso-line is not a sequence effect: it comes from other conditions or from the source paper.",
+                        f"Sampler checks: TV to the exact distribution {st['to_y1']['tv']:.2f} / {st['to_y0']['tv']:.2f}, acceptance {st['to_y1']['acc']:.2f} / {st['to_y0']['acc']:.2f}."]
+    reg_m["desc"] = [f"{f_reg['samples']} independent exact samples per direction inside the region where all four constraints hold (22 ± 4 °C, pH 7.5, 150 mM NaCl, 10 µM): {f_reg['cells']} grid cells ({100 * f_reg['area_frac']:.1f}% of the grid) in {f_reg['pieces']} pieces, "
+                     f"with {f_reg['records']} records inside ({f_reg['n_y1']} y = 1, {f_reg['n_y0']} y = 0) from {f_reg['papers']} papers and {f_reg['proteins']} proteins."]
+    reg_m["reading"] = [f"Samples guided to y = 1 sit at high r (median {f_reg['r_median'][0]:+.1f}), those guided to y = 0 near {f_reg['r_median'][1]:+.1f}: the field separates the two inside the region.".replace("-", "−"),
+                        "There is no start or end: exact samples are independent. Hover a sample for the records next to it (the reference) and the field's estimate.",
+                        "Decoding to sequences is shown for points on a line (the last result)."]
+    sy = {g["id"]: g["stats"] for g in yc_m["groups"]}
+    yc_m["desc"] = [f"Chains start at the records of one label in the physiological cell ({f_yc['desc'].replace(' (cross-paper)', '')}; {f_yc['n1']} y = 1 and {f_yc['n0']} y = 0 records, {f_yc['seq']} sequences, {f_yc['papers']} papers) "
+                    f"and are guided to the other label for {fmtn(f_yc['steps'])} steps (Langevin, T = {f_yc['T']:g}, w = {f_yc['w']:g}; {f_yc['K']} chains per record, 0.03 SD jitter)."]
+    yc_m["reading"] = [f"Guided ends move in r in the intended direction (median Δr {sy['0to1']['dr']:+.2f} for y = 0 → 1, {sy['1to0']['dr']:+.2f} for y = 1 → 0), but they end within 0.10 SD of a record of the target label no more often than unguided chains "
+                       f"({round(100 * sy['0to1']['arr'])}% against {round(100 * sy['0to1']['arr_none'])}%, {round(100 * sy['1to0']['arr'])}% against {round(100 * sy['1to0']['arr_none'])}%).".replace("-", "−"),
+                       f"The two labels interleave on the map (mean r of the two classes differs by {abs(ycr['map']['dr']):.2f}) and the field has no condition c as input, so the cell only decides where the chains start.",
+                       "Switch on “unguided control ends” to see where chains without guidance end."]
+    fs = out["finches"]
+    mp, rp = fs["mpipi_full"]["abs_d_eps_decoded_median"], fs["mpipi_full"]["abs_d_eps_random_median"]
+    pt_m["desc"] = ["Twelve points of the exact samples of (tau region ∩ 10 µM iso-line), 6 guided to y = 1 and 6 to y = 0, decoded to sequences through the records around them: an anchor sequence plus ESMC masked-language-model substitutions "
+                    "that move the ESMC embedding toward the target. Start = the closest record of the anchor, end = the map point and the answer."]
+    pt_m["reading"] = [f"{f_pt['n_k0']} of the 12 answers are the anchor itself (k* = 0); {f_pt['n_new']} carry 2–12 substitutions.",
+                       f"FINCHES, over all {fs['n_with_edits']} decoded variants of the five map-point examples: median |Δε| (Mpipi, full length) {mp:.2f} for the decoded answers against {rp:.2f} for random substitutions at the same sites, "
+                       f"and {round(100 * fs['mpipi_full']['frac_stronger_PS'])}% become more attractive: no consistent direction.",
+                       "Positions are proposed at random and kept when they move the embedding toward the target; they are not chosen for function."]
+    n_more = [len(yc) - 1, len(iso) - 1, len(pts) - 1]
+    return dict(intro="Four results, each an interactive map on the t-SNE of the records. Hover (or tap) a point for its start and end, the records next to it (protein, paper, label, conditions), the score field's estimate and, for the decoded points, "
+                      "the sequence change and the FINCHES prediction. Scroll to zoom, drag to pan, click to pin a point; the legend toggles the groups.",
+                maps=out["maps"], more_text=f"{n_more[0]} more (y, c) sets, {n_more[1]} more iso-lines, {n_more[2]} more map-point combinations")
+
+
 def main():
     SRC.mkdir(parents=True, exist_ok=True)
     if not (SRC / "rs80_summary.json").exists():
@@ -382,6 +473,11 @@ def main():
         dict(id="iso", title=iso_t["title"], intro=iso_t["intro"], fig=dict(src=f"{iso_t['fig']['id']}.webp", cap=iso_t["fig"]["cap"], **iso_fig), limits=iso_t["recommend"], rows=iso, failed=failed, rule=rule),
     ])
     pts, hi = build_points()
+    MT = dict(iso=dict(METHODS["iso"]), region=dict(METHODS["region"]))
+    f2 = MT["iso"].pop("fig"); MT["iso"]["fig"] = dict(src=f"{f2['id']}.webp", cap=f2["cap"], **to_webp(f2["src"], WEB / f"{f2['id']}.webp", maxw=1700))
+    MT["region"]["table"] = region_table()
+    data["blocks"]["methods"] = MT
+    data["results"] = results_block(iso, yc, pts)
     p = TEXT["pts"]
     data["blocks"]["points"] = dict(title=p["title"], intro=p["intro"], limits=p["limits"], rows=pts, align_file="points_alignments.txt", highlight={k: v for k, v in hi.items()})
     json.dump(data, open(PAGE / "guidance_data.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
