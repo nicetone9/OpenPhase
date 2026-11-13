@@ -205,6 +205,9 @@ def main():
         data["universe"] = U
         print("universe proteins", U["n"], "| records placed", sum(1 for v in xs if v >= 0))
     data["systems"], _ = build_systems()
+    gdp = f"{ROOT}/guidance_page/guidance_data.json"      # the Guidance tab (scripts/rs130_guidance_assets.py); its GIFs and figures are files next to the page
+    if os.path.exists(gdp):
+        data["guidance"] = json.load(open(gdp, encoding="utf-8"))
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     def js(name):
@@ -212,10 +215,12 @@ def main():
         assert "</script" not in t.lower(), name
         return t
     tpl = open(f"{EXP}/explorer_template.html").read()
-    for ph in ("/*__DATA__*/null", "/*__CONDPARSER__*/", "/*__RECORDSSPACE__*/", "/*__TRYPANEL__*/", "/*__SYSJS__*/", "/*__SYSCSS__*/", "<!--__SYSHTML__-->"):
+    for ph in ("/*__DATA__*/null", "/*__CONDPARSER__*/", "/*__RECORDSSPACE__*/", "/*__TRYPANEL__*/", "/*__SYSJS__*/", "/*__SYSCSS__*/", "<!--__SYSHTML__-->", "/*__GDJS__*/", "/*__GDCSS__*/", "<!--__GDHTML__-->"):
         assert tpl.count(ph) == 1, ph
     sysjs = open(f"{ROOT}/systems_page/sy_pane.js", encoding="utf-8").read(); assert "</script" not in sysjs.lower()
     tpl = tpl.replace("/*__SYSJS__*/", sysjs).replace("/*__SYSCSS__*/", open(f"{ROOT}/systems_page/sy_pane.css", encoding="utf-8").read()).replace("<!--__SYSHTML__-->", open(f"{ROOT}/systems_page/sy_pane.html", encoding="utf-8").read())
+    gdjs = open(f"{ROOT}/guidance_page/gd_pane.js", encoding="utf-8").read(); assert "</script" not in gdjs.lower()
+    tpl = tpl.replace("/*__GDJS__*/", gdjs).replace("/*__GDCSS__*/", open(f"{ROOT}/guidance_page/gd_pane.css", encoding="utf-8").read()).replace("<!--__GDHTML__-->", open(f"{ROOT}/guidance_page/gd_pane.html", encoding="utf-8").read())
     frag = tpl.replace("/*__CONDPARSER__*/", js("condition_parser.js")).replace("/*__RECORDSSPACE__*/", js("records_space.js")).replace("/*__TRYPANEL__*/", js("try_panel.js")).replace("/*__DATA__*/null", blob)
     open(f"{EXP}/page_fragment.html", "w").write(frag)
     standalone = '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + \

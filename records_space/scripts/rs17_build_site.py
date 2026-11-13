@@ -112,6 +112,11 @@ open(f"{SITE}/index.html", "w", encoding="utf-8").write(tpl)
 os.makedirs(f"{SITE}/records_space/negatives", exist_ok=True)
 shutil.copy(f"{ROOT}/explorer/records_space_explorer.html", f"{SITE}/records_space/index.html")
 shutil.copy(f"{ROOT}/pu_page/index.html", f"{SITE}/records_space/negatives/index.html")
+# Guidance tab: the GIFs, posters and figures live next to the explorer page (records_space/guidance/), fetched only when asked for (scripts/rs130_guidance_assets.py)
+_gd = f"{ROOT}/guidance_assets/web"
+shutil.rmtree(f"{SITE}/records_space/guidance", ignore_errors=True)
+if os.path.isdir(_gd):
+    shutil.copytree(_gd, f"{SITE}/records_space/guidance", ignore=shutil.ignore_patterns("MANIFEST.json"))
 # The multi-protein system maps are the "Systems" mode of the explorer, not a page of their own. The earlier address stays as a one-line redirect so that links made before the merge still work.
 os.makedirs(f"{SITE}/records_space/systems", exist_ok=True)
 open(f"{SITE}/records_space/systems/index.html", "w", encoding="utf-8").write(

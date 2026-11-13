@@ -150,6 +150,7 @@ sub{ font-size:0.72em; line-height:0; }
 .g-fill{ background:var(--accent); border:1px solid var(--canvas); } .g-ring{ border:1.5px solid var(--neutral2); }
 .hlnote button{ font-size:0.74rem; padding:2px 9px; }
 /*__SYSCSS__*/
+/*__GDCSS__*/
 </style>
 
 <div class="app">
@@ -160,6 +161,7 @@ sub{ font-size:0.72em; line-height:0; }
     <div class="modes" role="group" aria-label="Mode">
       <button id="modeExplore" class="mode on" type="button" aria-pressed="true">Explore</button>
       <button id="modeSys" class="mode" type="button" aria-pressed="false">Systems</button>
+      <button id="modeGd" class="mode" type="button" aria-pressed="false">Guidance</button>
       <button id="modeTry" class="mode" type="button" aria-pressed="false">Try your own experiment</button>
     </div>
     <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
@@ -197,6 +199,7 @@ sub{ font-size:0.72em; line-height:0; }
     </aside>
     <aside class="try" id="tryPane" hidden aria-label="Try your own experiment"></aside>
     <!--__SYSHTML__-->
+    <!--__GDHTML__-->
     <main class="stage" id="stage">
       <div class="toolbar">
         <div class="grp"><label for="lens">Map</label><select id="lens"></select></div>
@@ -222,6 +225,7 @@ sub{ font-size:0.72em; line-height:0; }
 <script>/*__RECORDSSPACE__*/</script>
 <script>/*__TRYPANEL__*/</script>
 <script>/*__SYSJS__*/</script>
+<script>/*__GDJS__*/</script>
 <script>
 const DATA = /*__DATA__*/null;
 (function () {
@@ -760,8 +764,9 @@ const DATA = /*__DATA__*/null;
   function applyHash() {
     const h = location.hash.replace(/^#/, ""); if (!h) return;
     const P = new URLSearchParams(h), has = (id, v) => [...$(id).options].some(o => o.value === v);
+    if (P.get("mode") === "guidance" && D.guidance) { setMode("guidance"); ensureGd().applyParams(P); return; }
     if (P.get("mode") === "systems") { setMode("systems"); ensureSys().applyParams(P); updateSysBar(); return; }
-    if (S.mode === "systems") setMode("explore");
+    if (S.mode === "systems" || S.mode === "guidance") setMode("explore");
     $("lens").value = P.has("lens") && has("lens", P.get("lens")) ? P.get("lens") : (D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0]);
     $("colorby").value = P.has("by") && has("colorby", "cat:" + P.get("by")) ? "cat:" + P.get("by") : "cat:protein";
     $("fNA").value = P.has("na") && has("fNA", P.get("na")) ? P.get("na") : "any";
@@ -951,15 +956,19 @@ const DATA = /*__DATA__*/null;
   }
   function setMode(m) {
     S.mode = m;
-    const sys = m === "systems";
-    $("layout").classList.toggle("try-mode", m === "try"); $("layout").classList.toggle("sys-mode", sys);
-    $("rail").hidden = m === "try" || sys; $("tryPane").hidden = m !== "try";
-    $("stage").hidden = sys; $("card").hidden = sys; $("sysPane").hidden = !sys; $("sysBar").hidden = m === "try";
-    for (const [id, name] of [["modeExplore", "explore"], ["modeSys", "systems"], ["modeTry", "try"]]) { $(id).classList.toggle("on", m === name); $(id).setAttribute("aria-pressed", String(m === name)); }
+    const sys = m === "systems", gd = m === "guidance", away = sys || gd;
+    $("layout").classList.toggle("try-mode", m === "try"); $("layout").classList.toggle("sys-mode", sys); $("layout").classList.toggle("gd-mode", gd);
+    $("rail").hidden = m === "try" || away; $("tryPane").hidden = m !== "try";
+    $("stage").hidden = away; $("card").hidden = away; $("sysPane").hidden = !sys; $("gdPane").hidden = !gd; $("sysBar").hidden = m === "try" || gd;
+    for (const [id, name] of [["modeExplore", "explore"], ["modeSys", "systems"], ["modeGd", "guidance"], ["modeTry", "try"]]) { $(id).classList.toggle("on", m === name); $(id).setAttribute("aria-pressed", String(m === name)); }
+    if (!gd && gdApi) gdApi.hide();
     if (m === "try") { resetAll(); ensureTry(); }
     if (sys) { const a = ensureSys(); if (a.firstTime()) a.select("protein(2)"); a.show(); }
+    if (gd) ensureGd().show();
     resize(); refresh();
   }
+  let gdApi = null;
+  function ensureGd() { if (gdApi) return gdApi; gdApi = initGuidance({ G: D.guidance, emb: D.emb.tsne_full, $, el }); return gdApi; }
 
   // ---------- system bar: all 16 system types of the colour table; single-protein types filter this map, the others open their system map ----------
   const fmtn = (n) => n.toLocaleString("en-US");
@@ -1013,6 +1022,8 @@ const DATA = /*__DATA__*/null;
     $("reset").addEventListener("click", resetAll);
     $("modeExplore").addEventListener("click", () => setMode("explore"));
     $("modeSys").addEventListener("click", () => setMode("systems"));
+    $("modeGd").addEventListener("click", () => setMode("guidance"));
+    if (!D.guidance) $("modeGd").hidden = true;
     $("modeTry").addEventListener("click", () => setMode("try"));
     buildSysBar();
     if (D.tools) { populateHL(); $("hl").addEventListener("change", () => setHighlight($("hl").value)); } else $("hl").parentElement.hidden = true;

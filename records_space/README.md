@@ -31,6 +31,7 @@ The map is a t-SNE of this distance (UMAP views are alternatives). The weights a
   It does **not** predict phase separation: neighbours from the same paper share the label (AUROC 0.84), neighbours from other papers and proteins barely do (0.50 with protein similarity, 0.59 with conditions only).
   New sequences get an exact ESMC embedding only when they are in the dataset or are one of the built-in examples; any other pasted sequence gets a rough in-browser approximation (composition and dipeptide regression), and the page says so.
 * **Systems:** a bar under the title lists the 16 system types of the colour table (protein(1) to protein(≥4), RNA only and the RNA types, DNA only and the DNA types, Other, C<sub>sat</sub> pool), each in its own colour. The four single-protein types filter the map of records and colour it by system type (a second click clears the filter). The multi-protein types open **Systems mode**, described below; RNA only and DNA only have no protein sequence and are listed as tables.
+* **Guidance:** guided sampling on the map, one row per example with a GIF: (y, c) sets and iso-lines of one condition, plus the score field behind them and the decoding of map points into sequences. Described below.
 
 ## Negatives and unlabelled proteins (`negatives/`)
 
@@ -56,9 +57,19 @@ Fig. S1 inside the explorer: one map per group of system types (protein(2), prot
 
 Systems mode holds system-level information only (components, records, positive and negative counts, sources). Conditions are not part of it, and the multi-protein records are not in the map of single-protein records. Four systems whose records all come from laboratory notebooks are left out, as those records are not in the published tables. `scripts/rs21_build_systems.py` builds the table from `data/systems/`, a filtered copy of the project's system tables that is not part of this repository; the interface is `systems_page/sy_pane.{js,css,html}`, which `scripts/rs05_build_explorer.py` embeds in the explorer. An earlier stand-alone page (`records_space/systems/`) was merged into the explorer, and its address now redirects to Systems mode.
 
+## Guidance tab
+
+The fourth mode of the explorer collects the results of the Task 3 guidance work in map coordinates, in three blocks:
+
+* **The score field.** A TorchEBM energy model E(u | y) trained on the t-SNE coordinates of the records only (conditional denoising score matching, σ = 0.16 inside the data); the guidance direction is s(u | 1) − s(u | 0). It describes the label layout of the map; with papers held out it does not predict labels for new papers (share of arrows toward y = 1: 0.469 against 0.42 for permuted labels).
+* **Guided sampling, one row per example (GIF, final-position figure, numbers).** *(y, c) sets*: records that share one label inside one condition cell are the starting points, chains are guided to the opposite label (Langevin, 1,200 steps, w = 4) and compared with no guidance; 10 examples (physiological cell, hnRNPDL, BRD4, designed repeat polypeptides, tau in PEG, FUS variants, UBQLN2, ZO-1, G3BP1, hnRNPA2B1). *Iso-lines*: chains sampled on a contour of one covariate with TorchEBM's HMC on the arc-length coordinate; 11 lines (NaCl 50 and 150 mM, 22 °C, pH 7.5, 200 and 400 aa, 1, 3.16, 10 and 31.6 µM, 0.5% crowder), and the 19 lines that did not pass the homogeneity rule are listed. The field has no condition c as input, so a (y, c) set only chooses where the chains start; both ends of an iso-line sit next to the same proteins.
+* **From a map point to a sequence.** Twelve points of each of five (protein region ∩ iso-line) combinations are decoded through the records around them (an anchor sequence plus ESMC masked-language-model substitutions that move the ESMC embedding toward the target); the page shows them on the map, with the substitutions, where they sit and the pairwise differences. Many answers are the anchor itself, and the variants are not scored for phase separation.
+
+GIFs are 0.85–3.3 MB each (palette-reduced, same frames and timing as the originals) and are fetched only when Play is pressed; the files are in `guidance/`. `scripts/rs130_guidance_assets.py` builds them and `guidance_page/guidance_data.json` from the figure, table and summary files of the guidance sessions (not part of this repository); the interface is `guidance_page/gd_pane.{js,css,html}`, which `scripts/rs05_build_explorer.py` embeds. `scripts/rs131*` and `rs132*` made the additional (y, c) sets and iso-lines (`guidance_page/new_examples.md` has their numbers and the lines that were tested but not shown).
+
 ## Site and links
 
-The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer, with Systems mode) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
+The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer, with its Systems and Guidance modes) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
 
 The explorer takes its starting state from the address, so a link can open it on a system or a source:
 
@@ -74,6 +85,7 @@ The explorer takes its starting state from the address, so a link can open it on
 | `mode` | `systems` (Systems mode), `try` (Try your own experiment) | `#mode=systems` |
 | `g`, `t` | with `mode=systems`: the map, `p2`, `p3`, `p4`, `p2r`, `p2d`, `p3na`, `cx`, or a system type code (`p3r`, `p4d`, `rna`, …) | `#mode=systems&g=p2r` |
 | `sby`, `q`, `sys` | with `mode=systems`: colour by `anchor`, `type`, `pos` or `rec`; the find box; a system id | `#mode=systems&g=p2r&sby=pos&q=G3BP1` |
+| `mode=guidance` | the Guidance tab; `sec` = `field`, `yc`, `iso` or `pts` jumps to a block, `ex` = `yc-<id>`, `iso-<id>` or `pts-<id>` to a row, `play=1` also starts its GIF | `#mode=guidance&ex=iso-nacl&play=1` |
 
 ## Folder
 
@@ -86,6 +98,8 @@ colab/                code that ran on Colab (embeddings, distances, t-SNE/UMAP,
 negatives/            the negatives and unlabelled proteins page (built by scripts/rs16_build_pu.py)
 systems/              a one-line redirect to Systems mode (the page that used to be here is now part of the explorer)
 systems_page/         Systems mode: interface code (sy_pane.js, .css, .html) and the numbers the home page quotes (summary.json)
+guidance_page/        Guidance tab: interface code (gd_pane.js, .css, .html), its data (guidance_data.json), notes on the added examples (new_examples.md)
+guidance/             the GIFs, poster frames, figures and the alignments text of the Guidance tab (as served)
 figs/                 static figures of the map
 ```
 

@@ -1,0 +1,668 @@
+=== NaCl 50 mM × SARS-CoV-2 N：12 个点（y=1 与 y=0 精确采样样本的沿线分位数点）
+
+(1) 每个点：锚点（真实序列）→ 新解码器的答案
+
+  y1 P0  坐标 (1.078, 0.234)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P1  坐标 (1.111, 0.150)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0010 → 0.0010  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P2  坐标 (1.179, 0.078)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P3  坐标 (1.756, -0.707)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P4  坐标 (1.710, -0.784)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 12  D：0.0510 → 0.0318  替换：A336S;R203P;S78A;A252R;R41M;M234I;S206L;Q181R;T205L;N228T;T24G;R262P  新序列：是
+  y1 P5  坐标 (2.054, -0.517)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P0  坐标 (1.077, 0.244)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P1  坐标 (1.101, 0.168)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0023 → 0.0023  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P2  坐标 (1.156, 0.097)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P3  坐标 (1.824, -0.633)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P4  坐标 (1.719, -0.766)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 3  D：0.0409 → 0.0271  替换：R277F;S21D;K102R  新序列：是
+  y0 P5  坐标 (2.025, -0.525)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+
+(2) 点两两之间的 Biopython 全局比对：替换数（gap 列数）
+   y1P0    y1P1    y1P2    y1P3    y1P4    y1P5    y0P0    y0P1    y0P2    y0P3    y0P4    y0P5   
+  y1P0   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y1P1   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y1P2   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y1P3   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y1P4  12( 0)   12( 0)   12( 0)   12( 0)    0( 0)   12( 0)   12( 0)   12( 0)   12( 0)   12( 0)   15( 0)   12( 0) 
+  y1P5   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y0P0   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y0P1   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y0P2   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y0P3   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+  y0P4   3( 0)    3( 0)    3( 0)    3( 0)   15( 0)    3( 0)    3( 0)    3( 0)    3( 0)    3( 0)    0( 0)    3( 0) 
+  y0P5   0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    3( 0)    0( 0) 
+
+(3) 差异最大的 3 对点的完整比对
+
+--- y1P4（锚点 211，k*=12）  对  y0P4（锚点 211，k*=3）：替换 15，gap 列 0
+target            0 MSDNGPQNQRNAPRITFGGPSDSGGSNQNGERSGARSKQRMPQGLPNNTASWFTALTQHG
+                  0 ||||||||||||||||||||.||.||||||||||||||||.|||||||||||||||||||
+query             0 MSDNGPQNQRNAPRITFGGPDDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINTNASPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+                 60 |||||||||||||||||.|||||||||||||||||||||||.||||||||||||||||||
+query            60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMRDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 RASSRSSSRSRNSSRNSTPGSSPGLLPARMAGNGGDAALALLLLDRLTQLESKISGKGQQ
+                180 .|||||||||||||||||||||.|..|||||||||||||||||||||.|||||.||||||
+query           180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAREASKKPRQKPTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 |||||||||||.|||||||||.||||||||||||||.|||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRFGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGSIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||||||||||||||||||||||||||||||||.||||||||||||||||||||||||
+query           300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+                360 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+
+target          419
+                419
+query           419
+
+
+--- y1P4（锚点 211，k*=12）  对  y0P5（锚点 211，k*=0）：替换 12，gap 列 0
+target            0 MSDNGPQNQRNAPRITFGGPSDSGGSNQNGERSGARSKQRMPQGLPNNTASWFTALTQHG
+                  0 |||||||||||||||||||||||.||||||||||||||||.|||||||||||||||||||
+query             0 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINTNASPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+                 60 |||||||||||||||||.||||||||||||||||||||||||||||||||||||||||||
+query            60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 RASSRSSSRSRNSSRNSTPGSSPGLLPARMAGNGGDAALALLLLDRLTQLESKISGKGQQ
+                180 .|||||||||||||||||||||.|..|||||||||||||||||||||.|||||.||||||
+query           180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAREASKKPRQKPTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 |||||||||||.|||||||||.||||||||||||||||||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGSIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||||||||||||||||||||||||||||||||.||||||||||||||||||||||||
+query           300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+                360 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+
+target          419
+                419
+query           419
+
+
+--- y1P4（锚点 211，k*=12）  对  y0P3（锚点 211，k*=0）：替换 12，gap 列 0
+target            0 MSDNGPQNQRNAPRITFGGPSDSGGSNQNGERSGARSKQRMPQGLPNNTASWFTALTQHG
+                  0 |||||||||||||||||||||||.||||||||||||||||.|||||||||||||||||||
+query             0 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINTNASPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+                 60 |||||||||||||||||.||||||||||||||||||||||||||||||||||||||||||
+query            60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 RASSRSSSRSRNSSRNSTPGSSPGLLPARMAGNGGDAALALLLLDRLTQLESKISGKGQQ
+                180 .|||||||||||||||||||||.|..|||||||||||||||||||||.|||||.||||||
+query           180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAREASKKPRQKPTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 |||||||||||.|||||||||.||||||||||||||||||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGSIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||||||||||||||||||||||||||||||||.||||||||||||||||||||||||
+query           300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+                360 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+
+target          419
+                419
+query           419
+
+
+=== NaCl 50 mM × tau：12 个点（y=1 与 y=0 精确采样样本的沿线分位数点）
+
+(1) 每个点：锚点（真实序列）→ 新解码器的答案
+
+  y1 P0  坐标 (-1.738, -0.087)  锚点 seq_row 662（tau (MAPT)，440 aa）  k* = 0  D：0.0136 → 0.0136  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P1  坐标 (-1.619, -0.074)  锚点 seq_row 785（tau (MAPT)，441 aa）  k* = 0  D：0.0143 → 0.0143  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P2  坐标 (-1.520, -0.085)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0153 → 0.0153  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P3  坐标 (-1.471, -0.288)  锚点 seq_row 547（tau (MAPT)，198 aa）  k* = 9  D：0.0741 → 0.0516  替换：S169T;D105E;V70L;R106K;D175N;E129Q;V120I;D178G;V107A  新序列：是
+  y1 P4  坐标 (-1.423, -0.212)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0088 → 0.0088  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P5  坐标 (0.689, -0.562)  锚点 seq_row 390（tau (MAPT)，187 aa）  k* = 0  D：0.0147 → 0.0147  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P0  坐标 (-1.738, -0.087)  锚点 seq_row 662（tau (MAPT)，440 aa）  k* = 0  D：0.0136 → 0.0136  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P1  坐标 (-1.646, -0.378)  锚点 seq_row 784（tau (MAPT)，441 aa）  k* = 0  D：0.0128 → 0.0128  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P2  坐标 (-1.529, -0.083)  锚点 seq_row 784（tau (MAPT)，441 aa）  k* = 0  D：0.0126 → 0.0126  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P3  坐标 (-1.457, -0.116)  锚点 seq_row 524（tau (MAPT)，441 aa）  k* = 0  D：0.0087 → 0.0087  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P4  坐标 (-1.423, -0.163)  锚点 seq_row 524（tau (MAPT)，441 aa）  k* = 0  D：0.0083 → 0.0083  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P5  坐标 (0.674, -0.610)  锚点 seq_row 390（tau (MAPT)，187 aa）  k* = 0  D：0.0237 → 0.0237  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+
+(2) 点两两之间的 Biopython 全局比对：替换数（gap 列数）
+   y1P0    y1P1    y1P2    y1P3    y1P4    y1P5    y0P0    y0P1    y0P2    y0P3    y0P4    y0P5   
+  y1P0   0( 0)    1( 1)    0( 1)    9(244)    0( 1)    1(255)    0( 0)    1( 1)    1( 1)    1( 1)    1( 1)    1(255) 
+  y1P1   1( 1)    0( 0)    1( 0)   10(243)    1( 0)    2(254)    1( 1)    2( 0)    2( 0)    2( 0)    2( 0)    2(254) 
+  y1P2   0( 1)    1( 0)    0( 0)    9(243)    0( 0)    1(254)    0( 1)    1( 0)    1( 0)    1( 0)    1( 0)    1(254) 
+  y1P3   9(244)   10(243)    9(243)    0( 0)    9(243)   10(11)    9(244)   10(243)   10(243)   10(243)   10(243)   10(11) 
+  y1P4   0( 1)    1( 0)    0( 0)    9(243)    0( 0)    1(254)    0( 1)    1( 0)    1( 0)    1( 0)    1( 0)    1(254) 
+  y1P5   1(255)    2(254)    1(254)   10(11)    1(254)    0( 0)    1(255)    2(254)    2(254)    2(254)    2(254)    0( 0) 
+  y0P0   0( 0)    1( 1)    0( 1)    9(244)    0( 1)    1(255)    0( 0)    1( 1)    1( 1)    1( 1)    1( 1)    1(255) 
+  y0P1   1( 1)    2( 0)    1( 0)   10(243)    1( 0)    2(254)    1( 1)    0( 0)    0( 0)    2( 0)    2( 0)    2(254) 
+  y0P2   1( 1)    2( 0)    1( 0)   10(243)    1( 0)    2(254)    1( 1)    0( 0)    0( 0)    2( 0)    2( 0)    2(254) 
+  y0P3   1( 1)    2( 0)    1( 0)   10(243)    1( 0)    2(254)    1( 1)    2( 0)    2( 0)    0( 0)    0( 0)    2(254) 
+  y0P4   1( 1)    2( 0)    1( 0)   10(243)    1( 0)    2(254)    1( 1)    2( 0)    2( 0)    0( 0)    0( 0)    2(254) 
+  y0P5   1(255)    2(254)    1(254)   10(11)    1(254)    0( 0)    1(255)    2(254)    2(254)    2(254)    2(254)    0( 0) 
+
+(3) 差异最大的 3 对点的完整比对
+
+--- y0P4（锚点 524，k*=0）  对  y0P5（锚点 390，k*=0）：替换 2，gap 列 254
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target           60 SETSDAKSTPTAEDVTAPLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLEDEAAG
+                 60 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+                120 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+                180 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          240 SRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGQVQIINKKLDLSNVQSKCGSKDNIKHV
+                240 --------------|||||||||||||||||||.||||||||||||||||.|||||||||
+query             0 --------------NVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKSGSKDNIKHV
+
+target          300 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            46 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+
+target          360 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           106 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          420 DSPQLATLADEVSASLAKQGL 441
+                420 ||||||||||||||||||||| 441
+query           166 DSPQLATLADEVSASLAKQGL 187
+
+
+--- y0P3（锚点 524，k*=0）  对  y0P5（锚点 390，k*=0）：替换 2，gap 列 254
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target           60 SETSDAKSTPTAEDVTAPLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLEDEAAG
+                 60 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+                120 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+                180 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          240 SRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGQVQIINKKLDLSNVQSKCGSKDNIKHV
+                240 --------------|||||||||||||||||||.||||||||||||||||.|||||||||
+query             0 --------------NVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKSGSKDNIKHV
+
+target          300 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            46 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+
+target          360 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           106 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          420 DSPQLATLADEVSASLAKQGL 441
+                420 ||||||||||||||||||||| 441
+query           166 DSPQLATLADEVSASLAKQGL 187
+
+
+--- y0P2（锚点 784，k*=0）  对  y0P5（锚点 390，k*=0）：替换 2，gap 列 254
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target           60 SETSDAKSTPTAEDVTAPLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLEDEAAG
+                 60 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+                120 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+                180 ------------------------------------------------------------
+query             0 ------------------------------------------------------------
+
+target          240 SRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKCGSKDNIKHV
+                240 --------------||||||||||||||||||||||||||||||||||||.|||||||||
+query             0 --------------NVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKSGSKDNIKHV
+
+target          300 LGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 .|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query            46 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+
+target          360 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           106 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          420 DSPQLATLADEVSASLAKQGL 441
+                420 ||||||||||||||||||||| 441
+query           166 DSPQLATLADEVSASLAKQGL 187
+
+
+=== conc 10 µM × SARS-CoV-2 N：12 个点（y=1 与 y=0 精确采样样本的沿线分位数点）
+
+(1) 每个点：锚点（真实序列）→ 新解码器的答案
+
+  y1 P0  坐标 (0.984, 0.126)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P1  坐标 (1.137, 0.174)  锚点 seq_row 853（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0090 → 0.0090  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P2  坐标 (1.463, 0.145)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P3  坐标 (1.116, -0.808)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P4  坐标 (1.479, -0.878)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P5  坐标 (1.618, -0.886)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P0  坐标 (0.937, 0.108)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P1  坐标 (1.107, 0.167)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0021 → 0.0021  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P2  坐标 (1.433, 0.148)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P3  坐标 (1.076, -0.809)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 12  D：0.0450 → 0.0326  替换：T263S;A397Q;G5S;K100G;S201G;Q306D;S21G;N213Q;T76L;I131V;G44W;Q418S  新序列：是
+  y0 P4  坐标 (1.381, -0.858)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P5  坐标 (1.548, -0.886)  锚点 seq_row 211（SARS-CoV-2 N，419 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+
+(2) 点两两之间的 Biopython 全局比对：替换数（gap 列数）
+   y1P0    y1P1    y1P2    y1P3    y1P4    y1P5    y0P0    y0P1    y0P2    y0P3    y0P4    y0P5   
+  y1P0   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y1P1   1( 0)    0( 0)    1( 0)    1( 0)    1( 0)    1( 0)    1( 0)    1( 0)    1( 0)   13( 0)    1( 0)    1( 0) 
+  y1P2   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y1P3   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y1P4   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y1P5   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y0P0   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y0P1   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y0P2   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y0P3  12( 0)   13( 0)   12( 0)   12( 0)   12( 0)   12( 0)   12( 0)   12( 0)   12( 0)    0( 0)   12( 0)   12( 0) 
+  y0P4   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+  y0P5   0( 0)    1( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)    0( 0)   12( 0)    0( 0)    0( 0) 
+
+(3) 差异最大的 3 对点的完整比对
+
+--- y1P1（锚点 853，k*=0）  对  y0P3（锚点 211，k*=12）：替换 13，gap 列 0
+target            0 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+                  0 ||||.|||||||||||||||.||||||||||||||||||||||.||||||||||||||||
+query             0 MSDNSPQNQRNAPRITFGGPGDSTGSNQNGERSGARSKQRRPQWLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMKDLSPRWAFYYLGTGPEAG
+                 60 |||||||||||||||.|||||||||||||||||||||||.||||||||.|||||||||||
+query            60 KEDLKFPRGQGVPINLNSSPDDQIGYYRRATRRIRGGDGGMKDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||.|||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIVWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+                180 ||||||||||||||||||||.|||||||||||.|||||||||||||||||||||||||||
+query           180 QASSRSSSRSRNSSRNSTPGGSRGTSPARMAGQGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 ||||||||||||||||||||||.|||||||||||||||||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRSATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||.||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           300 WPQIADFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+                360 ||||||||||||||||||||||||||||||||||||.||||||||||||||||||||.|
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPQADLDDFSKQLQQSMSSADSTSA
+
+target          419
+                419
+query           419
+
+
+--- y0P3（锚点 211，k*=12）  对  y0P5（锚点 211，k*=0）：替换 12，gap 列 0
+target            0 MSDNSPQNQRNAPRITFGGPGDSTGSNQNGERSGARSKQRRPQWLPNNTASWFTALTQHG
+                  0 ||||.|||||||||||||||.||||||||||||||||||||||.||||||||||||||||
+query             0 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINLNSSPDDQIGYYRRATRRIRGGDGGMKDLSPRWYFYYLGTGPEAG
+                 60 |||||||||||||||.|||||||||||||||||||||||.||||||||||||||||||||
+query            60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIVWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||.|||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 QASSRSSSRSRNSSRNSTPGGSRGTSPARMAGQGGDAALALLLLDRLNQLESKMSGKGQQ
+                180 ||||||||||||||||||||.|||||||||||.|||||||||||||||||||||||||||
+query           180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAAEASKKPRQKRSATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 ||||||||||||||||||||||.|||||||||||||||||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIADFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||.||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPQADLDDFSKQLQQSMSSADSTSA
+                360 ||||||||||||||||||||||||||||||||||||.||||||||||||||||||||.|
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+
+target          419
+                419
+query           419
+
+
+--- y0P3（锚点 211，k*=12）  对  y0P4（锚点 211，k*=0）：替换 12，gap 列 0
+target            0 MSDNSPQNQRNAPRITFGGPGDSTGSNQNGERSGARSKQRRPQWLPNNTASWFTALTQHG
+                  0 ||||.|||||||||||||||.||||||||||||||||||||||.||||||||||||||||
+query             0 MSDNGPQNQRNAPRITFGGPSDSTGSNQNGERSGARSKQRRPQGLPNNTASWFTALTQHG
+
+target           60 KEDLKFPRGQGVPINLNSSPDDQIGYYRRATRRIRGGDGGMKDLSPRWYFYYLGTGPEAG
+                 60 |||||||||||||||.|||||||||||||||||||||||.||||||||||||||||||||
+query            60 KEDLKFPRGQGVPINTNSSPDDQIGYYRRATRRIRGGDGKMKDLSPRWYFYYLGTGPEAG
+
+target          120 LPYGANKDGIVWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+                120 ||||||||||.|||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 LPYGANKDGIIWVATEGALNTPKDHIGTRNPANNAAIVLQLPQGTTLPKGFYAEGSRGGS
+
+target          180 QASSRSSSRSRNSSRNSTPGGSRGTSPARMAGQGGDAALALLLLDRLNQLESKMSGKGQQ
+                180 ||||||||||||||||||||.|||||||||||.|||||||||||||||||||||||||||
+query           180 QASSRSSSRSRNSSRNSTPGSSRGTSPARMAGNGGDAALALLLLDRLNQLESKMSGKGQQ
+
+target          240 QQGQTVTKKSAAEASKKPRQKRSATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+                240 ||||||||||||||||||||||.|||||||||||||||||||||||||||||||||||||
+query           240 QQGQTVTKKSAAEASKKPRQKRTATKAYNVTQAFGRRGPEQTQGNFGDQELIRQGTDYKH
+
+target          300 WPQIADFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+                300 |||||.||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           300 WPQIAQFAPSASAFFGMSRIGMEVTPSGTWLTYTGAIKLDDKDPNFKDQVILLNKHIDAY
+
+target          360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPQADLDDFSKQLQQSMSSADSTSA
+                360 ||||||||||||||||||||||||||||||||||||.||||||||||||||||||||.|
+query           360 KTFPPTEPKKDKKKKADETQALPQRQKKQQTVTLLPAADLDDFSKQLQQSMSSADSTQA
+
+target          419
+                419
+query           419
+
+
+=== conc 10 µM × TDP-43：12 个点（y=1 与 y=0 精确采样样本的沿线分位数点）
+
+(1) 每个点：锚点（真实序列）→ 新解码器的答案
+
+  y1 P0  坐标 (-0.092, 1.634)  锚点 seq_row 908（TDP-43，338 aa）  k* = 12  D：0.1633 → 0.1123  替换：F291W;P19L;D143E;D171T;P46K;A66G;E110I;I174V;D140E;D80E;S274L;V74I  新序列：是
+  y1 P1  坐标 (-0.053, 1.577)  锚点 seq_row 486（TDP-43，274 aa）  k* = 12  D：0.1820 → 0.1485  替换：E122D;V133A;T88A;C39S;F194L;P19S;V96P;Q118K;D219E;L270R;K82E;A90G  新序列：是
+  y1 P2  坐标 (-0.005, 1.541)  锚点 seq_row 384（TDP-43，414 aa）  k* = 0  D：0.0002 → 0.0002  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P3  坐标 (0.068, 1.508)  锚点 seq_row 384（TDP-43，414 aa）  k* = 0  D：0.0003 → 0.0003  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P4  坐标 (0.125, 1.491)  锚点 seq_row 384（TDP-43，414 aa）  k* = 0  D：0.0014 → 0.0014  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P5  坐标 (0.215, 1.480)  锚点 seq_row 908（TDP-43，338 aa）  k* = 12  D：0.1336 → 0.0920  替换：W336F;R192K;S182N;D109K;G262S;S299G;G222N;S266E;D89G;Q34H;E130D;S20T  新序列：是
+  y0 P0  坐标 (-0.088, 1.625)  锚点 seq_row 908（TDP-43，338 aa）  k* = 12  D：0.1182 → 0.0990  替换：T30S;D171T;E87G;V47E;G120S;I177V;Y77F;H62Q;T123P;P244A;V179I;N191E  新序列：是
+  y0 P1  坐标 (-0.053, 1.577)  锚点 seq_row 486（TDP-43，274 aa）  k* = 12  D：0.1820 → 0.1448  替换：K114A;T8A;K224R;D105Y;S144G;L270H;N179S;T233S;E271D;C175V;V161A;V57A  新序列：是
+  y0 P2  坐标 (0.004, 1.536)  锚点 seq_row 384（TDP-43，414 aa）  k* = 0  D：0.0003 → 0.0003  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P3  坐标 (0.068, 1.508)  锚点 seq_row 384（TDP-43，414 aa）  k* = 0  D：0.0003 → 0.0003  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P4  坐标 (0.135, 1.489)  锚点 seq_row 384（TDP-43，414 aa）  k* = 10  D：0.0870 → 0.0682  替换：G277T;K192R;M322V;Q327M;G300S;R268K;Q213K;S242T;L120I;G67S  新序列：是
+  y0 P5  坐标 (0.225, 1.480)  锚点 seq_row 908（TDP-43，338 aa）  k* = 12  D：0.1035 → 0.0779  替换：A245V;A315Q;D105A;R44K;G281N;I60V;G262Q;D65G;F200L;S299G;L56M;L172H  新序列：是
+
+(2) 点两两之间的 Biopython 全局比对：替换数（gap 列数）
+   y1P0    y1P1    y1P2    y1P3    y1P4    y1P5    y0P0    y0P1    y0P2    y0P3    y0P4    y0P5   
+  y1P0   0( 0)   16(216)   12(76)   12(76)   12(76)   24( 0)   22( 0)   17(216)   12(76)   12(76)   21(76)   24( 0) 
+  y1P1  16(216)    0( 0)   12(140)   12(140)   12(140)   16(216)   20(216)   23( 0)   12(140)   12(140)   18(140)   15(216) 
+  y1P2  12(76)   12(140)    0( 0)    0( 0)    0( 0)   12(76)   12(76)   12(140)    0( 0)    0( 0)   10( 0)   12(76) 
+  y1P3  12(76)   12(140)    0( 0)    0( 0)    0( 0)   12(76)   12(76)   12(140)    0( 0)    0( 0)   10( 0)   12(76) 
+  y1P4  12(76)   12(140)    0( 0)    0( 0)    0( 0)   12(76)   12(76)   12(140)    0( 0)    0( 0)   10( 0)   12(76) 
+  y1P5  24( 0)   16(216)   12(76)   12(76)   12(76)    0( 0)   24( 0)   14(216)   12(76)   12(76)   19(76)   21( 0) 
+  y0P0  22( 0)   20(216)   12(76)   12(76)   12(76)   24( 0)    0( 0)   18(216)   12(76)   12(76)   21(76)   24( 0) 
+  y0P1  17(216)   23( 0)   12(140)   12(140)   12(140)   14(216)   18(216)    0( 0)   12(140)   12(140)   18(140)   12(216) 
+  y0P2  12(76)   12(140)    0( 0)    0( 0)    0( 0)   12(76)   12(76)   12(140)    0( 0)    0( 0)   10( 0)   12(76) 
+  y0P3  12(76)   12(140)    0( 0)    0( 0)    0( 0)   12(76)   12(76)   12(140)    0( 0)    0( 0)   10( 0)   12(76) 
+  y0P4  21(76)   18(140)   10( 0)   10( 0)   10( 0)   19(76)   21(76)   18(140)   10( 0)   10( 0)    0( 0)   21(76) 
+  y0P5  24( 0)   15(216)   12(76)   12(76)   12(76)   21( 0)   24( 0)   12(216)   12(76)   12(76)   21(76)    0( 0) 
+
+(3) 差异最大的 3 对点的完整比对
+
+--- y1P1（锚点 486，k*=12）  对  y0P0（锚点 908，k*=12）：替换 20，gap 列 216
+target            0 MSEYIRVTEDENDEPIEISSEDDGTVLLSTVTAQFPGASGLRYRNPVSQCMRGVRLVEGI
+                  0 ||||||||||||||||||.||||||||||.||||||||.|||||||.|||||||||||||
+query             0 MSEYIRVTEDENDEPIEIPSEDDGTVLLSSVTAQFPGACGLRYRNPESQCMRGVRLVEGI
+
+target           60 LHAPDAGWGNLVYVVNYPKDNERKMDEADGSSAVKPKRAVQKTSDLIVLGLPWKTTEKDL
+                 60 |.||||||||||||||.||||.||||..|.|||||.|||||||||---------------
+query            60 LQAPDAGWGNLVYVVNFPKDNKRKMDGTDASSAVKVKRAVQKTSD---------------
+
+target          120 KDYFSTFGEVLMAQVKKDLKTGHSKGFGFVRFTEYETQVKVMSQRHMIDGRWCDCKLPNS
+                120 ------------------------------------------------------------
+query           105 ------------------------------------------------------------
+
+target          180 KQSQDEPLRSRKVLVGRCTEDMTEDELREFFSQYGDVMEVFIPKPFRAFAFVTFADDQIA
+                180 -||||||||||||.|.||.|||||||||||||||||||.|||||||||||||||||||||
+query           105 -QSQDEPLRSRKVFVSRCPEDMTEDELREFFSQYGDVMDVFIPKPFRAFAFVTFADDQIA
+
+target          240 QSLCGEDLIIKGISVHISNAEPKHNSNRQRERSG--------------------------
+                240 ||||||.|||||.|.|||||||||||.||.||||--------------------------
+query           164 QSLCGETLIIKGVSIHISNAEPKHNSERQLERSGRFGGNPGGFGNQGGFGNSRGGGAGLG
+
+target          274 ------------------------------------------------------------
+                300 ------------------------------------------------------------
+query           224 NNQGSNMGGGMNFGAFSINAAMMAAAQAALQSSWGMMGMLASQQNQSGPSGNNQNQGNMQ
+
+target          274 ------------------------------------------------------ 274
+                360 ------------------------------------------------------ 414
+query           284 REPNQAFGSGNNSYSGSNSGAAIGWGSASNAGSGSGFNGGFGSSMDSKSSGWGM 338
+
+
+--- y0P0（锚点 908，k*=12）  对  y0P1（锚点 486，k*=12）：替换 18，gap 列 216
+target            0 MSEYIRVTEDENDEPIEIPSEDDGTVLLSSVTAQFPGACGLRYRNPESQCMRGVRLVEGI
+                  0 |||||||.|||||||||||||||||||||.||||||||||||||||.|||||||||.|||
+query             0 MSEYIRVAEDENDEPIEIPSEDDGTVLLSTVTAQFPGACGLRYRNPVSQCMRGVRLAEGI
+
+target           60 LQAPDAGWGNLVYVVNFPKDNKRKMDGTDASSAVKVKRAVQKT-----------------
+                 60 |.||||||||||||||.|||||||||.||||||||||||||||-----------------
+query            60 LHAPDAGWGNLVYVVNYPKDNKRKMDETDASSAVKVKRAVQKTSYLIVLGLPWATTEQDL
+
+target          103 -----------------------------------------------------------S
+                120 -----------------------------------------------------------|
+query           120 KEYFSTFGEVLMVQVKKDLKTGHGKGFGFVRFTEYETQVKAMSQRHMIDGRWCDVKLPSS
+
+target          104 DQSQDEPLRSRKVFVSRCPEDMTEDELREFFSQYGDVMDVFIPKPFRAFAFVTFADDQIA
+                180 .||||||||||||||.||.||||||||||||||||||||||||.||||||||.|||||||
+query           180 KQSQDEPLRSRKVFVGRCTEDMTEDELREFFSQYGDVMDVFIPRPFRAFAFVSFADDQIA
+
+target          164 QSLCGETLIIKGVSIHISNAEPKHNSERQLERSGRFGGNPGGFGNQGGFGNSRGGGAGLG
+                240 ||||||.|||||.|.|||||||||||.||..|||--------------------------
+query           240 QSLCGEDLIIKGISVHISNAEPKHNSNRQHDRSG--------------------------
+
+target          224 NNQGSNMGGGMNFGAFSINAAMMAAAQAALQSSWGMMGMLASQQNQSGPSGNNQNQGNMQ
+                300 ------------------------------------------------------------
+query           274 ------------------------------------------------------------
+
+target          284 REPNQAFGSGNNSYSGSNSGAAIGWGSASNAGSGSGFNGGFGSSMDSKSSGWGM 338
+                360 ------------------------------------------------------ 414
+query           274 ------------------------------------------------------ 274
+
+
+--- y1P0（锚点 908，k*=12）  对  y0P1（锚点 486，k*=12）：替换 17，gap 列 216
+target            0 MSEYIRVTEDENDEPIEILSEDDGTVLLSTVTAQFPGACGLRYRNKVSQCMRGVRLVEGI
+                  0 |||||||.||||||||||.||||||||||||||||||||||||||.||||||||||.|||
+query             0 MSEYIRVAEDENDEPIEIPSEDDGTVLLSTVTAQFPGACGLRYRNPVSQCMRGVRLAEGI
+
+target           60 LHAPDGGWGNLVYIVNYPKENKRKMDETDASSAVKVKRAVQKT-----------------
+                 60 |||||.|||||||.|||||.|||||||||||||||||||||||-----------------
+query            60 LHAPDAGWGNLVYVVNYPKDNKRKMDETDASSAVKVKRAVQKTSYLIVLGLPWATTEQDL
+
+target          103 -----------------------------------------------------------S
+                120 -----------------------------------------------------------|
+query           120 KEYFSTFGEVLMVQVKKDLKTGHGKGFGFVRFTEYETQVKAMSQRHMIDGRWCDVKLPSS
+
+target          104 DQSQDIPLRSRKVFVGRCTEDMTEDELREFFSQYGEVMEVFIPKPFRAFAFVTFADDQIA
+                180 .||||.|||||||||||||||||||||||||||||.||.||||.||||||||.|||||||
+query           180 KQSQDEPLRSRKVFVGRCTEDMTEDELREFFSQYGDVMDVFIPRPFRAFAFVSFADDQIA
+
+target          164 QSLCGETLIVKGISVHISNAEPKHNSNRQLERSGRFGGNPGGFGNQGGFGNSRGGGAGLG
+                240 ||||||.||.|||||||||||||||||||..|||--------------------------
+query           240 QSLCGEDLIIKGISVHISNAEPKHNSNRQHDRSG--------------------------
+
+target          224 NNQGSNMGGGMNFGAFSINPAMMAAAQAALQSSWGMMGMLASQQNQSGPLGNNQNQGNMQ
+                300 ------------------------------------------------------------
+query           274 ------------------------------------------------------------
+
+target          284 REPNQAWGSGNNSYSGSNSGAAIGWGSASNAGSGSGFNGGFGSSMDSKSSGWGM 338
+                360 ------------------------------------------------------ 414
+query           274 ------------------------------------------------------ 274
+
+
+=== conc 10 µM × tau：12 个点（y=1 与 y=0 精确采样样本的沿线分位数点）
+
+(1) 每个点：锚点（真实序列）→ 新解码器的答案
+
+  y1 P0  坐标 (-1.780, -0.111)  锚点 seq_row 662（tau (MAPT)，440 aa）  k* = 4  D：0.0135 → 0.0134  替换：D65E;G27A;I391V;Q88H  新序列：是
+  y1 P1  坐标 (-1.374, -0.401)  锚点 seq_row 785（tau (MAPT)，441 aa）  k* = 0  D：0.0142 → 0.0142  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P2  坐标 (-1.456, -0.062)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0066 → 0.0066  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P3  坐标 (-1.350, -0.032)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0000 → 0.0000  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P4  坐标 (-1.080, -0.236)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0002 → 0.0002  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y1 P5  坐标 (-1.180, 0.087)  锚点 seq_row 699（tau (MAPT)，441 aa）  k* = 6  D：0.0397 → 0.0300  替换：L315F;K240R;A103T;T169A;S258T;E96D  新序列：是
+  y0 P0  坐标 (-1.750, -0.113)  锚点 seq_row 662（tau (MAPT)，440 aa）  k* = 0  D：0.0136 → 0.0136  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P1  坐标 (-1.358, -0.388)  锚点 seq_row 785（tau (MAPT)，441 aa）  k* = 0  D：0.0142 → 0.0142  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P2  坐标 (-1.268, -0.308)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 2  D：0.0085 → 0.0081  替换：A66T;T95A  新序列：是
+  y0 P3  坐标 (-1.196, -0.255)  锚点 seq_row 524（tau (MAPT)，441 aa）  k* = 0  D：0.0013 → 0.0013  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P4  坐标 (-1.260, 0.012)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 0  D：0.0029 → 0.0029  替换：无（答案 = 锚点）  新序列：否（k*=0，等于库内序列）
+  y0 P5  坐标 (-1.167, 0.102)  锚点 seq_row 391（tau (MAPT)，441 aa）  k* = 12  D：0.1014 → 0.0588  替换：G292R;E264D;E115D;K321R;E372D;V256I;Q276H;G60A;P78S;Y18F;S316T;L357F  新序列：是
+
+(2) 点两两之间的 Biopython 全局比对：替换数（gap 列数）
+   y1P0    y1P1    y1P2    y1P3    y1P4    y1P5    y0P0    y0P1    y0P2    y0P3    y0P4    y0P5   
+  y1P0   0( 0)    5( 1)    4( 1)    4( 1)    4( 1)   12( 1)    4( 0)    5( 1)    6( 1)    5( 1)    4( 1)   16( 1) 
+  y1P1   5( 1)    0( 0)    1( 0)    1( 0)    1( 0)    9( 0)    1( 1)    0( 0)    3( 0)    2( 0)    1( 0)   13( 0) 
+  y1P2   4( 1)    1( 0)    0( 0)    0( 0)    0( 0)    8( 0)    0( 1)    1( 0)    2( 0)    1( 0)    0( 0)   12( 0) 
+  y1P3   4( 1)    1( 0)    0( 0)    0( 0)    0( 0)    8( 0)    0( 1)    1( 0)    2( 0)    1( 0)    0( 0)   12( 0) 
+  y1P4   4( 1)    1( 0)    0( 0)    0( 0)    0( 0)    8( 0)    0( 1)    1( 0)    2( 0)    1( 0)    0( 0)   12( 0) 
+  y1P5  12( 1)    9( 0)    8( 0)    8( 0)    8( 0)    0( 0)    8( 1)    9( 0)   10( 0)    9( 0)    8( 0)   20( 0) 
+  y0P0   4( 0)    1( 1)    0( 1)    0( 1)    0( 1)    8( 1)    0( 0)    1( 1)    2( 1)    1( 1)    0( 1)   12( 1) 
+  y0P1   5( 1)    0( 0)    1( 0)    1( 0)    1( 0)    9( 0)    1( 1)    0( 0)    3( 0)    2( 0)    1( 0)   13( 0) 
+  y0P2   6( 1)    3( 0)    2( 0)    2( 0)    2( 0)   10( 0)    2( 1)    3( 0)    0( 0)    3( 0)    2( 0)   14( 0) 
+  y0P3   5( 1)    2( 0)    1( 0)    1( 0)    1( 0)    9( 0)    1( 1)    2( 0)    3( 0)    0( 0)    1( 0)   13( 0) 
+  y0P4   4( 1)    1( 0)    0( 0)    0( 0)    0( 0)    8( 0)    0( 1)    1( 0)    2( 0)    1( 0)    0( 0)   12( 0) 
+  y0P5  16( 1)   13( 0)   12( 0)   12( 0)   12( 0)   20( 0)   12( 1)   13( 0)   14( 0)   13( 0)   12( 0)    0( 0) 
+
+(3) 差异最大的 3 对点的完整比对
+
+--- y1P5（锚点 699，k*=6）  对  y0P5（锚点 391，k*=12）：替换 20，gap 列 0
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 |||||||||||||||||.|||||||||||||||||||||||||||||||||||||||||.
+query             0 MAEPRQEFEVMEDHAGTFGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPA
+
+target           60 SETSDAKSTPTAEDVTAPLVDEGAPGKQAAAQPHTDIPEGTTTEEAGIGDTPSLEDEAAG
+                 60 |||||||||||||||||.|||||||||||||||||.||||||.|||||||||||.|||||
+query            60 SETSDAKSTPTAEDVTASLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLDDEAAG
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANAARIPAKTPPAPK
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||.|||||||||||
+query           120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAR
+                180 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||.
+query           180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+
+target          240 SRLQTAPVPMPDLKNVKTKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKSGSKDNIKHV
+                240 |||||||||||||||.|.|||||.|||||||||||.||||||||||||||..||||||||
+query           240 SRLQTAPVPMPDLKNIKSKIGSTDNLKHQPGGGKVHIINKKLDLSNVQSKCRSKDNIKHV
+
+target          300 PGGGSVQIVYKPVDFSKVTSKSGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 ||||||||||||||..||||..||||||||||||||||||||||||||||||||||.|||
+query           300 PGGGSVQIVYKPVDLTKVTSRCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSFDNI
+
+target          360 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 |||||||||||.||||||||||||||||||||||||||||||||||||||||||||||||
+query           360 THVPGGGNKKIDTHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          420 DSPQLATLADEVSASLAKQGL 441
+                420 ||||||||||||||||||||| 441
+query           420 DSPQLATLADEVSASLAKQGL 441
+
+
+--- y1P0（锚点 662，k*=4）  对  y0P5（锚点 391，k*=12）：替换 16，gap 列 1
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQAGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 |||||||||||||||||.||||||||.||||||||||||||||||||||||||||||||.
+query             0 MAEPRQEFEVMEDHAGTFGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPA
+
+target           60 SETSEAKSTPTAEDVTAPLVDEGAPGKHAAAQPHTEIPEGTTAEEAGIGDTPSLEDEAAG
+                 60 ||||.||||||||||||.|||||||||.||||||||||||||||||||||||||.|||||
+query            60 SETSDAKSTPTAEDVTASLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLDDEAAG
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+                180 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+
+target          240 SRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGKVQIIN-KLDLSNVQSKCGSKDNIKHV
+                240 |||||||||||||||.|||||||.|||||||||||.|||-|||||||||||.||||||||
+query           240 SRLQTAPVPMPDLKNIKSKIGSTDNLKHQPGGGKVHIINKKLDLSNVQSKCRSKDNIKHV
+
+target          299 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 |||||||||||||||.||||.|||||||||||||||||||||||||||||||||||.|||
+query           300 PGGGSVQIVYKPVDLTKVTSRCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSFDNI
+
+target          359 THVPGGGNKKIETHKLTFRENAKAKTDHGAEVVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 |||||||||||.|||||||||||||||||||.||||||||||||||||||||||||||||
+query           360 THVPGGGNKKIDTHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          419 DSPQLATLADEVSASLAKQGL 440
+                420 ||||||||||||||||||||| 441
+query           420 DSPQLATLADEVSASLAKQGL 441
+
+
+--- y0P2（锚点 391，k*=2）  对  y0P5（锚点 391，k*=12）：替换 14，gap 列 0
+target            0 MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPG
+                  0 |||||||||||||||||.|||||||||||||||||||||||||||||||||||||||||.
+query             0 MAEPRQEFEVMEDHAGTFGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPA
+
+target           60 SETSDTKSTPTAEDVTAPLVDEGAPGKQAAAQPHAEIPEGTTAEEAGIGDTPSLEDEAAG
+                 60 |||||.|||||||||||.||||||||||||||||.|||||||||||||||||||.|||||
+query            60 SETSDAKSTPTAEDVTASLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLDDEAAG
+
+target          120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+                120 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           120 HVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPK
+
+target          180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+                180 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+query           180 TPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAK
+
+target          240 SRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKCGSKDNIKHV
+                240 |||||||||||||||.|||||||.|||||||||||.|||||||||||||||.||||||||
+query           240 SRLQTAPVPMPDLKNIKSKIGSTDNLKHQPGGGKVHIINKKLDLSNVQSKCRSKDNIKHV
+
+target          300 PGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNI
+                300 |||||||||||||||.||||.|||||||||||||||||||||||||||||||||||.|||
+query           300 PGGGSVQIVYKPVDLTKVTSRCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSFDNI
+
+target          360 THVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+                360 |||||||||||.||||||||||||||||||||||||||||||||||||||||||||||||
+query           360 THVPGGGNKKIDTHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMV
+
+target          420 DSPQLATLADEVSASLAKQGL 441
+                420 ||||||||||||||||||||| 441
+query           420 DSPQLATLADEVSASLAKQGL 441
+
+
