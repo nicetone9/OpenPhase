@@ -30,6 +30,7 @@ The map is a t-SNE of this distance (UMAP views are alternatives). The weights a
 * **Try your own experiment:** paste a sequence, describe the conditions in words or fill the boxes, or load an entry from a tool. The page parses the conditions with the rules of the dataset's own parser, computes the distance to all records and shows the nearest records, how well that region is covered and the label share among the 15 nearest.
   It does **not** predict phase separation: neighbours from the same paper share the label (AUROC 0.84), neighbours from other papers and proteins barely do (0.50 with protein similarity, 0.59 with conditions only).
   New sequences get an exact ESMC embedding only when they are in the dataset or are one of the built-in examples; any other pasted sequence gets a rough in-browser approximation (composition and dipeptide regression), and the page says so.
+* **Systems:** a bar under the title lists the 16 system types of the colour table (protein(1) to protein(≥4), RNA only and the RNA types, DNA only and the DNA types, Other, C<sub>sat</sub> pool), each in its own colour. The four single-protein types filter the map of records and colour it by system type (a second click clears the filter). The multi-protein types open **Systems mode**, described below; RNA only and DNA only have no protein sequence and are listed as tables.
 
 ## Negatives and unlabelled proteins (`negatives/`)
 
@@ -49,13 +50,15 @@ An entry with no record has no system, so the page infers one:
 
 [`figs/FigR6_coloring_gallery.png`](figs/FigR6_coloring_gallery.png) has one row per system type of the colour table (dot size = share of the type's records in a column, grey = how much more or less than expected over all records, log2) for the label split, the source and a set of proteins, and below it eight representative colourings of the same t-SNE: system type, protein, label, source, temperature, NaCl, protein concentration and missing blocks. The single-protein rows come from the records here; the multi-protein rows come from the system-level table behind Fig. S1. It is drawn by `scripts/rs20_coloring_figure.py` (`scripts/run_fig6_local.sh`, which also reads the system tables in `data/systems/`); the numbers behind it are in `figs/FigR6_coloring_gallery.source_data_a.csv` and `..._b.csv`.
 
-## Multi-protein systems (`systems/`)
+## Systems mode (multi-protein systems)
 
-Fig. S1 as a page: one map per system type (protein(2), protein(3), protein(≥4), + RNA, + DNA, protein(3) + NA, with complex), one dot per unique system, placed by the ESMC-600M embeddings of its components. Each map is its own t-SNE, so axes are not comparable across maps. The page holds system-level information only (components, records, positive and negative counts, sources); conditions are not part of it. Four systems whose records all come from laboratory notebooks are left out, as those records are not in the published tables. `scripts/rs21_build_systems.py` builds it from `data/systems/`, a filtered copy of the project's system tables that is not part of this repository. Parameters: `g` (`p2`, `p3`, `p4`, `p2r`, `p2d`, `p3na`, `cx`), `by` (`anchor`, `type`, `pos`, `rec`), `q` (a component), `sys` (a system id), for example `systems/#g=p2r&by=pos&q=G3BP1`.
+Fig. S1 inside the explorer: one map per group of system types (protein(2), protein(3), protein(≥4), protein(2) + RNA, protein(2) + DNA, protein(3) + NA, with complex), one dot per unique system (the set of its components, without concentrations), placed by the ESMC-600M embeddings of its components. Pick a type in the bar and the map of its group opens; where a map holds several types, the systems of the picked type are ringed and the others dimmed. Each map is its own t-SNE, so axes are not comparable across maps. Colour by the most frequent named component, system type, positive share of the labelled records or number of records; find every system that contains a component; hover or click a dot for its components (UniProt links), nucleic acid, sources and counts.
+
+Systems mode holds system-level information only (components, records, positive and negative counts, sources). Conditions are not part of it, and the multi-protein records are not in the map of single-protein records. Four systems whose records all come from laboratory notebooks are left out, as those records are not in the published tables. `scripts/rs21_build_systems.py` builds the table from `data/systems/`, a filtered copy of the project's system tables that is not part of this repository; the interface is `systems_page/sy_pane.{js,css,html}`, which `scripts/rs05_build_explorer.py` embeds in the explorer. An earlier stand-alone page (`records_space/systems/`) was merged into the explorer, and its address now redirects to Systems mode.
 
 ## Site and links
 
-The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer), `records_space/systems/` (multi-protein systems) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
+The pages are served by GitHub Pages from this repository: `index.html` (home, with the two system figures), `records_space/` (the explorer, with Systems mode) and `records_space/negatives/` (negatives and unlabelled proteins). The home page is built by `scripts/rs17_build_site.py` from `home_page/home_template.html`. Each page has a light / dark switch; the choice is remembered in the browser and shared by the three pages.
 
 The explorer takes its starting state from the address, so a link can open it on a system or a source:
 
@@ -68,6 +71,9 @@ The explorer takes its starting state from the address, so a link can open it on
 | `by` | what to colour by: `system` (system type), `protein`, `ps`, `source`, `na_class`, … (the keys of the *Color by* menu) | `#by=system` |
 | `q` | text for the find box | `#q=P35637` |
 | `lens` | `tsne_full`, `umap_full`, `umap_prot`, `umap_cond`, `umap_fullM`, `umap_universe` | `#lens=umap_universe` |
+| `mode` | `systems` (Systems mode), `try` (Try your own experiment) | `#mode=systems` |
+| `g`, `t` | with `mode=systems`: the map, `p2`, `p3`, `p4`, `p2r`, `p2d`, `p3na`, `cx`, or a system type code (`p3r`, `p4d`, `rna`, …) | `#mode=systems&g=p2r` |
+| `sby`, `q`, `sys` | with `mode=systems`: colour by `anchor`, `type`, `pos` or `rec`; the find box; a system id | `#mode=systems&g=p2r&sby=pos&q=G3BP1` |
 
 ## Folder
 
@@ -78,6 +84,8 @@ export/               arrays the page embeds: record conditions, k-mer sketches 
 scripts/              input building, page building, example and tool tables (paths are those of the original machine)
 colab/                code that ran on Colab (embeddings, distances, t-SNE/UMAP, figures, export)
 negatives/            the negatives and unlabelled proteins page (built by scripts/rs16_build_pu.py)
+systems/              a one-line redirect to Systems mode (the page that used to be here is now part of the explorer)
+systems_page/         Systems mode: interface code (sy_pane.js, .css, .html) and the numbers the home page quotes (summary.json)
 figs/                 static figures of the map
 ```
 

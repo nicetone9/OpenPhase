@@ -1,0 +1,17 @@
+<section class="sy" id="sysPane" hidden aria-label="Multi-protein systems">
+      <aside class="sy-rail">
+        <div class="sy-grp"><label for="syBy">Colour by</label><select id="syBy"><option value="anchor">Most frequent named component</option><option value="type">System type</option><option value="pos">Positive share of labelled records</option><option value="rec">Records per system</option></select></div>
+        <div class="sy-grp"><label for="syFq">Find a component</label><input type="search" id="syFq" placeholder="FUS, P35637, polyU…" autocomplete="off" spellcheck="false"><div class="sy-matches" id="syMatches"></div></div>
+        <button id="syReset" type="button">Reset view</button>
+        <p class="sy-hint">Pick a system type in the bar above. Scroll to zoom, drag to pan, click a dot to pin it.</p>
+      </aside>
+      <div class="sy-stage">
+        <div class="sy-wrap" id="syWrap"><canvas id="syCv" role="img" aria-label="Map of the systems of one type"></canvas>
+          <div class="sy-zoom"><button id="syZin" type="button" aria-label="Zoom in">+</button><button id="syZout" type="button" aria-label="Zoom out">−</button><button id="syZfit" type="button">Fit</button></div>
+          <div class="sy-count" id="syCount"></div></div>
+        <div class="sy-list" id="syList" hidden></div>
+        <div class="sy-legend" id="syLegend"></div>
+        <p class="sy-hint" id="syNote"></p>
+      </div>
+      <aside class="sy-card" id="syCard" aria-live="polite"></aside>
+    </section>

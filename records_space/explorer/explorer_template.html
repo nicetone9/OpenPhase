@@ -149,6 +149,7 @@ details.more ul{ margin:8px 0 0; padding-left:1.1em; color:var(--mute); }
 sub{ font-size:0.72em; line-height:0; }
 .g-fill{ background:var(--accent); border:1px solid var(--canvas); } .g-ring{ border:1.5px solid var(--neutral2); }
 .hlnote button{ font-size:0.74rem; padding:2px 9px; }
+/*__SYSCSS__*/
 </style>
 
 <div class="app">
@@ -158,23 +159,24 @@ sub{ font-size:0.72em; line-height:0; }
     <p class="sub" id="sub"></p>
     <div class="modes" role="group" aria-label="Mode">
       <button id="modeExplore" class="mode on" type="button" aria-pressed="true">Explore</button>
+      <button id="modeSys" class="mode" type="button" aria-pressed="false">Systems</button>
       <button id="modeTry" class="mode" type="button" aria-pressed="false">Try your own experiment</button>
     </div>
-    <a class="home" id="sysLink" href="systems/" hidden>Multi-protein systems &rarr;</a>
     <button id="themeBtn" class="theme" type="button" aria-label="Switch light or dark mode">&#9790;</button>
   </header>
   <script>
   (function () {
-    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink"), sysl = document.getElementById("sysLink");
+    var root = document.documentElement, KEY = "openphase-theme", btn = document.getElementById("themeBtn"), home = document.getElementById("homeLink");
     var sys = function () { return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; };
     var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
     function show(t) { if (btn) { btn.textContent = t === "dark" ? "\u2600" : "\u263E"; btn.title = t === "dark" ? "Switch to light mode" : "Switch to dark mode"; btn.setAttribute("aria-label", btn.title); } }
     var cur = (saved === "light" || saved === "dark") ? saved : (root.getAttribute("data-theme") || sys());
     root.setAttribute("data-theme", cur); show(cur);
     if (btn) btn.addEventListener("click", function () { var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; root.setAttribute("data-theme", next); show(next); try { localStorage.setItem(KEY, next); } catch (e) {} });
-    if (/github\.io$|^localhost$|^127\./.test(location.hostname)) { if (home) home.hidden = false; if (sysl) sysl.hidden = false; }
+    if (home && /github\.io$|^localhost$|^127\./.test(location.hostname)) home.hidden = false;
   })();
   </script>
+  <nav class="sysbar" id="sysBar" aria-label="System type"></nav>
   <div class="layout" id="layout">
     <aside class="rail" id="rail" aria-label="Controls">
       <div class="grp"><span class="lab">Show</span>
@@ -194,7 +196,8 @@ sub{ font-size:0.72em; line-height:0; }
       <p class="hint">Scroll to zoom, drag to pan, click a point to pin it.</p>
     </aside>
     <aside class="try" id="tryPane" hidden aria-label="Try your own experiment"></aside>
-    <main class="stage">
+    <!--__SYSHTML__-->
+    <main class="stage" id="stage">
       <div class="toolbar">
         <div class="grp"><label for="lens">Map</label><select id="lens"></select></div>
         <div class="grp"><label for="colorby">Color by</label><select id="colorby"></select></div>
@@ -218,6 +221,7 @@ sub{ font-size:0.72em; line-height:0; }
 <script>/*__CONDPARSER__*/</script>
 <script>/*__RECORDSSPACE__*/</script>
 <script>/*__TRYPANEL__*/</script>
+<script>/*__SYSJS__*/</script>
 <script>
 const DATA = /*__DATA__*/null;
 (function () {
@@ -756,6 +760,8 @@ const DATA = /*__DATA__*/null;
   function applyHash() {
     const h = location.hash.replace(/^#/, ""); if (!h) return;
     const P = new URLSearchParams(h), has = (id, v) => [...$(id).options].some(o => o.value === v);
+    if (P.get("mode") === "systems") { setMode("systems"); ensureSys().applyParams(P); updateSysBar(); return; }
+    if (S.mode === "systems") setMode("explore");
     $("lens").value = P.has("lens") && has("lens", P.get("lens")) ? P.get("lens") : (D.emb.tsne_full ? "tsne_full" : Object.keys(D.emb)[0]);
     $("colorby").value = P.has("by") && has("colorby", "cat:" + P.get("by")) ? "cat:" + P.get("by") : "cat:protein";
     $("fNA").value = P.has("na") && has("fNA", P.get("na")) ? P.get("na") : "any";
@@ -782,7 +788,7 @@ const DATA = /*__DATA__*/null;
     S.text = $("fText").value; S.psize = parseFloat($("psize").value); S.style = $("mapstyle").value; S.outline = $("outline").value;
     refresh();
   }
-  function refresh() { applyFilters(); computeColors(); buildLegend(); buildCard(); render(); }
+  function refresh() { applyFilters(); computeColors(); buildLegend(); buildCard(); render(); updateSysBar(); }
   function refreshLight() { buildCard(); render(); }
   function fit() { S.k = 1; S.tx = 0; S.ty = 0; render(); }
   function resetAll() {
@@ -945,12 +951,54 @@ const DATA = /*__DATA__*/null;
   }
   function setMode(m) {
     S.mode = m;
-    $("layout").classList.toggle("try-mode", m === "try");
-    $("rail").hidden = m === "try"; $("tryPane").hidden = m !== "try";
-    $("modeExplore").classList.toggle("on", m === "explore"); $("modeTry").classList.toggle("on", m === "try");
-    $("modeExplore").setAttribute("aria-pressed", String(m === "explore")); $("modeTry").setAttribute("aria-pressed", String(m === "try"));
+    const sys = m === "systems";
+    $("layout").classList.toggle("try-mode", m === "try"); $("layout").classList.toggle("sys-mode", sys);
+    $("rail").hidden = m === "try" || sys; $("tryPane").hidden = m !== "try";
+    $("stage").hidden = sys; $("card").hidden = sys; $("sysPane").hidden = !sys; $("sysBar").hidden = m === "try";
+    for (const [id, name] of [["modeExplore", "explore"], ["modeSys", "systems"], ["modeTry", "try"]]) { $(id).classList.toggle("on", m === name); $(id).setAttribute("aria-pressed", String(m === name)); }
     if (m === "try") { resetAll(); ensureTry(); }
+    if (sys) { const a = ensureSys(); if (a.firstTime()) a.select("protein(2)"); a.show(); }
     resize(); refresh();
+  }
+
+  // ---------- system bar: all 16 system types of the colour table; single-protein types filter this map, the others open their system map ----------
+  const fmtn = (n) => n.toLocaleString("en-US");
+  let sysApi = null;
+  function ensureSys() { if (sysApi) return sysApi; sysApi = initSystems({ D: D.systems, $, el, css }); return sysApi; }
+  const SINGLE_SEL = { p1: ["none", true, false], p1r: ["RNA", true, false], p1d: ["DNA", true, false], csat: ["any", false, true] };
+  function activeSingle() {
+    if (S.showBin && !S.showCsat) return S.na === "none" ? "p1" : S.na === "RNA" ? "p1r" : S.na === "DNA" ? "p1d" : "";
+    if (!S.showBin && S.showCsat && S.na === "any") return "csat";
+    return "";
+  }
+  function buildSysBar() {
+    const bar = $("sysBar"); bar.textContent = ""; bar.appendChild(el("span", "sb-lab", "System"));
+    const gaps = new Set(["protein(\u22654)", "protein(\u22654) + RNA", "protein(\u22654) + DNA", "Other"]);
+    D.systems.types.forEach((t) => {
+      const b = el("button", "sb-chip" + (t.kind === "list" ? " sb-list" : "")); b.type = "button"; b.dataset.t = t.name; b.setAttribute("aria-pressed", "false");
+      b.style.setProperty("--f", t.fill); b.style.setProperty("--p", t.point);
+      b.title = fmtn(t.systems) + (t.systems === 1 ? " system" : " systems") + " · " + fmtn(t.records) + (t.records === 1 ? " record" : " records") + (t.kind === "single" ? " — filters the records map" : t.kind === "map" ? " — opens its system map" : " — no protein sequence, so a list");
+      b.append(elSub("b", null, t.name), el("span", null, t.kind === "single" ? fmtn(t.records) + " records" : fmtn(t.systems) + (t.systems === 1 ? " system" : " systems")));
+      b.addEventListener("click", () => pickType(t));
+      bar.appendChild(b); if (gaps.has(t.name)) bar.appendChild(el("span", "sb-gap"));
+    });
+  }
+  function updateSysBar() {
+    const bar = $("sysBar"); if (!bar.childElementCount) return;
+    let on = "";
+    if (S.mode === "systems" && sysApi) on = sysApi.state().type;
+    else if (S.mode === "explore") { const t = D.systems.types.find((x) => x.kind === "single" && x.code === activeSingle()); on = t ? t.name : ""; }
+    bar.querySelectorAll(".sb-chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.t === on)));
+  }
+  function pickType(t) {
+    if (t.kind === "single") {
+      const wasOn = S.mode === "explore" && activeSingle() === t.code;
+      if (S.mode !== "explore") setMode("explore");
+      const c = wasOn ? ["any", true, true] : SINGLE_SEL[t.code];
+      $("fNA").value = c[0]; $("showBin").checked = c[1]; $("showCsat").checked = c[2]; if (!wasOn) $("colorby").value = "cat:system";
+      readControls(); refresh();
+    } else { setMode("systems"); ensureSys().select(t.name); }
+    updateSysBar();
   }
 
   function init() {
@@ -964,7 +1012,9 @@ const DATA = /*__DATA__*/null;
     ["lens", "colorby", "mapstyle", "outline", "showBin", "showCsat", "fNA", "fTS", "fCsat", "tMin", "tMax", "fText", "psize"].forEach(id => { $(id).addEventListener(id === "fText" || id === "tMin" || id === "tMax" || id === "psize" ? "input" : "change", readControls); });
     $("reset").addEventListener("click", resetAll);
     $("modeExplore").addEventListener("click", () => setMode("explore"));
+    $("modeSys").addEventListener("click", () => setMode("systems"));
     $("modeTry").addEventListener("click", () => setMode("try"));
+    buildSysBar();
     if (D.tools) { populateHL(); $("hl").addEventListener("change", () => setHighlight($("hl").value)); } else $("hl").parentElement.hidden = true;
     $("zin").addEventListener("click", () => zoomAt(W / 2, H / 2, 1.4));
     $("zout").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.4));

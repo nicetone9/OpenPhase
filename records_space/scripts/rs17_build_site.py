@@ -52,18 +52,18 @@ HOT_B = [   # (形状, 几何, 链接, 提示)
     ("circle", (1172, 290, 85), P + "#hl=ausserwoger&csat=only", "Ausserwöger 2025, Csat"),
     ("circle", (1195, 465, 68), P + "#hl=bremer&csat=only", "Bremer 2022, Csat"),
 ]
-S_ = "records_space/systems/"
+S_ = "records_space/#mode=systems&"
 HOT_A = [   # each panel opens the system-level map of its type (#g=<key>)
-    ("rect", (30, 165, 520, 720), S_ + "#g=p2", "protein(2): 953 systems, 4,406 records"),
-    ("rect", (520, 165, 1000, 720), S_ + "#g=p3", "protein(3): 114 systems, 547 records"),
-    ("rect", (1000, 165, 1480, 720), S_ + "#g=p4", "protein(≥4): 47 systems, 167 records"),
-    ("rect", (1480, 165, 1965, 720), S_ + "#g=p2r", "protein(2) + RNA: 88 systems, 313 records"),
-    ("rect", (30, 765, 520, 1320), S_ + "#g=p2d", "protein(2) + DNA: 24 systems, 38 records"),
-    ("rect", (520, 765, 1000, 1320), S_ + "#g=p3na", "protein(3) + NA: 21 systems, 156 records"),
-    ("rect", (1000, 765, 1480, 1320), S_ + "#g=cx", "With complex: 15 systems, 57 records"),
+    ("rect", (30, 165, 520, 720), S_ + "g=p2", "protein(2): 953 systems, 4,406 records"),
+    ("rect", (520, 165, 1000, 720), S_ + "g=p3", "protein(3): 114 systems, 547 records"),
+    ("rect", (1000, 165, 1480, 720), S_ + "g=p4", "protein(≥4): 47 systems, 167 records"),
+    ("rect", (1480, 165, 1965, 720), S_ + "g=p2r", "protein(2) + RNA: 88 systems, 313 records"),
+    ("rect", (30, 765, 520, 1320), S_ + "g=p2d", "protein(2) + DNA: 24 systems, 38 records"),
+    ("rect", (520, 765, 1000, 1320), S_ + "g=p3na", "protein(3) + NA: 21 systems, 156 records"),
+    ("rect", (1000, 765, 1480, 1320), S_ + "g=cx", "With complex: 15 systems, 57 records"),
 ]
-CHIPS_A = [("protein(2)", S_ + "#g=p2"), ("protein(3)", S_ + "#g=p3"), ("protein(≥4)", S_ + "#g=p4"), ("protein(2) + RNA", S_ + "#g=p2r"),
-           ("protein(2) + DNA", S_ + "#g=p2d"), ("protein(3) + NA", S_ + "#g=p3na"), ("With complex", S_ + "#g=cx")]
+CHIPS_A = [("protein(2)", S_ + "g=p2"), ("protein(3)", S_ + "g=p3"), ("protein(≥4)", S_ + "g=p4"), ("protein(2) + RNA", S_ + "g=p2r"),
+           ("protein(2) + DNA", S_ + "g=p2d"), ("protein(3) + NA", S_ + "g=p3na"), ("With complex", S_ + "g=cx")]
 CHIPS_B = [("Protein only", P + "#na=none&csat=hide"), ("+ RNA", P + "#na=RNA&csat=hide"), ("+ DNA", P + "#na=DNA&csat=hide"), ("Csat pool", P + "#csat=only"), ("FUS", P + "#protein=FUS"),
            ("LLPSDB v2", P + "#hl=llpsdb"), ("LLPSense", P + "#hl=llpsense"), ("RNAPSEC", P + "#hl=rnapsec"), ("PhaSepDB 3", P + "#hl=phasepdb3"),
            ("Bremer 2022", P + "#hl=bremer&csat=only"), ("Ausserwöger 2025", P + "#hl=ausserwoger&csat=only")]
@@ -101,7 +101,7 @@ hs_a = "\n      ".join(hs(s, g, WA, HA, h, lab) for s, g, h, lab in HOT_A)
 chips = "".join(f'<a class="chip" href="{h}">{n}</a>' for n, h in CHIPS_B)
 chips_a = "".join(f'<a class="chip" href="{h}">{n}</a>' for n, h in CHIPS_A)
 import json
-S_TOT = json.load(open(f"{ROOT}/systems_page/summary.json"))["total"]
+S_TOT = json.load(open(f"{ROOT}/systems_page/summary.json"))["total"]       # written by scripts/rs21_build_systems.py
 tpl = open(f"{ROOT}/home_page/home_template.html", encoding="utf-8").read()
 for ph, val in (("{{HS_B}}", hs_b), ("{{HS_A}}", hs_a), ("{{CHIPS_B}}", chips), ("{{CHIPS_A}}", chips_a), ("{{S_SYSTEMS}}", f"{S_TOT['systems']:,}"), ("{{S_RECORDS}}", f"{S_TOT['records']:,}"), ("{{LOGO_W}}", "2172"), ("{{LOGO_H}}", "724")):
     assert tpl.count(ph) == 1, ph
@@ -112,7 +112,14 @@ open(f"{SITE}/index.html", "w", encoding="utf-8").write(tpl)
 os.makedirs(f"{SITE}/records_space/negatives", exist_ok=True)
 shutil.copy(f"{ROOT}/explorer/records_space_explorer.html", f"{SITE}/records_space/index.html")
 shutil.copy(f"{ROOT}/pu_page/index.html", f"{SITE}/records_space/negatives/index.html")
+# The multi-protein system maps are the "Systems" mode of the explorer, not a page of their own. The earlier address stays as a one-line redirect so that links made before the merge still work.
 os.makedirs(f"{SITE}/records_space/systems", exist_ok=True)
-shutil.copy(f"{ROOT}/systems_page/index.html", f"{SITE}/records_space/systems/index.html")
+open(f"{SITE}/records_space/systems/index.html", "w", encoding="utf-8").write(
+    '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+    '<title>Systems has moved</title><meta name="robots" content="noindex"><link rel="canonical" href="../">'
+    '<meta http-equiv="refresh" content="0; url=../#mode=systems">'
+    '<style>body{font:16px/1.5 system-ui,sans-serif;margin:3rem 1rem;color:#17212B}a{color:#1B6FA8}</style></head><body>'
+    '<p>The multi-protein system maps are now the <b>Systems</b> mode of the <a href="../#mode=systems">Records space</a>. Taking you there.</p>'
+    '<script>var h=location.hash.replace(/^#/,"");location.replace("../#mode=systems"+(h?"&"+h:""));</script></body></html>\n')
 for rel in ("index.html", "assets/openphase-main.webp", "assets/openphase-wordmark.webp", "assets/fig-protein1-systems.webp", "assets/fig-multi-protein-systems.webp", "records_space/index.html", "records_space/negatives/index.html", "records_space/systems/index.html"):
     print(f"{os.path.getsize(f'{SITE}/{rel}') / 1e3:9.0f} KB  {rel}")

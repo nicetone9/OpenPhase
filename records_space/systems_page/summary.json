@@ -1,0 +1,275 @@
+{
+ "groups": {
+  "protein(2)": {
+   "drawn": 953,
+   "records": 4406,
+   "pos": 2243,
+   "neg": 2041,
+   "anchors": [
+    [
+     "FUS",
+     79
+    ],
+    [
+     "HNRNPK",
+     27
+    ],
+    [
+     "NPM1",
+     21
+    ],
+    [
+     "tau (MAPT)",
+     21
+    ],
+    [
+     "MeCP2",
+     17
+    ],
+    [
+     "Q15648",
+     15
+    ]
+   ],
+   "systems_in_group": 954,
+   "no_sequence": 1,
+   "records_in_group": 6083
+  },
+  "protein(3)": {
+   "drawn": 114,
+   "records": 547,
+   "pos": 290,
+   "neg": 230,
+   "anchors": [
+    [
+     "P22629",
+     15
+    ],
+    [
+     "FUS",
+     10
+    ],
+    [
+     "LAT",
+     8
+    ],
+    [
+     "Q6PIF6",
+     5
+    ]
+   ],
+   "systems_in_group": 115,
+   "no_sequence": 1,
+   "records_in_group": 548
+  },
+  "protein(≥4)": {
+   "drawn": 47,
+   "records": 167,
+   "pos": 121,
+   "neg": 42,
+   "anchors": [
+    [
+     "DLG4",
+     13
+    ],
+    [
+     "ATG29",
+     7
+    ]
+   ],
+   "systems_in_group": 47,
+   "no_sequence": 0,
+   "records_in_group": 167
+  },
+  "protein(2) + RNA": {
+   "drawn": 84,
+   "records": 128,
+   "pos": 94,
+   "neg": 13,
+   "anchors": [
+    [
+     "G3BP1",
+     21
+    ],
+    [
+     "PTBP1",
+     12
+    ],
+    [
+     "SARS-CoV-2 N",
+     8
+    ],
+    [
+     "DHH1",
+     5
+    ],
+    [
+     "CAPRIN1",
+     3
+    ]
+   ],
+   "systems_in_group": 89,
+   "no_sequence": 1,
+   "records_in_group": 314
+  },
+  "protein(2) + DNA": {
+   "drawn": 24,
+   "records": 38,
+   "pos": 32,
+   "neg": 6,
+   "anchors": [
+    [
+     "MeCP2",
+     8
+    ],
+    [
+     "ftsZ",
+     3
+    ],
+    [
+     "P22629",
+     2
+    ]
+   ],
+   "systems_in_group": 25,
+   "no_sequence": 1,
+   "records_in_group": 39
+  },
+  "protein(3) + NA": {
+   "drawn": 21,
+   "records": 156,
+   "pos": 94,
+   "neg": 49,
+   "anchors": [
+    [
+     "O13828",
+     7
+    ],
+    [
+     "CAPRIN1",
+     3
+    ],
+    [
+     "P22629",
+     3
+    ]
+   ],
+   "systems_in_group": 21,
+   "no_sequence": 0,
+   "records_in_group": 156
+  },
+  "With complex": {
+   "drawn": 15,
+   "records": 57,
+   "pos": 33,
+   "neg": 12,
+   "anchors": [
+    [
+     "CBX1",
+     5
+    ],
+    [
+     "MORC3",
+     2
+    ],
+    [
+     "H2A",
+     1
+    ]
+   ],
+   "systems_in_group": 22,
+   "no_sequence": 7,
+   "records_in_group": 115
+  }
+ },
+ "types": [
+  [
+   "protein(1)",
+   1163,
+   7490
+  ],
+  [
+   "protein(2)",
+   953,
+   4406
+  ],
+  [
+   "protein(3)",
+   114,
+   547
+  ],
+  [
+   "protein(≥4)",
+   45,
+   165
+  ],
+  [
+   "RNA only",
+   9,
+   9
+  ],
+  [
+   "protein(1) + RNA",
+   241,
+   2511
+  ],
+  [
+   "protein(2) + RNA",
+   84,
+   128
+  ],
+  [
+   "protein(3) + RNA",
+   13,
+   130
+  ],
+  [
+   "protein(≥4) + RNA",
+   1,
+   1
+  ],
+  [
+   "DNA only",
+   13,
+   17
+  ],
+  [
+   "protein(1) + DNA",
+   99,
+   662
+  ],
+  [
+   "protein(2) + DNA",
+   24,
+   38
+  ],
+  [
+   "protein(3) + DNA",
+   8,
+   26
+  ],
+  [
+   "protein(≥4) + DNA",
+   1,
+   1
+  ],
+  [
+   "Other",
+   16,
+   62
+  ],
+  [
+   "C_sat pool",
+   37,
+   776
+  ]
+ ],
+ "hidden": {
+  "systems": 4,
+  "records": 185
+ },
+ "total": {
+  "systems": 1258,
+  "records": 5499
+ }
+}

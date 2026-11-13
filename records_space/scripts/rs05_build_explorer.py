@@ -11,6 +11,9 @@ import struct
 import sys
 from collections import Counter
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rs21_build_systems import build_data as build_systems       # noqa: E402  system-level maps of the multi-protein systems (Systems mode)
+
 csv.field_size_limit(10 ** 9)
 ROOT = "/Users/lynn/Library/CloudStorage/OneDrive-UniversityofPittsburgh/Projects/LLPS/condition_llps/records_space_2026-10-29"
 OUT = f"{ROOT}/out"
@@ -201,6 +204,7 @@ def main():
         data["emb_labels"]["umap_universe"] = "Protein universe (UMAP)"
         data["universe"] = U
         print("universe proteins", U["n"], "| records placed", sum(1 for v in xs if v >= 0))
+    data["systems"], _ = build_systems()
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     def js(name):
@@ -208,8 +212,10 @@ def main():
         assert "</script" not in t.lower(), name
         return t
     tpl = open(f"{EXP}/explorer_template.html").read()
-    for ph in ("/*__DATA__*/null", "/*__CONDPARSER__*/", "/*__RECORDSSPACE__*/", "/*__TRYPANEL__*/"):
+    for ph in ("/*__DATA__*/null", "/*__CONDPARSER__*/", "/*__RECORDSSPACE__*/", "/*__TRYPANEL__*/", "/*__SYSJS__*/", "/*__SYSCSS__*/", "<!--__SYSHTML__-->"):
         assert tpl.count(ph) == 1, ph
+    sysjs = open(f"{ROOT}/systems_page/sy_pane.js", encoding="utf-8").read(); assert "</script" not in sysjs.lower()
+    tpl = tpl.replace("/*__SYSJS__*/", sysjs).replace("/*__SYSCSS__*/", open(f"{ROOT}/systems_page/sy_pane.css", encoding="utf-8").read()).replace("<!--__SYSHTML__-->", open(f"{ROOT}/systems_page/sy_pane.html", encoding="utf-8").read())
     frag = tpl.replace("/*__CONDPARSER__*/", js("condition_parser.js")).replace("/*__RECORDSSPACE__*/", js("records_space.js")).replace("/*__TRYPANEL__*/", js("try_panel.js")).replace("/*__DATA__*/null", blob)
     open(f"{EXP}/page_fragment.html", "w").write(frag)
     standalone = '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + \
